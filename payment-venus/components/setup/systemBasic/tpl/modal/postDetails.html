@@ -1,0 +1,79 @@
+<!--岗位详情-->
+<div class="modal-content" style="width: 64%">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">岗位详情</div>
+    </div>
+    <div class="modal-body exchangeInp" style="margin-bottom: -10px;">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">岗位代码：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-10" type="text" ng-model="postDetailCondition.gradeCode" disabled>
+
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">岗位名称：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-10" type="text" ng-model="postDetailCondition.gradeCName" disabled>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">有效标志：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="checkbox2" c-disabled="true" c-type="switch" c-true="0" c-false="1" c-model="postDetailCondition.validStatus" ng-click="test(a)" class="code_switch" style="margin-left: 0px"></mc-checkbox>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="row margin-top-15">
+            <!--uitree开始-->
+            <div class="subjectTree">
+                <script type="text/ng-template" id="nodes_renderer.html">
+                    <div class=" tree-node-content tree_content">
+                        <!--展开折叠图标-->
+                        <div class="row">
+                                <input type="checkbox" class="tree_input" ng-model="node.checked" ng-change="changeNode(node,$parentNodesScope,$parentNodeScope)">&nbsp;
+                            <span class="tree_title subjectBgc" ng-click="toggle(this)">
+                                    {{node.menuCName}}
+                            </span>
+                        </div>
+                    </div>
+                    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+                        <li ng-repeat="node in node.nodes track by $index"  ng-hide="node==null" ui-tree-node ng-include="'nodes_renderer.html'">
+                        </li>
+                    </ol>
+
+                </script>
+
+                <div class="row" ng-if="treeData">
+                    <div class="col-sm-12" style="padding-left: 45px">
+                        <button  class="btn btn-primary" ng-click="expandAll()">展开</button>
+                        <button class="btn btn-warning" ng-click="collapseAll()">关闭</button>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div ui-tree data-drag-enabled="false" id="tree-root">
+                            <ol ui-tree-nodes ng-model="treeData">
+                                <li ng-repeat="node in treeData" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                            </ol>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-----------------uitree结束------------------->
+        </div>
+    </div>
+    <div class="modal-footer" style="height: 50px">
+        <div style="margin-right: 15px;margin-top: -12px; ">
+            <button class="btn btn-primary" ng-click="savePost()" ng-disabled="!changeFlag">保存</button>
+            <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,27 @@
+<div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th><input type="checkbox" style="height: 13px;"  ng-change="selectedListAll();selectedListOne()" ng-model="checkedListAllFlag"></th>
+            <th ng-repeat="title in titleNames">{{title.name}}</th>
+            <th ng-if="dItemFlag||mItemFlag">操作</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="list in lists" ng-class="selectedClass">
+            <td ng-class="list.selectedClass">
+                <input type="checkbox" style="height: 13px;" ng-change="selectedListOne()"
+                                                        ng-model="list.checked"></td>
+            <td ng-class="list.selectedClass" ng-repeat="key in list.vulueObjlist" ng-hide="key=='dbFlag'">
+                <span ng-show="key!=list['dbFlag']">{{list[key]}}</span>
+                <span ng-show="key==list['dbFlag']"><a ng-click="sClick(list)">{{list[key]}}</a></span>
+            </td>
+            <td ng-class="list.selectedClass" ng-if="dItemFlag||mItemFlag">
+                <a ng-show="dItemFlag" ng-click="dClick(list)">删除</a>
+                <a ng-show="mItemFlag" ng-click="mClick(list)">修改</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

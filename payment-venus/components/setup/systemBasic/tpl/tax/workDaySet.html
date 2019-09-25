@@ -1,0 +1,12 @@
+<!--工作日设置-->
+<div class="mc_form">
+    <mc-date d-data="data"
+             d-day-click="onDayClick(data)"
+             d-month-change="onMonthClick(date)"
+             d-date-format-symbol=":"
+             d-init-date="{{initDate}}"
+             d-is-set-date="isSetDate"
+             d-re-set-date="dailyReset(data)"
+             d-set-date="setNonWorkingDaySuccess(data)"
+            style="margin: 0 auto"></mc-date>
+</div>

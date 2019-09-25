@@ -1,0 +1,128 @@
+<!--交易失败结算单查询及支付申请页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单号" type="text" class="form-control"
+                       ng-model="paymentReapply.paymentReapplyCondition.visaSerialNo">
+                <span class="input-group-addon cursor_pointer" ng-click="searchList()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!paymentReapply.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="paymentReapply.status.moreFlag=!paymentReapply.status.moreFlag">高级查询</span></div>
+        <div ng-show="paymentReapply.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="paymentReapply.status.moreFlag=!paymentReapply.status.moreFlag ">普通查询</span></div>
+    </div>
+
+    <!--高级查询表单-->
+    <div class="mc_form" ng-show="paymentReapply.status.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">结算单号：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="paymentReapply.paymentReapplyCondition.visaSerialNo">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="salesDepartment"
+                                 data='{"comCode":comCode,"centerCode":centerCode}'
+                                 ng-model="paymentReapply.paymentReapplyCondition.comCode"
+                                 ng-value="paymentReapply.paymentReapplyCondition.businessPart"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">代理人/经纪人：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="queryAgent"
+                                 data="{centerCode:centerCode}"
+                                 ng-model="paymentReapply.paymentReapplyCondition.agentCode"
+                                 ng-value="paymentReapply.paymentReapplyCondition.agentCode1"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">费用类型：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true" code="poundageType"
+                         ng-model="paymentReapply.paymentReapplyCondition.commisionType"></div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchList()">查询</button>
+                <button class="btn btn-primary" ng-click="resetForm()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表-->
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="paymentReapply.status.allChecked"
+                           ng-change="checkedAll()"></th>
+                <th>结算单号</th>
+                <th>代理人/协办人</th>
+                <th>币种</th>
+                <th>金额</th>
+                <th>制单日期</th>
+                <th>制单人</th>
+                <th>收款人</th>
+                <th>开户行</th>
+                <th>账号</th>
+                <th>支付失败原因</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in paymentReapply.paymentReapplyList" ng-class="{true:'venus_table_check',false:''}[d.checked]">
+                <td><input type="checkbox" ng-model="d.checked" ng-change="checkedOne()"></td>
+                <td><a href="" ng-click="moreFormData(d)">{{d.visaSerialNo}}</a></td>
+                <td>{{d.agentName}}</td>
+                <td>{{d.currency2}}</td>
+                <td>{{d.planFee|format}}</td>
+                <td>{{d.packDate}}</td>
+                <td>{{d.packName}}</td>
+                <td>{{d.agentName}}</td>
+                <td>{{d.bankName}}</td>
+                <td>{{d.accountNo}}</td>
+                <td>{{d.failReason}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--表格底部-->
+    <div class="row list_content_bottom" ng-if="paymentReapply.pagination.totalItems>0">
+        <span class="text-left" align="bottom">共{{paymentReapply.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="paymentReapply.pagination.totalItems>paymentReapply.pagination.pageSize"
+                ng-model="paymentReapply.pagination.pageIndex"
+                class="paymentReapply.pagination-sm pull-right" total-items="paymentReapply.pagination.totalItems"
+                page="paymentReapply.pagination.pageIndex"
+                items-per-page="paymentReapply.pagination.pageSize"
+                max-size="paymentReapply.pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchList('page')"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)"></pagination>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer" ng-if="paymentReapply.paymentReapplyList.length>0">
+        <!--<button class="btn btn-primary">导出excel</button>-->
+        <button class="btn btn-success" ng-click="payReapply()">重新申请</button>
+    </div>
+
+</div>

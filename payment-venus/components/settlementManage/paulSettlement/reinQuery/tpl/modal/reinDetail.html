@@ -1,0 +1,113 @@
+<div class="modal-content" style="width: 70%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">结算单详情</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_modal_tableName">
+            <span>结算单号:</span>
+            <span>{{settleDetail.settleNo}}</span>
+
+        </div>
+        <div class="venus_modal_tableName">
+            <span>基础信息</span>
+        </div>
+
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">再保人代码：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                       {{settleDetail.reinsCode}}
+
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">再保人名称：</label>
+                    <div class="col-xs-8">
+                     {{settleDetail.reinsName}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">结算币种：</label>
+                    <div class="col-xs-8" >
+                      {{settleDetail.currency2|mcCode:'Currency'}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">结算金额：</label>
+                    <div class="col-xs-8">
+                      {{settleDetail.payRefFee|format}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">经办人：</label>
+                    <div class="col-xs-8" >
+                        {{settleDetail.settlerCode}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">结算单日期：</label>
+                    <div class="col-xs-8" >
+                        {{settleDetail.settleDate|mcDate}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">结算标识：</label>
+                    <div class="col-xs-8" >
+                        {{settleDetail.settleFlag}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">结算日期：</label>
+                    <div class="col-xs-8" >
+                        {{settleDetail.payRefDate|mcDate}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table" style="height: 300px">
+        <div class="venus_modal_tableName">
+            <span>账单记录</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>账单编号</th>
+                <th>账单期数</th>
+                <th>账单项目编号</th>
+                <th>账单项目代码</th>
+                <th>账单项目名称</th>
+                <th>账单币种</th>
+                <th>账单项目金额</th>
+                <th>结算币种</th>
+                <th>账单项目结算金额</th>
+                <th>借贷标识</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="r in settleDataList">
+                <td><span>{{r.accNo}}</span></td>
+                <td>{{r.payNo}}</td>
+                <td>{{r.itemNo}}</td>
+                <td>{{r.itemCode}}</td>
+                <td>{{r.itemName}}</td>
+                <td>{{r.currency1}}</td>
+                <td>{{r.itemValue}}</td>
+                <td>{{r.currency2}}</td>
+                <td>{{r.itemValue2}}</td>
+                <td>{{r.itemFlag}}</td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+
+    </div>
+</div>

@@ -1,0 +1,149 @@
+<!--
+税务结缴管理
+-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单号" type="text" class="form-control"
+                       ng-model="infoToView.queryConditions.payrefnoLists">
+                <span class="input-group-addon cursor_pointer" ng-click="settlementQuery()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</span></div>
+        <div ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</span></div>
+    </div>
+
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">结算单列表：</label>
+                <div class="col-md-7">
+                    <textarea class="col-xs-12" class="form-control ng-pristine ng-valid" id="t1" cols="25" rows="3" ng-model="infoToView.queryConditions.payrefnoLists"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">起始结算单单号：</label>
+                <div class="col-md-7">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.payrefnoStart">
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">终止结算单单号：</label>
+                <div class="col-md-7">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.payrefnoEnd">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">结算单币种：</label>
+                <div class="col-md-7">
+                    <div class="col-xs-12 pl0 pr0" mc-code-select code="Currency" ng-model="infoToView.queryConditions.currency"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">结算单生成人：</label>
+                <div class="col-md-7">
+                    <select-list
+                            data='{"comCode":comCode}'
+                            selectType="cashOwner"
+                            my-class="col-xs-12"
+                            ng-model="infoToView.queryConditions.packagecode"
+                            ng-value="infoToView.queryConditions.packageName"
+                    >
+                    </select-list>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">结算单开始日期：</label>
+                <div class="col-md-7">
+                    <input type="text"  max-date={{today}} ng-change="changeInputDate()" class="col-xs-12 date" ng-model="infoToView.queryConditions.earlierMonth" id="date5" jedate format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">结算单终止日期:</label>
+                <div class="col-md-7">
+                    <input type="text" class="col-xs-12 date" ng-change="changeInputDate()" ng-model="infoToView.queryConditions.laterMonth" id="date6" jedate format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">是否结算：</label>
+                <div class="col-md-7">
+                    <div class="col-xs-12 pl0 pr0" mc-code-select code="settlementSign" ng-model="infoToView.queryConditions.centerflag"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                <label class="col-xs-4">收付状态：</label>
+                <div class="col-md-7">
+                    <div class="col-xs-12 pl0 pr0" mc-code-select code="Uploadstatus" ng-model="infoToView.queryConditions.uploadstatus"></div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="settlementQuery()">查询</button>
+                <button class="btn btn-primary" ng-click="resetSettlement()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-change="selectedSettleAll(infoToView.queryList,infoToView.checkAll);changeSettleClass()" ng-model="infoToView.checkAll"></th>
+                    <th>结算单号</th>
+                    <th>币种</th>
+                    <th>总金额</th>
+                    <th>车船税结缴单生成日期</th>
+                    <th>收付单生成人代码</th>
+                    <th>收付单生成单位代码</th>
+                    <th>收付状态</th>
+                    <th>核算标志(是否结算)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="settle in infoToView.queryList" ng-class="{true:'venus_table_check',false:''}[settle.checked]">
+                    <td><input type="checkbox" ng-change="selectedSettleOne();changeSettleClass()" ng-model="settle.checked"></td>
+                    <td><a ng-click="settleData(settle)">{{settle.payrefno}}</a></td>
+                    <td>{{settle.currency|mcCode:'Currency'}}</td>
+                    <td>{{settle.billfee |format}}</td>
+                    <td>{{settle.inputdate|mcDate}}</td>
+                    <td>{{settle.packagecode}}</td>
+                    <td>{{settle.packageunit}}</td>
+                    <td>{{settle.uploadstatus|mcCode:"Uploadstatus"}}</td>
+                    <td>{{settle.centerflag|mcCode:"Centerflag"}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div ng-if="pagination.totalItems>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                ng-click="settlementQuery('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row list_footer" ng-if="infoToView._queryList.length>0">
+        <!--<button class="btn btn-default btn-width">导出excel</button>-->
+        <button class="btn btn-primary" ng-click="settleNext()">确认</button>
+    </div>
+</div>

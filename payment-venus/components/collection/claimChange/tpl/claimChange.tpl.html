@@ -1,0 +1,173 @@
+<!--认领变更页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入业务单号" type="text" class="form-control" ng-model="claimChangeCondition.certiNo">
+                <span class="input-group-addon cursor_pointer" ng-click="searchClaimChange()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="changeFlag()">高级查询</span></div>
+        <div ng-show="moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="changeFlag() ">普通查询</span></div>
+    </div>
+    <!--高级查询表单-->
+    <div class="mc_form" ng-show="moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务单号：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="claimChangeCondition.certiNo" class="col-xs-12">
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">缴付费通知单号：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="claimChangeCondition.transactionNo" class="col-xs-12">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+               <label class="col-xs-4">缴款人：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="claimChangeCondition.paymentName" class="col-xs-12">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="salesDepartment"
+                                 data='{"comCode":comCode,"centerCode":centerCode}'
+                                 ng-model="claimChangeCondition.claimOperatorComCode"
+                                 ng-value="claimChangeCondition.businessPart"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务员：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="operatorName"
+                                 data='{"comCode":comCode,"checkComCode":claimChangeCondition.claimOperatorComCode}'
+                                 ng-model="claimChangeCondition.claimOperatorCode"
+                                 ng-value="claimChangeCondition.businessMan"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+               <label class="col-xs-4">币种：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select code="Currency" ng-model="claimChangeCondition.currency" class="col-xs-12 pl0 pr0"></div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">金额：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-5" type="text" ng-model="claimChangeCondition.sumFeeCnyFrom" mc-format-switch transmit-type="text">
+                    <span class="col-xs-2 text-center">至</span>
+                    <input class="col-xs-5" type="text" ng-model="claimChangeCondition.sumFeeCnyTo" mc-format-switch transmit-type="text">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">认领状态：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select code="claimChangeStatus" ng-model="claimChangeCondition.claimStatus" class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true"></div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+               <label class="col-xs-4">登记日期  从：</label>
+                <div class="col-xs-7">
+                    <input  type="text" ng-model="claimChangeCondition.inputDateFrom" jedate id="date1" format="YYYY-MM-DD hh:mm:ss" name="date" class="col-xs-12 date">
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">到：</label>
+                <div class="col-xs-7">
+                    <input  type="text" ng-model="claimChangeCondition.inputDateTo" jedate id="date2" format="YYYY-MM-DD hh:mm:ss" name="date" class="col-xs-12 date">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="centerCode=='02'">
+                <label class="col-xs-4">平台交易号：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="claimChangeCondition.tradingNo" class="col-xs-12">
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchClaimChange()">查询</button>
+                <button class="btn btn-primary" ng-click="resetClaimChange()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表内容-->
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>缴费通知单号</th>
+                <th ng-if="centerCode=='02'">平台交易号</th>
+                <th>业务单号</th>
+                <th>业务机构</th>
+                <th>业务员</th>
+                <th>银行流水总金额</th>
+                <th>缴费通知单总金额</th>
+                <th>认领操作时间</th>
+                <th>差额</th>
+                <th>备注</th>
+                <th>差额科目</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in claimChangeList">
+                <td>{{$index+1}}</td>
+                <td><a href=""  ng-click="searchCertiNo(d)">{{d.transactionNo}}</a></td>
+                <td ng-if="centerCode=='02'">{{d.tradingNo}}</td>
+                <td>{{d.certiNoList[0].certiNo}}<span ng-if="d.certiNoList.length>1">&nbsp;等</span></td>
+                <td>{{d.claimOperatorComCode}}</td>
+                <td>{{d.claimOperatorCode}}</td>
+                <td>{{d.sumThisClaimBankFlowAmout|format}}</td>
+                <td>{{d.sumThisClaimSumFeeCny|format}}</td>
+                <td>{{d.claimOperatorDate}}</td>
+                <td>{{d.differenceAmout|format}}</td>
+                <td>{{d.remark}}</td>
+                <td>{{d.differenceSubjectCode}}</td>
+                <td><a ng-click="claimChangeInfo(d)"><i class="glyphicon glyphicon-eye-open color-oranage"></i>认领替换</a>
+                    <a ng-click="claimCancelInfo(d)"><i class="glyphicon glyphicon-pencil color-oranage"></i>认领撤销</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--表格底部-->
+    <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+        <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right" total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchClaimChange('page')"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)"></pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <!--<div class="row text-center list_footer" ng-if="claimChangeList.length>0">-->
+        <!--<button class="btn btn-primary">导出excel</button>-->
+    <!--</div>-->
+</div>

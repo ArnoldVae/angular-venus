@@ -1,0 +1,101 @@
+<div class="modal-content" style="width: 1200px;padding: 0 24px;">
+    <form name="modalTest">
+        <div class="modal-header" style="min-height: 20px;padding: 0">
+            <h5 class="text-center">代扣代缴实付操作界面</h5>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered" >
+                <thead>
+                    <tr>
+                        <th>机构名称</th>
+                        <th>结算单号</th>
+                        <th>费用类型</th>
+                        <th>原币币种</th>
+                        <th>费用金额(原位币)</th>
+                        <th>汇率</th>
+                        <th>费用金额(本位币)</th>
+                        <th>代扣增值税</th>
+                        <th>代扣城建税</th>
+                        <th>代扣教育费附加税</th>
+                        <th>代扣地方教育费附加税</th>
+                        <th>代扣附加税合计</th>
+                        <th>代扣总税费合计</th>
+                        <th>税收缴款书号</th>
+                        <th>实付总税费合计</th>
+                        <th>实付增值税金额</th>
+                        <th>代扣税费差额合计</th>
+                        <th>说明项</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Operation in Operations">
+                        <td>{{Operation.comCName}}</td>
+                        <td>{{Operation.withHoldNo }}</td>
+                        <td>{{Operation.chargeType | mcCode:'ChargeType'}}</td>
+                        <td>{{Operation.currency1}}</td>
+                        <td>{{Operation.planFee}}</td>
+                        <td>{{Operation.exchangeRate1}}</td>
+                        <td>{{Operation.planFeeCNY}}</td>
+                        <td>{{Operation.vaTaxFeeCNY}}</td>
+                        <td>{{Operation.vaTaxFeeCNYFJCJ}}</td>
+                        <td>{{Operation.vaTaxFeeCNYFJJY}}</td>
+                        <td>{{Operation.vaTaxFeeCNYFJDFJY}}</td>
+                        <td>{{Operation.vaTaxFeeCNYFJ}}</td>
+                        <td>{{Operation.vaTaxTotalFeeCNY}}</td>
+                        <td><input type="text" ng-model="Operation.taxPayBookNo" warn-text="请填写税收缴款书号" required></td>
+                        <td><input type="text" ng-model="Operation.payVaTaxTotalFeeCNY" ng-change="balance(Operation)"></td>
+                        <td><input type="text" ng-model="Operation.payVaTaxFeeCNY"></td>
+                        <td><input mc-format-switch type="text" ng-model="Operation.diffTaxFeeCNY" readonly></td>
+                        <td ng-if="Operation.diffTaxFeeCNY==0.00"><input type="text" ng-model="Operation.remark"></td>
+                        <td ng-if="Operation.diffTaxFeeCNY!=0.00"><input type="text" ng-model="Operation.remark" warn-text="请填写说明项信息"  required minlength="3"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table" style="height: 300px">
+            <div class="venus_modal_tableName">
+                <span>收付款信息(共{{VerifyDtoList.length}}数据)</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>币种</th>
+                    <th>收付方式</th>
+                    <th >银行账号</th>
+                    <th>金额</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="v in VerifyDtoList">
+                    <td><span>{{v.currency}}</span></td>
+                    <td style="width: 240px;overflow-y: visible">
+                        <div class="input-group-sm " style="width: 240px;overflow-y: visible">
+                            <div mc-code-select data="payWayList" ng-model="v.payWay"></div>
+                        </div>
+                    </td>
+                    <td style="width: 240px;overflow-y: visible">
+                        <div class="input-group-sm " style="width: 240px;overflow-y: visible">
+                            <div mc-code-select data="AccountNoList" ng-model="v.accountNo"></div>
+                        </div>
+                    </td>
+                    <td width="200px"><input type="text"
+                               class="form-group"
+                               ng-model="v.payRefFee"
+                               mc-format-switch
+                               ng-disabled="(VerifyDtoList.length-1)>$index"
+                               ng-blur="payFeeVChange(v.payRefFee,$index)"
+                              ></td>
+                    <td>  <span class="glyphicon glyphicon-minus-sign"
+                                ng-click="deleteAccount($index)"
+                                style="color: #cb2028"></span></td>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="submit(Operations);test1()">确认</button>
+            <button class="btn btn-success" ng-click="cancel()">关闭</button>
+        </div>
+    </form>
+</div>

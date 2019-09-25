@@ -1,0 +1,90 @@
+<!--收付员设置修改-->
+<div class="modal-content" style="width: 72%;">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">收付员修改</div>
+    </div>
+    <div class="modal-body" style="margin-bottom: -10px;">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">收付员：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        {{reviseCashCondition.unitName}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">单位类型：</label>
+                    <div class="col-xs-8">
+                        {{reviseCashCondition.unitType|mcCode:'unitCodeType'}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">当前状态：</label>
+                    <div class="col-xs-8">
+                        {{reviseCashCondition.validStatus|mcCode:'IsValidStatus'}}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+    <div class="modal-body account-modal-submit venus_table" style="padding: 0 3%; min-height: 300px;">
+        <div class="venus_modal_tableName">
+            <span>默认银行账号信息设置</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>核算单位</th>
+                <th>币种</th>
+                <th>账号</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat=" d in reviseCashCondition.accountList">
+                <td>
+                    <select-list
+                            data='{"centerCode":user.centerCode,"comCode":user.comCode}'
+                            selectType="salesDepartment"
+                            class="selet_input"
+                            ng-model="d.centerCode"
+                            ng-value="d.centerName"
+                            wait-change="selLD(d)"
+                    >
+                    </select-list>
+                </td>
+                <td>
+
+                    <div mc-code-select code="curValueList" ng-model="d.currency" ng-change="selLD(d)" class="exs" >
+                    </div>
+                </td>
+                <td>
+                    <div mc-code-select code="" style="width: 308px" data='d.accValueList' ng-model="d.accountCode"  class="exs"></div></td>
+                <td><span class="glyphicon glyphicon-minus-sign" ng-click="reviseCashDelete($index)" style="color: #cb2028"></span></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span class="glyphicon glyphicon-plus-sign"
+                          ng-click="reviseCashAdd()"
+                ></span></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer" style="height: 50px">
+        <div style="margin-right: 15px;margin-top: -12px; ">
+            <button class="btn btn-success" ng-click="saveReviseCash()">保存</button>
+            <button class="btn btn-primary" ng-click="resetReviseCash()">重置</button>
+            <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+
+        </div>
+    </div>
+</div>

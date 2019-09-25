@@ -1,0 +1,145 @@
+<!--高级查询表单(缴费通知单)-->
+<div class="row list_query margin-top-15">
+    <div class="col-xs-5">
+        <div class="input-group">
+            <input  placeholder="请输入业务单号" type="text"  class="form-control" ng-model="paymentNoticeCondition.certiNo">
+            <span  class="input-group-addon cursor_pointer" ng-click="searchPaymentNotice()"><div  class="glyphicon glyphicon-search"></div></span>
+        </div>
+    </div>
+    <div ng-show="!moreFlagNew" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="changeMoreFlagNew()">高级查询</span></div>
+    <div ng-show="moreFlagNew" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="changeMoreFlagNew() ">普通查询</span></div>
+</div>
+<div class="mc_form" ng-if="moreFlagNew">
+    <form class="form-horizontal">
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">业务单号：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.certiNo" class="col-xs-12"></div>
+            <span class="color_red">*</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">缴付费通知单号：</label>
+            <div class="col-xs-7">
+                <input type="text" ng-model="paymentNoticeCondition.transactionNo" class="col-xs-12">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">投保人：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.appliName" class="col-xs-12"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">被保人：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.insuredname" class="col-xs-12"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">起保日期：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.startdate" jedate id="date" format="YYYY-MM-DD" name="date" class="date col-xs-12"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">含税金额：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.taxpremium" mc-format-switch transmit-type="text" class="col-xs-12"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">发票号：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.invoiceNo" class="col-xs-12"></div>
+            <span class="color_red">*</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">税额：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.taxfee"  mc-format-switch transmit-type="text" class="col-xs-12"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">核保/批日期：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.underwritedate" jedate id="date3" format="YYYY-MM-DD" name="date" class="col-xs-12 date"></div>
+            <span class="color_red">*</span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">录单日期：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.inputDate" jedate id="date4" format="YYYY-MM-DD" name="date" class="date col-xs-12"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">币别：</label>
+            <div class="col-xs-7">
+                <div mc-code-select code="Currency" ng-model="paymentNoticeCondition.currenCY" class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true"></div>
+        </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4">汇率：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.exchangeRate" class="col-xs-12"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group" ng-if="centerCode=='02'">
+            <label class="col-xs-4">平台交易号：</label>
+            <div class="col-xs-7"><input type="text" ng-model="paymentNoticeCondition.tradingNo" class="col-xs-12"></div>
+        </div>
+        <div class="form-group"></div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success" ng-click="searchPaymentNotice()">查询</button>
+            <button class="btn btn-primary" ng-click="resetPaymentNotice()">重置</button>
+        </div>
+    </form>
+</div>
+<div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th><input type="checkbox" ng-model="status.checkedAll" ng-change="checkedAll(status.checkedAll,paymentNoticeList)"></th>
+            <th>缴费通知单号</th>
+            <th ng-if="centerCode=='02'">平台交易号</th>
+            <th>业务单号</th>
+            <th>缴费金额</th>
+            <th>币种</th>
+            <th>已认领缴费金额</th>
+            <th>可认领缴费金额</th>
+            <th>认领状态</th>
+            <th>认领次数</th>
+            <th>操作时间</th>
+            <th>操作人</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in paymentNoticeList" ng-class="{true: 'venus_table_check', false: ''}[d.checked]">
+            <td><input type="checkbox" ng-model="d.checked" ng-change="checkedPaymentNoticeOne()"></td>
+            <td><a href="" ng-click="searchCertiNo(d)">{{d.transactionNo}}</a></td>
+            <td ng-if="centerCode=='02'">{{d.tradingNo}}</td>
+            <td>{{d.certiNoList[0].certiNo}}<span ng-if="d.certiNoList.length>1">&nbsp;等</span></td>
+            <td>{{d.sumFeeCny|format}}</td>
+            <td>{{d.currenCY}}</td>
+            <td>{{d.alreadyClaimSumFeeCny|format}}</td>
+            <td>{{d.canClaimSumFeeCny|format}}</td>
+            <td ng-switch="d.claimStatus">
+                <span ng-switch-when="0">未认领</span>
+                <span ng-switch-when="1">认领中</span>
+                <span ng-switch-when="2">认领完成</span>
+            </td>
+            <td>{{d.claimTimes}}</td>
+            <td>{{d.operatorDate}}</td>
+            <td>{{d.operatorCode}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row list_content_bottom" ng-if="paginationB.totalItems>0">
+    <span class="text-left" align="bottom">共{{paginationB.totalItems}}条记录</span>
+    <pagination
+            ng-if="paginationB.totalItems>paginationB.pageSize"
+            ng-model="paginationB.pageIndex"
+            class="pagination-sm pull-right"
+            total-items="paginationB.totalItems"
+            page="paginationB.pageIndex"
+            items-per-page="paginationB.pageSize"
+            max-size="paginationB.maxSize"
+            previous-text="上一页"
+            next-text="下一页"
+            first-text="首页"
+            last-text="末页"
+            class=""
+            ng-click="searchPaymentNotice('page')"
+            style="margin: 0 20px 20px 0;"
+            boundary-links="true"
+            on-select-page="onSelectPage(page)">
+    </pagination>
+</div>
+<!--列表底部悬浮块-->
+<div class="row text-center list_footer">
+    <button class="btn btn-success" ng-click="showInfo(paymentNoticeList,preClaim.prpJClaimTransactionMainDtoList,preClaim.prpJClaimBankFlowDetallDtoList)">提交认领</button>
+    <!--<button class="btn btn-primary">导出</button>-->
+</div>

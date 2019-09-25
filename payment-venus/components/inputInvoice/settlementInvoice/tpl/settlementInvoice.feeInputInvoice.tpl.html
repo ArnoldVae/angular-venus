@@ -1,0 +1,177 @@
+<!--理赔进项发票登记查询-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group" >
+                <input placeholder="请输入赔款计算书号" type="text" style="" class="form-control" ng-model="feeInputInvoiceCondition.compensateNo">
+                <span  class="input-group-addon cursor_pointer" ng-click="searchReparations()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="moreFlag=!moreFlag">高级查询</div>
+        <div  ng-show="moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="moreFlag=!moreFlag">普通查询</div>
+    </div>
+    <div class="mc_form" ng-if="moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">赔款计算书号：</label>
+                <div class="col-xs-7">
+                   <input class="col-xs-12" type="text" ng-model="feeInputInvoiceCondition.compensateNo">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">赔付类型：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select  class="col-xs-12 pl0 pr0" code="inputPayRefReason" aria-disabled="true" aria-readonly="true" ng-model="feeInputInvoiceCondition.payRefReason"></div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">赔款计算书号列表：</label>
+                <div class="col-xs-7">
+                    <textarea  class="col-xs-12" rows="3" ng-model="feeInputInvoiceCondition.compensateNoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">立案号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12"  type="text" ng-model="feeInputInvoiceCondition.claimNo">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">保单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="feeInputInvoiceCondition.policyNo">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-7">
+                    <select-list  my-class="col-xs-12" data='{"centerCode":centerCode,"comCode":comCode}' selectType="salesDepartment" ng-model="feeInputInvoiceCondition.comCode" ng-value="feeInputInvoiceCondition.comCodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务员：</label>
+                <div class="col-xs-7">
+                    <select-list  my-class="col-xs-12" data='{"comCode":comCode,"checkComCode":feeInputInvoiceCondition.comCode}' selectType="operatorName" ng-model="feeInputInvoiceCondition.handlerCode" ng-value="feeInputInvoiceCondition.handlerCodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务渠道：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" base-code="businessNature" ng-model="feeInputInvoiceCondition.businessNature" ng-value="feeInputInvoiceCondition.businessNatureName">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">币种：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" base-code="Currency" ng-model="feeInputInvoiceCondition.currency1" ng-value="feeInputInvoiceCondition.currency1Name">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">被保险人名称：</label>
+                <div class="col-xs-7">
+                    <input  class="col-xs-12" type="text" ng-model="feeInputInvoiceCondition.insuredName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">投保人名称：</label>
+                <div class="col-xs-7">
+                    <input  class="col-xs-12" type="text" ng-model="feeInputInvoiceCondition.appliName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">代理人/经纪人：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" base-code="agentCode" ng-model="feeInputInvoiceCondition.agentCode" ng-value="feeInputInvoiceCondition.agentCodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">险种：</label>
+                <div class="col-xs-7">
+                    <select-list  my-class="col-xs-12" base-code="riskCode" ng-model="feeInputInvoiceCondition.riskCode" ng-value="feeInputInvoiceCondition.riskCodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">核赔日期：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12 date" type="text" ng-model="feeInputInvoiceCondition.underWriteDate" id="date10" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">支付对象：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text" ng-model="feeInputInvoiceCondition.payObjectName">
+                    </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">金额：</label>
+                    <div class="col-xs-7">
+                        <input  class="col-xs-12" type="text" ng-model="feeInputInvoiceCondition.planFee" mc-format-switch transmit-type="text" class="form-control">
+                    </div>
+                </div>
+            <div class="form-group"></div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success btn-width"  ng-click="searchReparations()">查询</button>
+            <button class="btn btn-primary btn-width" ng-click="resetReparations()">重置</button>
+        </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="infoToView.checkStatus.checkedAccountAll" ng-change="checkedReparationsAll(infoToView.checkStatus.checkedAccountAll,confirmList);selectedChangeClass()"></th>
+                <th>赔款计算书号</th>
+                <th>费用类型</th>
+                <th>支付对象</th>
+                <th>业务渠道</th>
+                <th>代理人</th>
+                <th>被保险人/共保人</th>
+                <th>业务员</th>
+                <th>核赔日期</th>
+                <th>付款币种</th>
+                <th>费用金额</th>
+                <th class="hide">查看计算书</th>
+                <th class="hide">查看影像</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in confirmList" ng-class="d.selectedClass">
+                <td><input type="checkbox" ng-model="d.checked" ng-change="checkedReparationsOne();selectedChangeClass()" style="height: 15px"></td>
+                <td>{{d.compensateNo}}</td>
+                <td>{{d.payRefReasonName}}</td>
+                <td>{{d.payObjectName}}</td>
+                <td>{{d.businessNature}}</td>
+                <td>{{d.agentName}}</td>
+                <td>{{d.insuredName}}</td>
+                <td>{{d.handler1Name}}</td>
+                <td>{{d.underWriteDate}}</td>
+                <td>{{d.currency1}}</td>
+                <td>{{d.planFee | number:2}}</td>
+                <td class="hide">查看计算书</td>
+                <td class="hide">查看影像</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--分页-->
+    <div  ng-if="pagination.totalItems>0" class="row list_content_bottom">
+        <span style="margin-left: 15px" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination ng-if="pagination.totalItems>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                    page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                    previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                    ng-click="searchAdviceOfSettlement()" style="margin: 0 20px 20px 0;" boundary-links="true"
+                    on-select-page="onSelectPage(page)"></pagination>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <button class="btn btn-success btn-width"  ng-click="invoiceRegistration()">发票登记</button>
+        <!--<button class="btn btn-primary">导出excel</button>-->
+    </div>

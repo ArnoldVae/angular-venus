@@ -1,0 +1,29 @@
+<!--车船税对账-->
+<div class="section">
+    <!--高级查询表单-->
+    <div class="form_two">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <span class="col-xs-2 control-label">对账地区：</span>
+                <div class="col-xs-4">
+                    <div mc-code-select code="orgType" ng-model="supplementCondition.organization"></div>
+                </div>
+                <span class="col-xs-2 control-label">对账类型：</span>
+                <div class="col-xs-4">
+                    <div mc-code-select code="accountTypes" ng-model="supplementCondition.accountType"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">对账年月：</span>
+                <div class="col-xs-4">
+                    <input type="text" class="date" id="date1" jedate
+                           format="YYYY-MM-DD" ng-model="supplementCondition.accountDate">
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary" ng-click="createMonthAccounts()">生成月账单数据</button>
+                <button class="btn btn-primary" ng-click="searchSupplementCondition()">对账数据查询</button>
+            </div>
+        </form>
+    </div>
+</div>

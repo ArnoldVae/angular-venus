@@ -1,0 +1,97 @@
+<!--账户明细页面-->
+<div class="modal-content" style="width: 1200px;">
+    <div class="modal-header" style="height: 50px">
+        <div class="col-xs-10" style="margin-left: 45%">账户明细</div><div style="margin-left: 96%;margin-top: -15px;cursor:pointer;" class="glyphicon glyphicon-remove col-xs-2" ng-click="cancel()"></div>
+    </div>
+    <div class="modal-body exchangeInp" style="margin-bottom: 30px;">
+        <h5>账户明细信息</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <p>账户类型：</p>
+                <p>账户名称：</p>
+                <p>币种：</p>
+            </div>
+            <div class="col-lg-6">
+                <p>账户识别号：</p>
+                <p>业务员：</p>
+                <p>账户余额：</p>
+            </div>
+        </div>
+        <hr/>
+        <div class="bank-result" style="margin-bottom: -10px;">
+            <div style="float: left;">
+                <h5>存款信息明细</h5>
+            </div>
+            <div style="float: right;margin-bottom: 10px;">
+                <button class="btn btn-primary">导出</button>
+            </div>
+            <!--清除浮动-->
+            <div style="clear: both;"></div>
+            <table class="table table-bordered" style="margin-bottom: 0px">
+                <thead>
+                <tr>
+                    <th>预存取交易号</th>
+                    <th>操作类型</th>
+                    <th>业务员代码</th>
+                    <th>业务员名称</th>
+                    <th>币种</th>
+                    <th>金额</th>
+                    <th>录入时间</th>
+                    <th>凭据单证类型</th>
+                    <th>凭据号码</th>
+                    <th>结算状态</th>
+                    <th>结算时间</th>
+                    <th>核算单位</th>
+                    <th>凭证号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>51949200</td>
+                    <td>GCD</td>
+                    <td>GCD</td>
+                    <td>GCD</td>
+                    <td>GCD</td>
+                    <td>1212.00</td>
+                    <td>GCD</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>622270003</td>
+                    <td>622270003</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="border:1px solid #e9e4e4;margin-top:30px;margin-bottom: 10px;"></div>
+        <div class="bank-result">
+            <h5>预收转销明细</h5>
+            <table class="table table-bordered" style="margin-bottom: 0px">
+                <thead>
+                <tr>
+                    <th>核算单号</th>
+                    <th>凭证号</th>
+                    <th>转销人员</th>
+                    <th>转销日期</th>
+                    <th>币种</th>
+                    <th>金额</th>
+                    <th>转销收付号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>51949200</td>
+                    <td>GCD</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1212.00</td>
+                    <td>622270003</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

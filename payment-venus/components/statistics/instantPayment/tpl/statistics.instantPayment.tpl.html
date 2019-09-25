@@ -1,0 +1,162 @@
+<!--收付查询-->
+<div class="section venus_hasFooter">
+    <div class="monitor-automatic-search">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="input-group form-group" style="">
+                    <input placeholder="请输入投保单号" type="text" style="" class="form-control" ng-model="infoToView.search.proposal">
+                    <span style="cursor:pointer;" class="input-group-addon" ng-click="listFlag=!listFlag">
+                    <div   class="glyphicon glyphicon-search"></div></span>
+                </div>
+            </div>
+            <button ng-show="!moreFlag" type="button" class="btn btn-link" ng-click="moreFlag=!moreFlag">高级查询</button>
+            <button  ng-show="moreFlag" type="button" class="btn btn-link" ng-click="moreFlag=!moreFlag">普通查询</button>
+        </div>
+    </div>
+    <hr style="border: 1px solid #cccccc">
+    <div ng-if="moreFlag" class="monitor-automatic-more">
+        <div style="position: relative;left: 5%;">
+            <div class="row input-margin-b1">
+                <div class="col-xs-6 row">
+                    <span class="col-xs-5">归属机构:</span>
+                    <input class="col-xs-6"  type="text"  ng-model="infoToView.search.policy">
+                </div>
+                <div class="col-xs-6 row">
+                    <span class="col-xs-5">业务来源:</span>
+                    <input class="col-xs-6"  type="text"  ng-model="infoToView.search.applicant">
+                </div>
+            </div>
+            <div class="row input-margin-b1">
+                <div class="col-xs-6 row">
+                    <span class="col-xs-5">渠道代码:</span>
+                    <input class="col-xs-6"  type="text"  ng-model="infoToView.search.policy">
+                </div>
+                <div class="col-xs-6 row">
+                    <span class="col-xs-5">产品代码:</span>
+                    <input class="col-xs-6"  type="text"  ng-model="infoToView.search.applicant">
+                </div>
+            </div>
+            <div class="row input-margin-b1">
+                <div class="col-xs-6 row">
+                    <span class="col-xs-5">被保险人:</span>
+                    <input class="col-xs-6"  type="text"  ng-model="infoToView.search.policy">
+                </div>
+                <div class="col-xs-6 row">
+                    <span class="col-xs-5">车牌号:</span>
+                    <input class="col-xs-6"  type="text"  ng-model="infoToView.search.applicant">
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" style="position: relative;left: 44%;margin-top: 12px;width: 118px" ng-click="overdueQuery()">查询</button>
+    </div>
+    <div ng-if="listFlag" class="monitor-automatic-result venus_table" style="overflow: scroll">
+        <table  class="table table-bordered" style="margin-top: 53px">
+            <thead>
+            <tr>
+                <th nowrap>归属机构</th>
+                <th nowrap>保单号</th>
+                <th nowrap>业务来源</th>
+                <th nowrap>币种</th>
+                <th nowrap>产品代码</th>
+                <th nowrap>签单日期</th>
+                <th nowrap>起保日期</th>
+                <th nowrap>终保日期</th>
+                <th nowrap>渠道代码</th>
+                <th nowrap>签单保费</th>
+                <th nowrap>实收保费</th>
+                <th nowrap>手续费支出</th>
+                <th nowrap>实付手续费</th>
+                <th nowrap>赔款支出</th>
+                <th nowrap>实付赔款</th>
+                <th nowrap>收付明细</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td nowrap>51090100</td>
+                <td nowrap>PDAA34343434343434545453333</td>
+                <td nowrap>专业代理</td>
+                <td nowrap>人民币</td>
+                <td nowrap>DAA</td>
+                <td nowrap>2012-02-09</td>
+                <td nowrap>2012-02-10</td>
+                <td nowrap>2013-02-10</td>
+                <td nowrap>0886574543232432</td>
+                <td nowrap>23434.34</td>
+                <td nowrap>7565.45</td>
+                <td nowrap>65.66</td>
+                <td nowrap>70.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap><a>查看明细</a></td>
+            </tr>
+            <tr>
+                <td nowrap>51090101</td>
+                <td nowrap>PDAA34343434343434545450000</td>
+                <td nowrap>专业代理</td>
+                <td nowrap>美元</td>
+                <td nowrap>DAA</td>
+                <td nowrap>2012-05-09</td>
+                <td nowrap>2012-05-10</td>
+                <td nowrap>2013-05-10</td>
+                <td nowrap>0886574543232432</td>
+                <td nowrap>23434.34</td>
+                <td nowrap>7565.45</td>
+                <td nowrap>65.66</td>
+                <td nowrap>70.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap><a>查看明细</a></td>
+            </tr>
+            <tr>
+                <td nowrap>51090106</td>
+                <td nowrap>PDAA34343434343434545476767</td>
+                <td nowrap>专业代理</td>
+                <td nowrap>人民币</td>
+                <td nowrap>DAA</td>
+                <td nowrap>2015-02-09</td>
+                <td nowrap>2015-02-10</td>
+                <td nowrap>2016-02-10</td>
+                <td nowrap>0886574543232432</td>
+                <td nowrap>4434.34</td>
+                <td nowrap>565.45</td>
+                <td nowrap>65.66</td>
+                <td nowrap>70.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap><a>查看明细</a></td>
+            </tr>
+            <tr>
+                <td nowrap>51090108</td>
+                <td nowrap>PDAA34343434343434548767677</td>
+                <td nowrap>专业代理</td>
+                <td nowrap>人民币</td>
+                <td nowrap>DAC</td>
+                <td nowrap>2002-02-09</td>
+                <td nowrap>2002-02-10</td>
+                <td nowrap>2003-02-10</td>
+                <td nowrap>87898654765</td>
+                <td nowrap>23439.34</td>
+                <td nowrap>75699.45</td>
+                <td nowrap>95.66</td>
+                <td nowrap>90.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap>0.00</td>
+                <td nowrap><a>查看明细</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--表格底部-->
+    <div class="row list_content_bottom" ng-if="listFlag">
+        <span class="text-left" align="bottom">共4条记录</span>
+        <pagination ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                    page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                    previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                    ng-click="voucherQuery()" style="margin: 0 20px 20px 0;" boundary-links="true"
+                    on-select-page="voucherQuery(page)"></pagination>
+    </div>
+    <div class=" row text-right list_footer" ng-if="listFlag">
+        <button style="margin-top: -6px" class="btn btn-primary">导出Excel</button>
+    </div>
+</div>

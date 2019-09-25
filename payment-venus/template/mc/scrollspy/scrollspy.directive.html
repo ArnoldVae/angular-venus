@@ -1,0 +1,9 @@
+<div id="computerMove" class="anchor_point anchor_point_visible">
+    <ul>
+        <li ng-repeat="title in $scrollspy.titles">
+            <span ng-if="title.data.length >= 0 || title.data == true"
+                    ng-class="{'checked': $scrollspy.choose  == title.title}" ng-click="$scrollspy.changeAnchorPoint(title.title)">{{title.text}}
+            </span>
+        </li>
+    </ul>
+</div>

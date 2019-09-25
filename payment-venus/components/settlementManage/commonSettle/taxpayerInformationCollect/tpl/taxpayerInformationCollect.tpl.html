@@ -1,0 +1,89 @@
+<div class="section venus_hasFooter">
+    <div class="form_three">
+        <form class="form-horizontal" ng-if="!moreFlag">
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>保/批单号：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="taxpayerCollect.certiNo"><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-2 control-label"><span>开票对象类型：</span></div>
+                <div class="col-xs-4">
+                    <div mc-code-select code="invoiceObjectType" ng-model="taxpayerCollect.handler1Code"
+                         style="width: 240px; display: inline-block"></div>
+                    <span class="color_red" style="display: inline-block">*</span>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary"  ng-click="nextTaxpayer()">下一步</button>
+                <button class="btn btn-success" ng-click="batchReset()">重置</button>
+            </div>
+        </form>
+        <form class="form-horizontal" ng-if="moreFlag">
+            <div class="form-group">
+                <div class="col-xs-3 control-label"><span>购方名称：</span></div>
+                <div class="col-xs-3 control-label">
+                    <div mc-code-select data="taxpayerBack"
+                         ng-model="taxpayerBackDemo.customerCode"
+                         ng-change="changeTaxpayerBackDemo()"
+                         style="display: inline-block; width: 240px;"></div>
+                    <span class="color_red" style="display: inline-block;">*</span>
+                </div>
+                <div class="col-xs-3 control-label">
+                    <button  class="btn btn-primary">上传影像</button>
+                    <button  class="btn btn-primary">查询影像</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-3 control-label">
+                    <span>纳税人识别号/统一社会信用代码：</span>
+                </div>
+                <div class="col-xs-3 control-label">
+                    <input type="text" ng-model="taxpayerBackDemo.taxPayerNo"><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-3"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-3 control-label">
+                    <span>注册地址：</span>
+                </div>
+                <div class="col-xs-3 control-label">
+                    <input type="text" ng-model="taxpayerBackDemo.address"><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-3"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-3 control-label">
+                    <span>注册电话：</span>
+                </div>
+                <div class="col-xs-3 control-label">
+                    <input type="text" ng-model="taxpayerBackDemo.phoneNo"><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-3"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-3 control-label">
+                    <span>开户银行：</span>
+                </div>
+                <div class="col-xs-3 control-label">
+                    <input type="text" ng-model="taxpayerBackDemo.bankName"><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-3"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-3 control-label">
+                    <span>银行账号：</span>
+                </div>
+                <div class="col-xs-3 control-label">
+                    <input type="text" ng-model="taxpayerBackDemo.accountCode"><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-3"></div>
+            </div>
+        </form>
+        <div class="row list_queryForm_btn" ng-if="moreFlag">
+            <button class="btn btn-primary btn-width"  ng-click="taxpayerSubmit()" ng-if="accFlag==0">保存</button>
+            <button class="btn btn-success btn-width" ng-click="taxpayerSubmit()"  ng-if="accFlag==1">修改</button>
+            <button class="btn btn-success btn-width" ng-click="taxpayerReset()" >重置</button>
+            <button class="btn btn-warning btn-width" ng-click="taxpayerCancel()" >返回</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,134 @@
+<!--批量收款导入-->
+
+<div class="section">
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4" style="margin-top:4px">选择待导入文件上传</label>
+                <!--<div class="col-xs-7 col-md-10">-->
+                    <!--<input style="margin-bottom: 10px" class="col-xs-12 col-md-4"  type="text"  ng-model="fileItem.name">-->
+                    <!--<a href="javascript:;" class="bankA" style="margin-left: 10px;margin-top: -14px">浏览-->
+                        <!--<input style="width: 55px" name="certificate" nv-file-select uploader="uploader" ng-click="clearItems()" type="file" class="bankfile"  multiple />-->
+                    <!--</a>-->
+                    <!--<button class="btn btn-primary" ng-click="voucherDetailed()">模板下载</button>-->
+                <!--</div>-->
+                <div class="col-xs-7">
+                    <div class="col-xs-12 input-group">
+                        <input placeholder="请选择要上传的文件" type="text" class="form-control" ng-model="fileItem.name">
+                        <a href="javascript:;" class="input-group-addon cursor_pointer">
+                            <div class="glyphicon">浏览</div>
+                            <input name="certificate" nv-file-select uploader="uploader" ng-click="clearItems()" type="file" class="collectscene_file_item"  multiple  filters="queueLimit,customFilter"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">
+                    <button class="btn btn-primary" ng-click="voucherDetailed()">模板下载</button>
+                </label>
+                <div class="col-xs-7">
+                    <!--<div class="col-xs-12 color_gray">导入实收保费清单：请按照模板导入实收保费清单，清单表格（Excel格式，以.txt为后缀）</div>-->
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                <label class="col-xs-4 col-md-2"></label>
+                <p class="col-md-10 col-xs-7 color_gray">导入实收保费清单：请按照模板导入实收保费清单，清单表格（Excel格式，以.txt为后缀）</p>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">投保人</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="importCondition.appliName"/>
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">币种</label>
+                <div class="col-xs-7">
+                    <select-list  my-class="col-xs-12" base-code="Currency" ng-model="importCondition.currenCY" ng-value="importCondition.currency1Name">
+                    </select-list>
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">本次导入笔数</label>
+                <div class="col-xs-7">
+                    <input  type="text" ng-model="importCondition.impNum" class="col-xs-12" mc-input-cut transmit-type="number">
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">本次导入金额</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="importCondition.impAmount" mc-format-switch transmit-type="number">
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">备注</label>
+                <div class="col-xs-7">
+                    <textarea class="col-xs-12" class="form-control" rows="3" ng-model="importCondition.remark"></textarea>
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="UploadFile()">导入</button>
+                <button class="btn btn-primary" ng-click="resetImport()">重置</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="section" ng-if="infoToView.confirmList.length">
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>文件名称</th>
+                    <th>缴费通知单号</th>
+                    <th>成功清单</th>
+                    <th>失败清单</th>
+                    <th>导入时间</th>
+                    <th>导入笔数</th>
+                    <th>导入金额</th>
+                    <th>处理结果</th>
+                    <th>操作员</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ci in infoToView.confirmList">
+                    <td ng-class="ci.changeClass">{{fileName}}</td>
+                    <td ng-class="ci.changeClass">{{ci.transactionNo}}</td>
+                    <td ng-class="ci.changeClass" ng-click="showSuceesetModal(ci.transactionNo)">
+                        <a class="cursor_pointer">成功清单</a></td>
+                    <td ng-class="ci.changeClass" ng-click="showFileModal(ci.transactionNo)">
+                        <a class="cursor_pointer">失败清单</a></td>
+                    <td ng-class="ci.changeClass">{{ci.impDate}}</td>
+                    <td ng-class="ci.changeClass">{{ci.impNum}}</td>
+                    <td ng-class="ci.changeClass">{{ci.impAmount}}</td>
+                    <td ng-class="ci.changeClass">{{resultMsg}}</td>
+                    <td ng-class="ci.changeClass">{{ci.operatorCode}}</td>
+                    <td ng-class="ci.changeClass">
+                        <a class="cursor_pointer" ng-show="ci.toPay=='Y'" pay-data="ci">缴费</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--表格底部-->
+    <!--<div ng-if="pagination.totalItems>0" class="row list_content_bottom">-->
+        <!--<span class="text-left" align="bottom">共导入{{pagination.totalItems}}条记录</span>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;表格底部&ndash;&gt;-->
+    <!--<div class="row list_content_bottom">-->
+        <!--<pagination ng-if="pagination.totalItems>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"-->
+                    <!--page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"-->
+                    <!--previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"-->
+                    <!--ng-click="importCond('page')" style="margin: 0 20px 20px 0;" boundary-links="true"-->
+                    <!--on-select-page="onSelectPage(page)"></pagination>-->
+    <!--</div>-->
+</div>
+<!--<div class="row list_footer">-->
+    <!--<button class="btn btn-primary btn-width" ng-show="successListFlag" ng-click="showSuceesetModal()">成功清单</button>-->
+    <!--<button class="btn btn-default btn-width" ng-show="falseListFlag" ng-click="showFileModal()">失败清单</button>-->
+<!--</div>-->

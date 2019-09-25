@@ -1,0 +1,184 @@
+<!--生成结算单确认-->
+<div class="modal-content" style="width: 80%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">生成结算单确认</div>
+    </div>
+    <div class="modal-body" >
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>手续费结算单信息(共{{settlementCondition.list.length}}条记录)</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>保单号/批单号</th>
+                    <th>代理人/经纪人</th>
+                    <th>交费期数</th>
+                    <th>保单币种</th>
+                    <th>保/批单当期手续费</th>
+                    <th>已支付/已生成结算单手续费</th>
+                    <th>本次应付金额</th>
+                    <th>付款币种</th>
+                    <th>本次实付金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in settlementCondition.list">
+                    <td>{{d.policyNo}}</td>
+                    <td>{{d.agentName}}</td>
+                    <td>{{d.planSerialNo}}/{{d.payNo}}</td>
+                    <td>{{d.currency1}}</td>
+                    <td>{{d.taxDisFee|format}}</td>
+                    <td>{{d.packPrintFee|format}}</td>
+                    <td>{{d.taxDisFee|format}}</td>
+                    <td>{{d.currency1}}</td>
+                    <td>{{d.taxDisFee|format}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-top-15">
+                    <label class="col-xs-4">支付对象：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.agentName" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-top-15">
+                    <label class="col-xs-4">增加增值税基数：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.addBusinessBase" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">付款币种：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.currency1" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">代扣税金合计：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.vatFee" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">本次实付合计：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.taxDisFee" readonly>
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">增值税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.businessTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">城市建设维护税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.constructionTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">房产税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.houseTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">土地使用税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.landTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">个人所得税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.peopleTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">车船使用税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.carShipTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">企业所得税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.companyTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">防洪费：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.preventFloodTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">印花税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.stampTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">教育费附加：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.educationTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4" style="padding-left: 0px">提取交强险救助基金：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.ddasuccorTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">地方教育费附加税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.localEducationTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">其他税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.otherTax" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">手续费支出：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.planFee" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">进项税：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.taxFee" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">税率：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="settlementCondition.vatRate" readonly>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                    <label class="col-xs-2 col-sm-4 col-md-2">税金计算公式：</label>
+                    <div class="col-xs-10 col-sm-8 col-md-10">
+                        <textarea rows="5" ng-model="settlementCondition.context" class="col-xs-10" readonly></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="searchsettlement()" ng-if="showBtn==false">计算税金</button>
+        <button class="btn btn-primary" ng-if="showBtn" ng-click="confirmsettlement()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

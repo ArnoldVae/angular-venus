@@ -1,0 +1,60 @@
+<header class="nav-bar navbar-default navbar-fixed-top drop-shadow" style="position: fixed;">
+    <div class="container-fluid row">
+        <div class="navbar-header col-xs-7 col-sm-7 col-md-3">
+            <img class="header_logo" src="images/logo.jpg" alt="logo">
+            <a ng-href="#/" class="navbar-brand header_logo_font">收付管理平台</a>
+            <a class="version" style="font-size: 12px;position: absolute;top: 16px;opacity: 0.5;width: 100%">版本：v{{version}}</a>
+        </div>
+        <div class=" col-md-6 header_center">
+            <ul class="nav navbar-nav navbar-right" style="margin-top: 0%">
+                <li class="light_height_52"><span style="color: #63C9DA">核算单位：</span><span ng-bind="headerCondition.headerCenterCode"></span>&nbsp;&nbsp;
+                    <span  style="color: #63C9DA">权限机构：</span>
+                </li>
+                <li class="float-left cursor_pointer">
+                    <div mc-code-select class="margin-top-12 w200" data="headerList" boder-style="none" other-style="otherStyle" show-code = "true" ng-model="headerCondition.headerDto" ng-change="chgCenterCode(headerCondition.headerDto)"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="header_right col-xs-5 col-sm-5 col-md-3 pull-right" style="padding-left: 0;padding-right: 0;">
+            <ul class="nav navbar-right">
+                <li class="float-left cursor_pointer"><a><span class="glyphicon glyphicon-search"></span></a></li>
+                <li class="float-left cursor_pointer" ng-mouseover="lookInfo()" ng-mouseleave="hideInfo()">
+                    <a><span class="glyphicon glyphicon-comment"></span></a>
+                    <div ng-if="noticeHide.state" ng-include="'frame/header/inform.tpl.html'"></div>
+                </li>
+                <li class="float-left cursor_pointer" ng-mouseover="goHeaderOther()" ng-mouseleave="closeHeaderOther()">
+                    <a>
+                        <div class="avatar avatar-sm">
+                            <img src="images/user.png" alt="用户">
+                        </div>
+                    </a>
+                    <!--头部窄屏隐藏的信息-->
+                    <div class="header_other header_other_large" ng-show="showHeaderOther.state"><!--header_other_large只显示用户登陆信息时生效 -->
+                        <div class="header_other_body">
+                            <div class="row">
+                                <span class="col-xs-4">核算单位：</span>
+                                <div class="col-xs-8 padding_left_12"><span ng-bind="headerCondition.headerCenterCode"></span></div>
+                            </div>
+                            <div class="row">
+                                <span class="col-xs-4 light_height_25">权限机构：</span>
+                                <div class="col-xs-8 padding_left_0" mc-code-select data="headerList" boder-style="none" show-code = "true" ng-model="headerCondition.headerDto" ng-change="chgCenterCode(headerCondition.headerDto)"></div>
+                            </div>
+
+                            <div class="pull-right">
+                                {{userName}}（{{user.userCode}}）
+                                <a ng-click="logout();showHeaderOther.state = false">注销</a>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <div>{{userName}}（{{user.userCode}}）</div>
+                            <div>
+                                <a ng-click="logout();showHeaderOther.state = false">注销</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

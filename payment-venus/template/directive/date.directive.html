@@ -1,0 +1,48 @@
+<div>
+    <div id="dateBox" style="width: 246px;height: 250px;border: 1px grey solid;margin: 10px">
+        <div id="dateHead" style="height: 35px;text-align: center">
+            <div style="
+             width: 20%;
+             margin-top: 3%;
+             font-size: 0;
+             line-height: 0;
+             border-width: 10px;
+             border-color: black;
+             border-left-width: 0;
+             border-style: dashed;
+             border-right-style: solid;
+             border-top-color: transparent;
+             border-bottom-color: transparent;
+             float: left;" ng-click="$date.beforeMonth()"></div>
+            <div style="width: 60%;text-align: center;float: left;margin-top: 3%">
+                {{$date.date.year}}年{{$date.date.month+1}}月
+            </div>
+            <div style="
+             width: 20%;
+             margin-top: 3%;
+             font-size: 0;
+             line-height: 0;
+             border-width: 10px;
+             border-color: black;
+             border-right-width: 0;
+             border-style: dashed;
+             border-left-style: solid;
+             border-top-color: transparent;
+             border-bottom-color: transparent;
+             float: right;" ng-click="$date.nextMonth()"></div>
+        </div>
+    </div>
+    <div id="setNonWorking" class="text-center" ng-if="dIsSetDate">
+        <div style="margin-top: 10px;height: 30px;">
+            <span style="margin-left: 20px;font-size: xx-small;display: inline-block;float: left;">注：</span>
+            <div class="footer_1"></div>
+            <span style="margin-left: 5px;font-size: xx-small;display: inline-block;float: left;">为工作日</span>
+            <div class="footer_2"></div>
+            <span style="margin-left: 5px;font-size: xx-small;display: inline-block;float: left;">为休息日</span>
+        </div>
+        <div style="margin-top: 5px;margin-bottom: 2px;margin-left: 25px">
+            <button class="btn btn-success" ng-click="$date.nonWorkingDaySubmit()">提交</button>
+            <button class="btn btn-primary" ng-click="$date.nonWorkingDayCancel()">重置</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<!--权限管理-->
+<div class="mc_form" ng-if="infoToView.postMoreFlag">
+    <form class="form-horizontal">
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">用户代码：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.permissions.queryConditions.userCode">
+
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">用户姓名：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.permissions.queryConditions.userName">
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">归属机构：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.permissions.queryConditions.comCode">
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">有效标志：</label>
+            <div class="col-xs-7">
+                <mc-checkbox c-id="checkbox1" c-type="switch" c-true="0" c-false="1" c-model="infoToView.permissions.queryConditions.validStatus" class="code_switch" style="margin-left: 0px"></mc-checkbox>
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success" ng-click="findPublic(constants.FINDERCONFIG.TARGET.PERMISSIONS)">查询</button>
+            <button class="btn btn-primary" ng-click="priManConditionReset()">重置</button>
+        </div>
+    </form>
+</div>
+
+<div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>用户代码</th>
+            <th>用户姓名</th>
+            <th>归属机构代码</th>
+            <th>有效标志</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat=" d in infoToView.permissions.queryList">
+            <td>{{$index+1}}</td>
+            <td>{{d.userCode}}</td>
+            <td>{{d.userName}}</td>
+            <td>{{d.comCode}}</td>
+            <td>{{d.validStatus|mcCode:'validStatus1'}}</td>
+            <td><a href="" ng-click="postConfiguration(d)">岗位配置</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="infoToView.permissions.queryList.length>0"  class="row list_content_bottom" >
+    <span style="margin-left: 15px" align="bottom">共{{infoToView.permissions.pagination.totalItems}}条记录</span>
+    <pagination
+            ng-if="infoToView.permissions.pagination.totalItems>infoToView.permissions.pagination.pageSize"
+            ng-model="infoToView.permissions.pagination.pageIndex"
+            class="pagination-sm pull-right"
+            total-items="infoToView.permissions.pagination.totalItems"
+            page="infoToView.permissions.pagination.pageIndex"
+            items-per-page="infoToView.permissions.pagination.pageSize"
+            max-size="infoToView.permissions.pagination.maxSize"
+            previous-text="{{infoToView.permissions.pagination.previousText}}"
+            next-text="{{infoToView.permissions.pagination.nextText}}"
+            first-text="{{infoToView.permissions.pagination.firstText}}"
+            last-text="{{infoToView.permissions.pagination.lastText}}"
+            ng-click="findPublic(constants.FINDERCONFIG.TARGET.PERMISSIONS,'page')"
+            class="pagination-small"
+            boundary-links="true"
+            on-select-page="onSelectPage(page)">
+
+    </pagination>
+</div>

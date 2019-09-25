@@ -1,0 +1,107 @@
+<!--客户信息录入-->
+<div class="modal-content" style="width: 80%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">客户信息</div>
+    </div>
+    <div class="modal-body" >
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">客户名称：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.customName" class="col-xs-12">
+                    </div>
+                    <span class="color_red">*</span>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">客户类型：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select code="customType" ng-model="customDto.customType" class="col-xs-12 pl0 pr0"></div>
+                    </div>
+                    <span class="color_red">*</span>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">证件类型：</label>
+                    <div class="col-xs-7">
+                        <select-list base-code="IDTYPE"
+                                     ng-model="customDto.certificateType"
+                                     ng-value="customDto.certiType1"
+                                     my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">证件号码：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.certificateCode" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">省：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.bankProvince" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">市：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.bankCity" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">开户银行：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.customBankCode" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">联行号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.unionBank" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">币种：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select code="Currency" ng-model="customDto.currency" class="col-xs-12 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">账号/卡号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.accountCode" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">卡折标志：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select code="AccountFlag" ng-model="customDto.accountFlag" class="col-xs-12 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">公私标志：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select code="AccountType" ng-model="customDto.accountType" class="col-xs-12 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">手机号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.ownerPhoneNo" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">银行名称：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="customDto.cankCode" class="col-xs-12">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirmCustom()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<!--账户信息修改轨迹详细信息-->
+<div class="modal-content" style="width: 84%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">账户信息修改轨迹</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>支付单号</th>
+                    <th>修改次数</th>
+                    <th>修改时间</th>
+                    <th>修改人</th>
+                    <th>收款人名称</th>
+                    <th>收款人开户行</th>
+                    <th>收款人账户</th>
+                    <th>金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in trajectoryInfoList">
+                    <td>{{$index+1}}</td>
+                    <td>{{d.payNo}}</td>
+                    <td>{{d.paySerialNo}}</td>
+                    <td>{{d.chgDate|mcSuperDate}}</td>
+                    <td>{{d.chgUser}}</td>
+                    <td>{{d.accName}}</td>
+                    <td>{{d.accbankName}}</td>
+                    <td>{{d.accountNo}}</td>
+                    <td>{{d.sumFee}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="pagination.totalItems>0" class="row list_content_bottom">
+            <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click="init('page')"
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

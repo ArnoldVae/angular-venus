@@ -1,0 +1,17 @@
+<!--日结流水单详细信息页面-->
+<div class="modal-content dailyError_modal" style="padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">错误详细信息</div>
+    </div>
+    <div class="modal-body">
+        <div>
+            <div>操作时间:{{dailyErrorMsg.insertTimeForHis | mcSuperDate}}</div>
+            <div>错误业务单号:{{dailyErrorMsg.errCertiNo}}</div>
+            <div>错误原因:{{dailyErrorMsg.errMsg}}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

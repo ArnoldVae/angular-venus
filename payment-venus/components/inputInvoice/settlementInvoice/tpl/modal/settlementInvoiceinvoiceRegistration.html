@@ -1,0 +1,105 @@
+<!--理赔进项发票登记-->
+<div class="modal-content" style="width: 71%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h5 class="text-center">理赔费用发票登记</h5>
+    </div>
+    <div class="venus_table">
+        <div class="venus_modal_tableName">
+            <span>赔款计算书</span>
+        </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>赔款计算书号</th>
+                    <th>支付对象</th>
+                    <th>被保险人</th>
+                    <th>付款币种</th>
+                    <th>付款金额</th>
+                    <!--<th>进项税</th>-->
+                    <th>税率</th>
+                    <th>抵扣税金</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in paymentList">
+                    <td>{{d.compensateNo}}</td>
+                    <td>{{d.payObjectName}}</td>
+                    <td>{{d.insuredName}}</td>
+                    <td>{{d.currency1}}</td>
+                    <td>{{d.planFee | number:2}}</td>
+                    <!--<td>{{d.taxFee | number:2}}</td>-->
+                    <td style="width: 10%">
+                        <input type="text" ng-model="d.taxRate">
+                    </td>
+                    <td><input type="text" ng-model="d.taxfeeByHand" mc-format-switch transmit-type="text" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}" class="form-control"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 10px">总金额：{{paymentLis.sumPlanFee | number:2}}</div>
+    </div>
+        <div class="venus_table" style="min-height: 300px">
+            <div class="venus_modal_tableName">
+                <span class="col-xs-6">登记信息</span>
+                <div class="form-group">
+                    <div class="col-xs-2">
+                        <label>
+                            <input type="radio" name="taxRate" ng-click="changeTaxRate('3%')" ng-model="checkThree">税率全部为3%
+                        </label>
+                    </div>
+                    <div class="col-xs-2">
+                        <label>
+                            <input type="radio" name="taxRate" ng-click="changeTaxRate('6%')" ng-model="checkSix">税率全部为6%
+                        </label>
+                    </div>
+                    <div class="col-xs-2">
+                        <label>
+                            <input type="radio" name="taxRate" ng-click="changeTaxRate('0')" ng-model="checkZero">重置税率
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>发票代码</th>
+                    <th>发票号码</th>
+                    <th>发票类型</th>
+                    <th>开票日期</th>
+                    <th>不含税金额</th>
+                    <th>税额</th>
+                    <th>含税金额</th>
+                    <th>发票认证人</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="td-input" ng-repeat="auditingCondition in auditingConditions">
+                    <td style="min-width: 180px;">
+                        <input type="text" ng-model="auditingCondition.invoiceCode"  maxlength="10" minlength="10" mc-input-cut transmit-type="number" class="form-control">
+                    </td>
+                    <td style="min-width: 180px;">
+                        <input type="text" ng-model="auditingCondition.invoiceNo"  maxlength="8" minlength="8" mc-input-cut transmit-type="number" class="form-control">
+                    <td style="min-width: 180px;">
+                    <div mc-code-select  code="voiceType" ng-model="auditingCondition.invoiceType"></div>
+                    </td>
+                    <td><input type="text" ng-model="auditingCondition.billingDate"  class="date" id="date{{$index+20}}" jedate
+                               format="YYYY-MM-DD"/>
+                    </td>
+
+                    <td style="min-width: 180px;"><input type="text" ng-model="auditingCondition.sumNoTaxFee"  mc-format-switch transmit-type="text" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}" class="form-control" ng-change="whriteData()"></td>
+                    <td style="min-width: 180px;"><input type="text" ng-model="auditingCondition.sumTaxFee"  mc-format-switch transmit-type="text" class="form-control" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}" ng-change="whriteData()"></td>
+                    <td style="min-width: 180px;"><input type="text" ng-model="auditingCondition.sumFee"  mc-format-switch transmit-type="text" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}" class="form-control"  ></td>
+                    <td style="min-width: 180px;">
+                        <select-list  data='{"comCode":comCode,"checkComCode":centerCode}' selectType="operatorName" ng-model="auditingCondition.authCode" ng-value="auditingCondition.authCodeName" >
+                        </select-list>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="margin: 0 auto;margin-top: 15px;width:15px;"><a ng-click="addTr()" class="glyphicon glyphicon-plus-sign"></a></div>
+        </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirmAuditing()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

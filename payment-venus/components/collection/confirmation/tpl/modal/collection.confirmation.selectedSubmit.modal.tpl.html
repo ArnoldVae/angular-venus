@@ -1,0 +1,103 @@
+<div class="modal-content" style="width: 70%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">到款确认</div>
+    </div>
+    <div class="modal-body  venus_table">
+        <div class="venus_modal_tableName">
+            <span>业务信息</span>
+            <span class="venus_modal_tableSubName">（共有{{accountSelectList.length}}条信息）</span>
+        </div>
+
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>缴费通知单号</th>
+                <th>业务单号</th>
+                <th>核算单位</th>
+                <th>客户名称</th>
+                <th>操作日期</th>
+                <th>应收币别</th>
+                <th>应收金额</th>
+                <th>实收币别</th>
+                <th>兑换率</th>
+                <th>实收金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="account in accountSelectList">
+                <td>{{account.transactionNo}}</td>
+                <td>{{account.certiNo}}</td>
+                <td>{{account.centerName}}</td>
+                <td>{{account.appliName}}</td>
+                <td>{{account.operatorDate|mcDate}}</td>
+                <td>{{account.currenCY|mcCode:'Currency'}}</td>
+                <td>{{account.sumFee|format}}</td>
+                <td>{{account.currency2|mcCode:'Currency'}}</td>
+                <td>{{account.exchangeRate}}</td>
+                <td>{{account.sumFeeCny|format}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-body  venus_table" style="min-height: 240px">
+        <div class="venus_modal_tableName">
+            <span>收付信息</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>币种</th>
+                <th style="width: 24%">收付方式</th>
+                <th style="width: 36%">银行账号</th>
+                <th>金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ref in payWayList">
+                <td><span>{{ref.currency2|mcCode:'Currency'}}</span></td>
+                <td>
+                    <select-list my-class="col-xs-12" wait-change="getBank(ref)" data="{comCode:'03',permitPayType:'PP01'}" selectType="payway" ng-model="ref.payWay" ng-value="ref.payWayName">
+                    </select-list>
+                </td>
+                <td>
+                    <div mc-code-select data="bankTypeCNYF"  ng-disabled="ref.payWay!='211'&&ref.payWay!='210'" ng-model="ref.accountNo"></div>
+                </td>
+                <td><span>{{ref.payRefFee|format}}</span></td>
+            </tr>
+
+            <!--<tr ng-repeat="ref in accountRecList">-->
+            <!--<td><span>{{ref.currenCY}}</span></td>-->
+            <!--<td><span>{{ref.centerCode}}</span></td>-->
+            <!--<td>-->
+            <!--{{ref.payWay|mcCode:'PayWay'}}-->
+            <!--</td>-->
+            <!--<td><span>{{ref.payWayType}}</span></td>-->
+            <!--<td><span>{{ref.payType}}</span></td>-->
+            <!--<td><span>{{ref.operateType}}</span></td>-->
+            <!--<td>-->
+            <!--{{ref.accountNo}}-->
+            <!--</td>-->
+            <!--<td>{{ref.size}}</td>-->
+            <!--<td class="payFee-input">-->
+            <!--<input type="text" mc-format-switch transmit-type="text"-->
+            <!--ng-model="ref.sumPayRefFee"-->
+            <!--style="width: 100px"-->
+            <!--ng-disabled="(accountRecList.length-1)>$index"-->
+            <!--ng-blur="payChange(ref.sumPayRefFee,$index)"-->
+            <!--class="form-control">-->
+            <!--</td>-->
+            <!--<td>   <span class="glyphicon glyphicon-minus-sign"-->
+            <!--ng-click="deleteAccount($index)"-->
+            <!--style="color: #cb2028"></span></td>-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="accountSubmit()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+
+    </div>
+</div>

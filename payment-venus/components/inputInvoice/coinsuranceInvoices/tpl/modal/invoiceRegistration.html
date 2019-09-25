@@ -1,0 +1,115 @@
+<!--手续费进项发票登记-->
+<div class="modal-content" style="width: 83%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">共保进项发票登记</div>
+    </div>
+    <div class="venus_table" style="min-height: 229px">
+        <div class="venus_modal_tableName">
+            <span>登记信息</span>
+            <span ng-if="invoiceTypeFlag" class="font_size_12" style="color:red">(注：发票类型为增值税普通发票或非增值税发票时，合计税额只能为0)</span>
+        </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>发票认证人</th>
+                    <th>发票类型</th>
+                    <th>发票代码</th>
+                    <th>发票号码</th>
+                    <th>开票日期</th>
+                    <th>含税金额</th>
+                    <th>不含税金额</th>
+                    <th>合计税额</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="td-input" ng-repeat="auditingCondition in auditingConditions">
+                    <td>
+                        <select-list data='{"comCode":comCode,"checkComCode":checkComCode}' selectType="operatorName" ng-model="auditingCondition.authCode" ng-value="auditingCondition.packCodeName">
+                        </select-list>
+                        <!--<select-list base-code="authCode" ng-model="auditingCondition.authCode" ng-value="auditingCondition.packCodeName" >-->
+                    <!--</select-list>-->
+                    </td>
+                    <td style="min-width: 180px;">
+                        <div ng-change="myFunc()" mc-code-select  code="voiceType" ng-model="auditingCondition.invoiceType"></div>
+                        <!--<select-list base-code="voiceType" ng-model="auditingCondition.invoiceType" ng-value="auditingCondition.certiTypeName" >-->
+                    <!--</select-list>-->
+                    </td>
+                    <td><input type="text" ng-model="auditingCondition.invoiceCode" maxlength="10" onKeyUp="this.value=this.value.replace(/[^0-9-]+/,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}">
+                        <!--<input type="text" ng-model="auditingCondition.invoiceCode" maxlength="10" minlength="10" ng-pattern="/^[0-9]*$/" warn-text="数字">-->
+                    </td>
+                    <td><input type="text" ng-model="auditingCondition.invoiceNo" maxlength="8" onKeyUp="this.value=this.value.replace(/[^0-9-]+/,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}">
+                        <!--<input type="text" ng-model="auditingCondition.invoiceNo" maxlength="8" minlength="8" ng-pattern="/^[0-9]*$/" warn-text="数字">-->
+                    </td>
+                    <td><input type="text" ng-model="auditingCondition.billingDate"  class="date" id="date{{$index+20}}" jedate
+                               format="YYYY-MM-DD"/></td>
+                    <td style="min-width: 180px;"><input type="text" ng-model="auditingCondition.sumFee" mc-format-switch transmit-type="text" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}" class="form-control"></td>
+                    <td style="min-width: 180px;"><input type="text" ng-model="auditingCondition.sumNoTaxFee" mc-format-switch transmit-type="text" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}" class="form-control"></td>
+                    <td style="min-width: 180px;"><input type="text" ng-disabled="auditingCondition.invoiceType!='01'" ng-model="auditingCondition.taxFee" mc-format-switch transmit-type="text" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}" class="form-control"></td>
+                    <td><a class="cursor_pointer" ng-click="deleteMessage($index)">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+        <div style="margin: 0 auto;margin-top: 15px;width:15px;"><a ng-click="addTr()" class="glyphicon glyphicon-plus-sign"></a></div>
+    </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>收付信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>共保保费支付单号</th>
+                    <th>共保人</th>
+                    <th>币种</th>
+                    <th>本次应付金额</th>
+                    <th>制单日期</th>
+                    <th>制单人</th>
+                    <th>开户银行</th>
+                    <th>账户名</th>
+                    <th>账户号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in paymentList">
+                    <td ng-bind="d.certiNo"></td>
+                    <td ng-bind="d.coinsName"></td>
+                    <td ng-bind="d.currency1"></td>
+                    <td ng-bind="d.planFee"></td>
+                    <td ng-bind="d.validDate"></td>
+                    <td ng-bind="d.handler1Name"></td>
+                    <td ng-bind="d.bankName"></td>
+                    <td ng-bind="d.accountName"></td>
+                    <td ng-bind="d.accountNo"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div  class="venus_table" style="height: 200px">
+        <div class="venus_modal_tableName">
+            <span>统计信息</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>共保保费金额</th>
+                <th>进项税金额</th>
+                <th>本次实付金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td ng-bind="paymentLis.sumPlanFee"></td>
+                <td ng-bind="paymentLis.sumTaxFee" ></td>
+                <td ng-bind="paymentLis.sumTaxPlanFee"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirmAuditing()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

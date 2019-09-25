@@ -1,0 +1,48 @@
+<!--结算单详细信息页面-->
+<div class="modal-content" style="width: 80%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">详细信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>业务号</th>
+                    <th>费用类型</th>
+                    <th>保单号</th>
+                    <th>结算单号</th>
+                    <th>被保险人</th>
+                    <th>应付币种</th>
+                    <th>应付日期</th>
+                    <th>应付金额</th>
+                    <th>业务归属人</th>
+                    <th>代理人/经纪人</th>
+                    <th>共保人名称</th>
+                    <th>是否联共保</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in visaSerialNoList">
+                    <td><a href="">{{d.certiNo}}</a></td>
+                    <td>{{d.commisionType|mcCode:'poundageType'}}</td>
+                    <td>{{d.policyNo}}</td>
+                    <td>{{d.visaSerialNo}}</td>
+                    <td>{{d.insuredName}}</td>
+                    <td>{{d.currency1}}</td>
+                    <td>{{d.planEndDate}}</td>
+                    <td>{{d.sumPlanFee|format}}</td>
+                    <td>{{d.handler1Name}}</td>
+                    <td>{{d.agentName}}</td>
+                    <td>{{d.coinsName}}</td>
+                    <td>{{d.coinsFlag}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

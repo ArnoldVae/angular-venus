@@ -1,0 +1,106 @@
+<div>
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入银行账户商户编号" type="text" style="" class="form-control"
+                       ng-model="infoToView.bankMerchant.queryConditions.merchantNo">
+                <span class="input-group-addon cursor_pointer" ng-click="findPublic(constants.FINDERCONFIG.TARGET.BANKMERCHANT)">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!infoToView.bankMerchant.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.bankMerchant.moreFlag=!infoToView.bankMerchant.moreFlag;">高级查询</span></div>
+        <div ng-show="infoToView.bankMerchant.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.bankMerchant.moreFlag=!infoToView.bankMerchant.moreFlag;">普通查询</span></div>
+    </div>
+    <!--高级查询-->
+    <div class="mc_form" ng-if="infoToView.bankMerchant.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">核算单位：</label>
+                <div class="col-xs-7">
+                    <!--普通录入域class模版-->
+                    <select-list wait-change="getBankNos()"
+                                 my-class="col-xs-12"
+                                 ng-model="infoToView.bankMerchant.queryConditions.sffComCode"
+                                 ng-value="infoToView.bankMerchant.queryConditions.sffComName"
+                                 selectType="accountOrganization"
+                                 data="{comCode:centerCode,newComCode:sffComName}">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">银行账号：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select data="bankNos" class="col-xs-12 padding_clear" ng-model="bankBase" ng-change="getBankName(bankBase)"></div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">所属银行：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="infoToView.bankMerchant.queryConditions.bankName" disabled="true" readonly="true">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">商户编号：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="infoToView.bankMerchant.queryConditions.merchantNo">
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success"  ng-click="findPublic(constants.FINDERCONFIG.TARGET.BANKMERCHANT)">查询</button>
+                <button class="btn btn-primary"  ng-click="bankMerchantReset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>核算单位</th>
+                <th>银行账号</th>
+                <th>所属银行</th>
+                <th>商户编号</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat=" b in infoToView.bankMerchant.queryList">
+                <td>{{$index+1}}</td>
+                <td>{{b.sffComCode}}</td>
+                <td>{{b.accountCode}}</td>
+                <td>{{b.bankName}}</td>
+                <td>{{b.merchantNo}}</td>
+                <td><a ng-click="editBankMerchant('modify',b)"><i class="glyphicon glyphicon-pencil color-oranage"></i>修改</a>
+                    <a ng-click="deleteBankMerchant(b)"><i class="glyphicon glyphicon-floppy-remove color-oranage"></i>删除</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="infoToView.bankMerchant.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.bankMerchant.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.bankMerchant.pagination.totalItems>infoToView.bankMerchant.pagination.pageSize"
+                ng-model="infoToView.bankMerchant.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.bankMerchant.pagination.totalItems"
+                page="infoToView.bankMerchant.pagination.pageIndex"
+                items-per-page="infoToView.bankMerchant.pagination.pageSize"
+                max-size="infoToView.bankMerchant.pagination.maxSize"
+                previous-text="{{infoToView.bankMerchant.pagination.previousText}}"
+                next-text="{{infoToView.bankMerchant.pagination.nextText}}"
+                first-text="{{infoToView.bankMerchant.pagination.firstText}}"
+                last-text="{{infoToView.bankMerchant.pagination.lastText}}"
+                ng-click="findPublic(constants.FINDERCONFIG.TARGET.BANKMERCHANT,'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+
+        </pagination>
+    </div>
+    <div class="row list_footer">
+        <button ng-click="editBankMerchant('add')" class="btn btn-primary">新增</button>
+        <button ng-click="cancelBankAccountMaintenance()" class="btn btn-warning">返回</button>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div style="position: relative">
+    <div ng-show="openListFlag" id="branch">
+        <ul style="display: block;top: 26px;text-align: left;max-height: 300px;overflow: auto;width: 100%" class="dropdown-menu dropdown-menu2" unselectable="on">
+            <li class="branchHover" ng-repeat="node in codeList" ng-class="{1: 'active1', 0: 'inactive'}[$index%2]">
+                <a class="txtl dblclickArea" ng-click="chooseList(node)">{{node.code}}--{{node.value}}</a>
+            </li>
+        </ul>
+    </div>
+    <input ng-show="displaytype=='CODE'&&!showTypeAhead" type="text" class="pt4-ie2 wid_input " id="{{firstId}}" ng-class="myClass" ng-model="ngModel" ng-dblclick="modalOpen()" ng-blur="closeList()" ng-change="changeList()"
+           ng-class="{'iptbgc2':ngDisabled,'iptbgc':!ngDisabled}"
+           maxlength={{maxLength}}
+           style="background: #e4f0f9"
+           ng-disabled="ngDisabled" ng-required="ngRequired"/>
+    <input ng-show="displaytype!='CODE'&&!showTypeAhead" type="text" class="pt4-ie2 wid_input " id="{{secondId}}" ng-class="myClass" ng-model="ngValue" ng-dblclick="modalOpen()" ng-blur="closeList()" ng-change="changeList()"
+           ng-class="{'iptbgc2':ngDisabled,'iptbgc':!ngDisabled}"
+           maxlength={{maxLength}}
+           style="background: #e4f0f9"
+           ng-disabled="ngDisabled" ng-required="ngRequired"/>
+</div>
+

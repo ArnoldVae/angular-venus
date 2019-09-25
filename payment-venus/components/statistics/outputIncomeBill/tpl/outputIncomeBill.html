@@ -1,0 +1,127 @@
+<!--往来账清单管理-->
+<div class="section venus_hasFooter">
+    <div class="form_two">
+        <div class="bank-search row">
+            <div class="col-xs-3 font-color-blue">往来核对</div>
+        </div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <span class="col-md-2 control-label">公司：</span>
+                <div class="col-md-4">
+                    <div mc-code-select code="orgType" ng-model="supplementCondition.company"></div>
+                </div>
+                <span class="col-md-2 control-label">业务类型：</span>
+                <div class="col-md-4">
+                    <div mc-code-select code="businessType02" ng-model="supplementCondition.businessType"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">统计日期：</span>
+                <div class="col-md-4">
+                    <input type="text" ng-model="supplementCondition.statisticsDateStart" style="width: 45%" class="date" id="date1" jedate
+                           format="YYYY-MM-DD"/>至
+                    <input type="text" ng-model="supplementCondition.statisticsDateEnd" style="width: 45%" class="date" id="date2" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary">核对</button>
+            </div>
+        </form>
+        <div class="bank-search row">
+            <div class="col-xs-3 font-color-blue">往来查询</div>
+        </div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <span class="col-md-2 control-label">公司：</span>
+                <div class="col-md-4">
+                    <div mc-code-select code="orgType" ng-model="supplementCondition1.company"></div>
+                </div>
+                <span class="col-md-2 control-label">业务类型：</span>
+                <div class="col-md-4">
+                    <div mc-code-select code="businessType02" ng-model="supplementCondition1.businessType"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">统计日期：</span>
+                <div class="col-md-4">
+                    <input type="text" ng-model="supplementCondition1.statisticsDateStart" style="width: 45%" class="date" id="date3" jedate
+                           format="YYYY-MM-DD"/>至
+                    <input type="text" ng-model="supplementCondition1.statisticsDateEnd" style="width: 45%" class="date" id="date4" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary">查询</button>
+                <button class="btn btn-success">重置</button>
+            </div>
+        </form>
+    </div>
+    <!--<div class="venus_table" style="overflow: auto" ng-if="serviceCharges.length">-->
+        <!--<table class="table table-bordered">-->
+            <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th>机构名称/代码</th>-->
+                    <!--<th>批/保单号</th>-->
+                    <!--<th>险种</th>-->
+                    <!--<th>被保险人</th>-->
+                    <!--<th>业务渠道</th>-->
+                    <!--<th>实收保费</th>-->
+                    <!--<th>手续费比例</th>-->
+                    <!--<th>手续费</th>-->
+                    <!--<th>币别</th>-->
+                    <!--<th>折合人民币</th>-->
+                    <!--<th>业务员</th>-->
+                    <!--<th>代理机构</th>-->
+                    <!--<th>保险代理业务许可证书编号</th>-->
+                    <!--<th>手续费支付账户</th>-->
+                    <!--<th>起保日期</th>-->
+                    <!--<th>终保日期</th>-->
+                    <!--<th>签单日期</th>-->
+                    <!--<th>核保日期</th>-->
+                    <!--<th>是否支付</th>-->
+                    <!--<th>手续费支付单号</th>-->
+                    <!--<th>支付时间</th>-->
+                <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+                <!--<tr ng-repeat="serviceCharge in serviceCharges">-->
+                    <!--<td>{{serviceCharge.organizationName}}</td>-->
+                    <!--<td>{{serviceCharge.policyNo}}</td>-->
+                    <!--<td>{{serviceCharge.riskKind}}</td>-->
+                    <!--<td>{{serviceCharge.insured}}</td>-->
+                    <!--<td>{{serviceCharge.businessChannel}}</td>-->
+                    <!--<td>{{serviceCharge.actualPremium}}</td>-->
+                    <!--<td>{{serviceCharge.serviceChargeInverse}}</td>-->
+                    <!--<td>{{serviceCharge.serviceCharge}}</td>-->
+                    <!--<td>{{serviceCharge.currency}}</td>-->
+                    <!--<td>{{serviceCharge.currencyCny}}</td>-->
+                    <!--<td>{{serviceCharge.salesman}}</td>-->
+                    <!--<td>{{serviceCharge.proxyOrganization}}</td>-->
+                    <!--<td>{{serviceCharge.insuranceProxyBusinessCardNo}}</td>-->
+                    <!--<td>{{serviceCharge.serviceChargePayAccount}}</td>-->
+                    <!--<td>{{serviceCharge.insurancePeriodStart}}</td>-->
+                    <!--<td>{{serviceCharge.insurancePeriodEnd}}</td>-->
+                    <!--<td>{{serviceCharge.signDate}}</td>-->
+                    <!--<td>{{serviceCharge.underwritingDate}}</td>-->
+                    <!--<td>{{serviceCharge.isPay}}</td>-->
+                    <!--<td>{{serviceCharge.serviceChargePayNo}}</td>-->
+                    <!--<td>{{serviceCharge.payDate}}</td>-->
+                <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;表格底部&ndash;&gt;-->
+    <!--<div class="row list_content_bottom" ng-if="serviceCharges.length">-->
+        <!--<span class="text-left" align="bottom">共{{serviceCharges.length}}条记录</span>-->
+        <!--<pagination ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"-->
+                    <!--page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"-->
+                    <!--previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" class=""-->
+                    <!--ng-click="searchSupplementCondition()" style="margin: 0 20px 20px 0;" boundary-links="true"-->
+                    <!--on-select-page="onSelectPage(page)"></pagination>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;列表底部悬浮块&ndash;&gt;-->
+    <!--<div class="row text-center list_footer" ng-if="serviceCharges.length">-->
+        <!--<button class="btn btn-primary">导出Excel</button>-->
+    <!--</div>-->
+</div>

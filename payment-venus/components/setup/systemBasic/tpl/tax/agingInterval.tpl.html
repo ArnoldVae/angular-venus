@@ -1,0 +1,103 @@
+<!--账龄区间设置-->
+<div>
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入机构代码" type="text" style="" class="form-control"
+                       ng-model="infoToView.ageRange.queryConditions.comCode">
+                <span class="input-group-addon cursor_pointer" ng-click="findPublic(constants.FINDERCONFIG.TARGET.AGERANGE)">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!infoToView.ageRange.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.ageRange.moreFlag=!infoToView.ageRange.moreFlag;saveInputData()">高级查询</span></div>
+        <div ng-show="infoToView.ageRange.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.ageRange.moreFlag=!infoToView.ageRange.moreFlag;saveInputData()">普通查询</span></div>
+    </div>
+    <div class="mc_form" ng-if="infoToView.ageRange.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构代码：</label>
+                <div class="col-xs-7">
+                    <!--普通录入域class模版-->
+                    <select-list
+                            data='{"comCode":comCode}'
+                            ng-model="infoToView.ageRange.queryConditions.comCode"
+                            ng-value="infoToView.ageRange.queryConditions.comName"
+                            displayType="CODE"
+                            selectType="accountOrganization"
+                            my-class="col-xs-12"
+                    >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构名称：</label>
+                <div class="col-xs-7">
+                    <select-list
+                            data='{"comCode":comCode}'
+                            ng-model="infoToView.ageRange.queryConditions.comCode"
+                            ng-value="infoToView.ageRange.queryConditions.comName"
+                            selectType="accountOrganization"
+                            my-class="col-xs-12"
+                    >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">账龄区间类型：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select  code="agingType" ng-model="infoToView.ageRange.queryConditions.agingType"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success"  ng-click="findPublic(constants.FINDERCONFIG.TARGET.AGERANGE)">查询</button>
+                <button class="btn btn-primary"  ng-click="agingReset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>账龄区间间隔</th>
+                <th>账龄区间</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat=" a in infoToView.ageRange.queryList">
+                <td>{{a.agingInterval}}</td>
+                <td>{{a.agingStart}}:{{a.agingEnd}}</td>
+                <td><a ng-click="modifyAging(a)"><i class="glyphicon glyphicon-pencil color-oranage"></i>修改</a>
+                    <a ng-click="delPublic(constants.FINDERCONFIG.TARGET.AGERANGE,a)"><i class="glyphicon glyphicon-floppy-remove color-oranage"></i>删除</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="infoToView.ageRange.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.ageRange.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.ageRange.pagination.totalItems>infoToView.ageRange.pagination.pageSize"
+                ng-model="infoToView.ageRange.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.ageRange.pagination.totalItems"
+                page="infoToView.ageRange.pagination.pageIndex"
+                items-per-page="infoToView.ageRange.pagination.pageSize"
+                max-size="infoToView.ageRange.pagination.maxSize"
+                previous-text="{{infoToView.ageRange.pagination.previousText}}"
+                next-text="{{infoToView.ageRange.pagination.nextText}}"
+                first-text="{{infoToView.ageRange.pagination.firstText}}"
+                last-text="{{infoToView.ageRange.pagination.lastText}}"
+                ng-click="findPublic(constants.FINDERCONFIG.TARGET.AGERANGE,'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+    <div class="row list_footer">
+        <button ng-click="newAging()" class="btn btn-primary">新增</button>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+</head>
+<link rel="stylesheet" href="../../../../../css/bootstrap.3.1.1.css">
+<link rel="stylesheet" href="../../../../../css/base.css">
+<link rel="stylesheet" href="../../../../../css/individual.css">
+<link rel="stylesheet" href="../../../../../css/index.css">
+<script src="../../../../../lib/require/require.js" data-main="printTest.ctrl"></script>
+<style>
+    .printing .noPrint{
+        dispdlay:none;
+    }
+    table td{
+        text-align: left;
+        height: 18px;
+        line-height: 18px!important;
+    }
+</style>
+<body class="printing">
+<div id="ng-app1" ng-controller="PrintCtrl" class="bgfff p0-100">
+    <h5 class="text-center">
+        代扣代缴增值税报表
+    </h5>
+    <div class="venus_table">
+        <div class="venus_modal_tableName">
+            <span>代扣代缴编码</span>
+            <span class="venus_modal_tableSubName">
+                {{printData[0].withHoldNo}}
+            </span>
+        </div>
+        <div class="venus_modal_tableName">
+            <span>代扣代缴对象</span>
+            <span class="venus_modal_tableSubName">
+                {{printData[0].freinsName}}
+            </span>
+        </div>
+        <div class="venus_modal_tableName">
+            <span>打印日期</span>
+            <span class="venus_modal_tableSubName">{{today}}</span>
+        </div>
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>机构名称</th>
+                <th>结算单号</th>
+                <th>费用类型</th>
+                <th>原币币种</th>
+                <th>费用金额(原位币)</th>
+                <th>汇率</th>
+                <th>费用金额(本位币)</th>
+                <th>代扣增值税</th>
+                <th>代扣城建税</th>
+                <th>代扣教育费附加税</th>
+                <th>代扣地方教育费附加税</th>
+                <th>代扣附加税合计</th>
+                <th>代扣总税费合计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="prints in printData track by $index">
+                <td>{{prints.comCname}}</td>
+                <td>{{prints.settleNo }}</td>
+                <td ng-if="prints.chargeType=='4'">分出保费</td>
+                <td ng-if="prints.chargeType=='5'">经纪费</td>
+                <td ng-if="prints.chargeType=='6'">分入保费</td>
+                <td>{{prints.currency1}}</td>
+                <td>{{prints.planFee}}</td>
+                <td>{{prints.exchangeRate1}}</td>
+                <td>{{prints.planFeeCNY}}</td>
+                <td>{{prints.vaTaxFeeCNY}}</td>
+                <td>{{prints.vaTaxFeeCNYFJCJ}}</td>
+                <td>{{prints.vaTaxFeeCNYFJJY}}</td>
+                <td>{{prints.vaTaxFeeCNYFJDFJY}}</td>
+                <td>{{prints.vaTaxFeeCNYFJ}}</td>
+                <td>{{prints.vaTaxFeeCNY+prints.vaTaxFeeCNYFJ|number:2}}</td>
+            </tr>
+            <tr ng-repeat="prints in printData track by $index">
+                <td>对应结算单全国总金额:</td>
+                <td>{{prints.settleNo}}</td>
+                <td ng-if="prints.chargeType=='4'">分出保费</td>
+                <td ng-if="prints.chargeType=='5'">经纪费</td>
+                <td ng-if="prints.chargeType=='6'">分入保费</td>
+                <td><span ng-hide="prints.isMulticurrency=='0'">{{prints.currency1}}</span></td>
+                <td><span ng-hide="prints.isMulticurrency=='0'">{{prints.sumPlanFee}}</span></td>
+                <td><span ng-hide="prints.isMulticurrency=='0'">{{prints.exchangeRate1}}</span></td>
+                <td>{{prints.sumPlanFeeCNY}}</td>
+                <td>{{prints.sumVaTaxFeeCNY}}</td>
+                <td>{{prints.sumVaTaxFeeFJCJ}}</td>
+                <td>{{prints.sumVaTaxFeeFJJY}}</td>
+                <td>{{prints.sumVaTaxFeeFJDFJY}}</td>
+                <td>{{prints.sumVaTaxFeeFJ}}</td>
+                <td>{{prints.sumVaTaxFeeCNY+sumVaTaxFeeFJ|number:2}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="printImg" class="config_button">
+        <button ng-click="printTest()">打印</button>
+
+        <button onclick="window.close()">关闭</button>
+    </div>
+</div>
+</body>
+</html>

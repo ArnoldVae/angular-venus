@@ -1,0 +1,14 @@
+<!--联共保结算单号弹窗-->
+<div class="modal-content" style="width: 24%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">签单付费并付资金成功</div>
+    </div>
+    <div class="modal-body">
+        送资金业务号：{{getNo}}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="pSubmit()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

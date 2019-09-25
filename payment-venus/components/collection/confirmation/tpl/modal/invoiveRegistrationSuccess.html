@@ -1,0 +1,21 @@
+<!--手续费发票登记成功提示-->
+<div ng-show="resultCode == '0000'" class="modal-content" style="width: 320px;position: relative;top: 100px;">
+    <div class="modal-ok">
+        <span class="glyphicon glyphicon-ok-sign"></span>
+    </div>
+    <div class="modal-body" style="margin-top:-32px">
+        <div style="text-align: center">自动到款确认成功
+            <div ng-repeat="d in confirmLists">
+                <div>{{d}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="resultCode!= '0000'" class="modal-content" style="width: 320px;position: relative;top: 100px;">
+    <div class="modal-ok">
+        <span class="glyphicon glyphicon-remove-sign"></span>
+    </div>
+    <div class="modal-body" style="margin-top:-32px">
+        <div style="text-align: center">自动到款确认失败</div>
+    </div>
+</div>

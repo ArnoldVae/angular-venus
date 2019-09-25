@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+</head>
+<link rel="stylesheet" href="../../../../../css/bootstrap.3.1.1.css">
+<link rel="stylesheet" href="../../../../../css/printInfo.css">
+<script src="../../../../../lib/require/require.js" data-main="printTest.ctrl"></script>
+<style>
+    .printing .noPrint{
+        dispdlay:none;
+    }
+    table td{
+        text-align: left;
+        height: 18px;
+        line-height: 18px!important;
+    }
+</style>
+<body class="printing">
+<div id="ng-app1" ng-controller="PrintCtrl" class="bgfff">
+    <div class="print-header">
+        <h4>缴费信息</h4>
+        <div class="print-content-top">
+            <ul class="print-ul">
+                <li class="span_right"><span >缴费通知单号：</span></li>
+                <li class="span_left"><span ng-bind="printData.transactionNo"></span></li>
+                <li class="span_right"><span >保单号：</span></li>
+                <li class="span_left"><span ng-bind="printDataList.policyNo"></span></li>
+                <li class="span_right"><span>投保人：</span></li>
+                <li class="span_left"><span ng-bind="printData.appliName"></span></li>
+                <li class="span_right"><span>被保险人：</span></li>
+                <li class="span_left"><span ng-bind="printDataList.insuredName"></span></li>
+                <li class="span_right"><span>险种：</span></li>
+                <li class="span_left"><span ng-bind="printDataList.riskCode"></span></li>
+                <li class="span_right"><span>保险期限：</span></li>
+                <li class="span_left"><span ng-bind="printData.nsfStartDate"></span>至<span ng-bind="printData.nsfEndDate"></span></li>
+                <li class="span_right"><span>缴费期次：</span></li>
+                <li class="span_left"><span ng-bind="printDataList.payNo"></span></li>
+                <li class="span_right"><span>缴费期限：</span></li>
+                <li class="span_left"><span ng-bind="printData.nsfPlanDate"></span></li>
+                <li class="span_right"><span>签单币种：</span></li>
+                <li class="span_left"><span ng-bind="printData.currenCY"></span></li>
+                <li class="span_right"><span>缴款币种：</span></li>
+                <li class="span_left"><span>CNY</span></li>
+                <li class="span_right"><span>汇率：</span></li>
+                <li class="span_left"><span ng-bind="printData.exchangeRate"></span></li>
+                <li class="span_right"></li>
+                <li class="span_left"></li>
+                <li class="span_right"><span>应收款金额（大写）：</span></li>
+                <li class="span_left"><span>{{printData.sumFeeCny|Chinese}}</span></li>
+                <li class="span_right"><span>应收款金额（小写）：</span></li>
+                <li class="span_left"><span ng-bind="printData.sumFeeCny"></span></li>
+            </ul>
+        </div>
+        <h4>收款信息</h4>
+        <div class="print-content-top">
+            <ul class="print-ul-center">
+                <li class="span_right"><span>收款单位：</span></li>
+                <li class="span_left"><span ng-bind="printData.collectOrg"></span></li>
+                <li class="span_right"><span>收款单位开户行账号：</span></li>
+                <li class="span_left spanShow"><span ng-bind="selectData.bankAccountNo"></span></li>
+                <li class="span_left selectHide">
+                    <select ng-model="selectData" ng-options="x.bankAccountNo for x in printInfo">
+                    </select>
+                </li>
+                <li class="span_right"><span>收款单位开户行名称：</span></li>
+                <li class="spanShow span_left"><span ng-bind="selectData.bankName"></span></li>
+                <li class="span_left selectHide">
+                    <input type="text" ng-model="selectData.bankName" readonly>
+                    <!--<select ng-model="printData.bankAccountNo" ng-options="x.bankName as x.bankAccountNo for x in printInfo">-->
+                        <!--<option value=""></option>-->
+                    <!--</select>-->
+                </li>
+            </ul>
+        </div>
+        <h4>备注</h4>
+        <div class="print-content-top">
+            <ul class="print-ul-center">
+                <li class="span_right"><span>备注：</span></li>
+                <li class="span_left"><textarea></textarea>
+                </li>
+                <li></li>
+                <li></li>
+                <li class="span_right"><span>打印日期：</span></li>
+                <li class="span_left"><span >{{printData.date|date:'yyyy-MM-dd'}}</span></li>
+                <li class="span_right"><span>制单人：</span></li>
+                <li class="span_left"><span ng-bind="printData.operatorName"></span></li>
+            </ul>
+        </div>
+    </div>
+
+
+        <div id="printImg" class="config_button">
+            <button ng-click="printTest()">打印</button>
+            <button onclick="window.close()">关闭</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

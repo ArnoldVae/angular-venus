@@ -1,0 +1,141 @@
+<!--共保进项发票登记-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group" >
+                <input placeholder="请输入共保保费支付单号" type="text" style="" class="form-control" ng-model="infoToView.feeInputInvoiceCondition.certiNo">
+            <span  class="input-group-addon cursor_pointer" ng-click="searchReparations()">
+                <div  class="glyphicon glyphicon-search"></div></span>
+            </div>
+        </div>
+            <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</div>
+            <div  ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</div>
+    </div>
+    <div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">共保保费支付单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.feeInputInvoiceCondition.certiNo">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">共保保费支付单号列表：</label>
+                <div class="col-xs-7">
+                    <textarea   class="col-xs-12" rows="3" ng-model="infoToView.feeInputInvoiceCondition.certiNoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" data='{"centerCode":centerCode,"comCode":comCode}' selectType="salesDepartment" ng-model="infoToView.feeInputInvoiceCondition.comCode" ng-value="infoToView.feeInputInvoiceCondition.comCodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务员：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" data='{"comCode":comCode,"checkComCode":infoToView.feeInputInvoiceCondition.comCode}' selectType="operatorName" ng-model="infoToView.feeInputInvoiceCondition.handlerCode" ng-value="infoToView.feeInputInvoiceCondition.handler1CodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务渠道：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" base-code="businessNature" ng-model="infoToView.feeInputInvoiceCondition.businessNature" ng-value="infoToView.feeInputInvoiceCondition.businessNatureName">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">币种：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" base-code="Currency" ng-model="infoToView.feeInputInvoiceCondition.currency1" ng-value="infoToView.feeInputInvoiceCondition.currency1Name">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">投保人名称：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.feeInputInvoiceCondition.appliName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">被保险人名称：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.feeInputInvoiceCondition.insuredName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">险种：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" base-code="riskCode" ng-model="infoToView.feeInputInvoiceCondition.riskCode" ng-value="feeInputInvoiceCondition.riskCodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">生效日期：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="infoToView.feeInputInvoiceCondition.validDate"  class="date col-xs-12" id="date21" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">代理人/经纪人/协保人：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" base-code="agentCode" ng-model="infoToView.feeInputInvoiceCondition.agentCode" ng-value="infoToView.feeInputInvoiceCondition.agentCodeName" >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success btn-width"  ng-click="searchReparations()">查询</button>
+                <button class="btn btn-primary btn-width" ng-click="resetReparations()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="infoToView.checkStatus.checkedAccountAll" ng-change="checkedReparationsAll(infoToView.checkStatus.checkedAccountAll,infoToView.confirmList)"></th>
+                <th>共保保费支付单号</th>
+                <th>共保人</th>
+                <th>币种</th>
+                <th>本次应付金额</th>
+                <th>制单日期</th>
+                <th>制单人</th>
+                <th>开户银行</th>
+                <th>账户名</th>
+                <th>账户号</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in infoToView.confirmList" ng-class="{true: 'venus_table_check', false: ''}[d.checked]">
+                <td><input type="checkbox" ng-model="d.checked" ng-change="checkedReparationsOne()" style="height: 15px"></td>
+                <td>{{d.certiNo}}</td>
+                <td>{{d.coinsName}}</td>
+                <td>{{d.currency1}}</td>
+                <td>{{d.planFee}}</td>
+                <td>{{d.validDate}}</td>
+                <td>{{d.handler1Name}}</td>
+                <td>{{d.bankName}}</td>
+                <td>{{d.accountName}}</td>
+                <td>{{d.accountNo}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="row list_content_bottom">
+    <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+        <span class="text-left" align="bottom">共查到{{pagination.totalItems}}条记录</span>
+    </div>
+    <pagination ng-if="pagination.totalItems>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                ng-click="searchReparations('page')" style="margin: 0 20px 20px 0;" boundary-links="true"
+                on-select-page="onSelectPage(page)"></pagination>
+</div>
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <button class="btn btn-success btn-width"  ng-click="invoiceRegistration()">发票登记</button>
+        <!--<button class="btn btn-primary btn-width">导出excel</button>-->
+    </div>

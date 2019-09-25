@@ -1,0 +1,146 @@
+<!--缴费状态页面-->
+<div class="modal-content" style="width:80%;padding: 0 24px">
+    <div class="modal-header" >
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">缴费通知单信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>交易信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>缴费通知单号</th>
+                    <th>核算单位</th>
+                    <th>客户名称</th>
+                    <th>操作日期</th>
+                    <th>缴费状态</th>
+                    <th>应收币别</th>
+                    <th>应收金额</th>
+                    <th>实收币别</th>
+                    <th>兑换率</th>
+                    <th>实收金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span ng-bind="defrayCondition.transactionNo"></span></td>
+                    <td><span ng-bind="defrayCondition.centerCode"></span></td>
+                    <td><span ng-bind="defrayCondition.appliName"></span></td>
+                    <td><span ng-bind="defrayCondition.operatorDate"></span></td>
+                    <td  ng-switch="defrayCondition.tranoStatus">
+                        <span ng-switch-when="0">未缴费</span>
+                        <span ng-switch-when="1">缴费成功</span>
+                        <span ng-switch-when="2">缴费失败</span>
+                        <span ng-switch-when="3">交易作废</span>
+                        <span ng-switch-when="4">确认成功</span>
+                        <span ng-switch-when="5">缴费中</span>
+                    </td>
+                    <td><span ng-bind="defrayCondition.currenCY"></span></td>
+                    <td><span>{{defrayCondition.sumFee|format}}</span></td>
+                    <td><span ng-bind="defrayCondition.currency2"></span></td>
+                    <td><span ng-bind="defrayCondition.exchangeRate"></span></td>
+                    <td><span>{{defrayCondition.sumFeeCny|format}}</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>缴费信息</span>
+                <b class="float-right">待实收金额：{{defrayCondition.planFee|format}}</b>
+            </div>
+            <table class="table table-bordered">
+                <thead ng-if="defrayCondition.prpJtrannsactionPayWayDto1.length>0">
+                <tr>
+                    <th class="text-left" colspan="6">认领银行流水</th>
+                </tr>
+                <tr>
+                    <th>统一银行流水号</th>
+                    <th>缴款人姓名</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th>银行账号</th>
+                </tr>
+                </thead>
+                <tbody ng-if="defrayCondition.prpJtrannsactionPayWayDto1.length>0">
+                <tr ng-repeat="d in defrayCondition.prpJtrannsactionPayWayDto1">
+                    <td>{{d.unifySerialNum}}</td>
+                    <td>{{d.paymentName}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.payRefFee|format}}</td>
+                    <td>{{d.accountNo}}</td>
+                </tr>
+                </tbody>
+                <thead ng-if="defrayCondition.prpJtrannsactionPayWayDto2.length>0">
+                <tr>
+                    <th class="text-left" colspan="6">现金信息</th>
+                </tr>
+                <tr>
+                    <th>现金流水号</th>
+                    <th>缴款人姓名</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody ng-if="defrayCondition.prpJtrannsactionPayWayDto2.length>0">
+                <tr ng-repeat="d in defrayCondition.prpJtrannsactionPayWayDto2">
+                    <td>{{d.unifySerialNum}}</td>
+                    <td>{{d.paymentName}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.payRefFee|format}}</td>
+                    <td>{{d.remark}}</td>
+                </tr>
+                </tbody>
+                <thead ng-if="defrayCondition.prpJtrannsactionPayWayDto3.length>0">
+                <tr>
+                    <th class="text-left" colspan="6">收银平台</th>
+                </tr>
+                <tr>
+                    <th>三方流水号</th>
+                    <th>缴费方式</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th colspan="2">备注</th>
+                </tr>
+                </thead>
+                <tbody ng-if="defrayCondition.prpJtrannsactionPayWayDto3.length>0">
+                <tr ng-repeat="d in defrayCondition.prpJtrannsactionPayWayDto3">
+                    <td>{{d.unifySerialNum}}</td>
+                    <td>{{d.paymentName}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.payRefFee|format}}</td>
+                    <td colspan="2">{{d.remark}}</td>
+                </tr>
+                </tbody>
+                <thead ng-if="defrayCondition.prpJtrannsactionPayWayDto4.length>0">
+                <tr>
+                    <th class="text-left" colspan="6">无单预收</th>
+                </tr>
+                <tr>
+                    <th>统一银行流水号</th>
+                    <th>缴款人姓名</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th>银行账号</th>
+                </tr>
+                </thead>
+                <tbody ng-if="defrayCondition.prpJtrannsactionPayWayDto4.length>0">
+                <tr ng-repeat="d in defrayCondition.prpJtrannsactionPayWayDto4">
+                    <td>{{d.unifySerialNum}}</td>
+                    <td>{{d.paymentName}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.payRefFee|format}}</td>
+                    <td>{{d.accountNo}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

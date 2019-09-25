@@ -1,0 +1,182 @@
+<div class="modal-content" style="width: 94%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">账单详情</div>
+    </div>
+    <div class="modal-body" style="padding: 0">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">账单编号：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.accNo}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">险类代码：</label>
+                    <div class="col-xs-8">
+                       {{reinDetail.classCode}}
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">临分合约类型：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.treatyType}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">临分帐单标记：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.accType}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">业务年度：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.uwYear}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">合约编码：</label>
+                    <div class="col-xs-8">
+                       {{reinDetail.treatyNo}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">合约全称：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.treatyName}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">合约分项编码：</label>
+                    <div class="col-xs-8">
+                       {{reinDetail.sectionNo}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">接收人编码：</label>
+                    <div class="col-xs-8">
+                       {{reinDetail.reinsCode}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">结付人编号：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.payCode}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">结付人名称：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.payName}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">账单期：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.accPeriod}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">账单确认日期：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.accDate|mcDate}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">账单类型：</label>
+                    <div class="col-xs-8 margin-bottom-18">
+                        {{reinDetail.accType|mcCode:'AccType'}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">原币：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.currency1|mcCode:'Currency'}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">账单币种：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.currency2|mcCode:'Currency'}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">兑换率：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.flag}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">账单余额：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.planFee|format}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">分出保额：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.flag2}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">出险日期：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.flag3|mcDate}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">出险地点：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.flag4}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">出险原因：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.flag5}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">备注（对外）：</label>
+                    <div class="col-xs-8">
+                        {{reinDetail.remark}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>收付信息</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>项目名称</th>
+                <th>项目比例</th>
+                <th>金额(原币)</th>
+                <th>账单币种</th>
+                <th>借贷方标志</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rein in reinDetailList">
+                <td>{{rein.itemNo}}</td>
+                <td>{{rein.itemName}}</td>
+                <td>{{rein.itemRate}}</td>
+                <td>{{rein.currency1}}</td>
+                <td>{{rein.itemValue}}</td>
+                <td>{{rein.itemFlag}}</td>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

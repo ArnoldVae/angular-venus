@@ -1,0 +1,207 @@
+<!--税金复核页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-1 pt_5 text-right">费用类型:</div>
+        <div class="col-xs-2 pl_0">
+            <div mc-code-select code="poundageType" ng-model="paymentTaxCheck.taxCheckDto.commisionType"></div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单号" type="text" class="form-control" ng-model="paymentTaxCheck.taxCheckDto.visaSerialNo">
+                <span class="input-group-addon cursor_pointer" ng-click="searchTaxCheck()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!--列表-->
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>结算单号</th>
+                <th>代理人</th>
+                <th>币种</th>
+                <th>金额</th>
+                <th>制单日期</th>
+                <th>制单人</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in paymentTaxCheck.taxCheckList">
+                <td>{{$index+1}}</td>
+                <td>{{d.visaSerialNo}}</td>
+                <td>{{d.agentName}}</td>
+                <td>{{d.currency2}}</td>
+                <td>{{d.sumPlanFee|format}}</td>
+                <td>{{d.packDate}}</td>
+                <td>{{d.packName}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--表格底部-->
+    <div ng-if="paymentTaxCheck.pagination.totalItems>0" class="row list_content_bottom">
+        <span class="text-left" align="bottom">共{{paymentTaxCheck.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="paymentTaxCheck.pagination.totalItems>paymentTaxCheck.pagination.pageSize"
+                ng-model="paymentTaxCheck.pagination.pageIndex"
+                class="paymentTaxCheck.pagination-sm pull-right"
+                total-items="paymentTaxCheck.pagination.totalItems"
+                page="paymentTaxCheck.pagination.pageIndex"
+                items-per-page="paymentTaxCheck.pagination.pageSize"
+                max-size="paymentTaxCheck.pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchTaxCheck('page')"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--表单-->
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group text-center">
+                <span>手续费税金信息</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">本次实付合计：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="paymentTaxCheck.taxCheckCondition.taxDisFee" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">代扣税金合计：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="paymentTaxCheck.taxCheckCondition.vatFee" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">增值税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.addedTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.addedTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">城市建设维护税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.constructionTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.constructionTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">房产税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.houseTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.houseTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">土地使用税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.landTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.landTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">个人所得税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.peopleTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.peopleTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">车船使用税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.carShipTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.carShipTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">企业所得税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.companyTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.companyTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">防洪费：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.preventFloodTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.preventFloodTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">印花税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.stamptax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.stamptax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">教育费附加：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.educationTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.educationTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">提取交强险救助基金：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.dDASuccorTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.dDASuccorTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">地方教育费附加税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.localeducationTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.localeducationTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">其他税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.otherTax" ng-blur="countFee(paymentTaxCheck.taxCheckCondition.otherTax)">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">手续费支出：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="paymentTaxCheck.taxCheckCondition.planFee" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">进项税：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.taxFee" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">税率：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="paymentTaxCheck.taxCheckCondition.vatRate" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">增加增值税基数：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" mc-input-cut transmit-type="number" ng-model="paymentTaxCheck.taxCheckCondition.addBusinessBase">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                <label class="col-xs-2 col-sm-4 col-md-2">税金计算公式：</label>
+                <div class="col-xs-10 col-sm-8 col-md-10">
+                    <textarea class="col-xs-10" rows="5" ng-model="paymentTaxCheck.taxCheckCondition.context" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group"></div>
+        </form>
+    </div>
+
+
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer" ng-if="paymentTaxCheck.taxCheckList.length>0">
+        <!--<button class="btn btn-primary">导出excel</button>-->
+        <button class="btn btn-success" ng-click="reviewTaxCheck()">复核</button>
+    </div>
+
+</div>

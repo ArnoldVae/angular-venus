@@ -1,0 +1,178 @@
+<!--再保代扣代缴页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单号" type="text" style="" class="form-control"
+                       ng-model="WithHoldStatements.settleNoStart" maxlength="10">
+                <span class="input-group-addon cursor_pointer" ng-click="queryStatements()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!status.moreFlag" class="col-md-1 list_query_font"><span ng-click="status.moreFlag=!status.moreFlag">高级查询</span></div>
+        <div ng-show="status.moreFlag" class="col-md-1 list_query_font"><span ng-click="status.moreFlag=!status.moreFlag ">普通查询</span></div>
+    </div>
+
+    <!--高级查询表单-->
+    <div class="form_two" ng-if="status.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>结算单号：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" class="half-input" ng-model="WithHoldStatements.settleNoStart" maxlength="10">
+                    <span>到</span>
+                    <input type="text" class="half-input" ng-model="WithHoldStatements.settleNoEnd" maxlength="10">
+                </div>
+                <div class="col-xs-2 control-label"><span>代扣代缴单号：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" class="half-input" ng-model="WithHoldStatements.withHoldNoStart" maxlength="20">
+                    <span>到</span>
+                    <input type="text" class="half-input" ng-model="WithHoldStatements.withHoldNoEnd" maxlength="20">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>结算单列表：</span></div>
+                <div class="col-xs-4">
+                    <textarea class="form-control ng-pristine ng-valid" rows="3" ng-model="WithHoldStatements.settleNoList"></textarea>
+                </div>
+                <div class="col-xs-2 control-label"><span>代扣代缴单号列表：</span></div>
+                <div class="col-xs-4">
+                    <textarea class="form-control ng-pristine ng-valid" rows="3" ng-model="WithHoldStatements.withHoldNoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>代扣代缴对象名称：</span></div>
+                <div class="col-xs-4">
+                    <div class="col-xs-12 pl_0" style="width: 350px">
+                        <div class="col-xs-3 pl_0">
+                            <div class="form_two_select_content" mc-code-select code="freinsSignType" ng-model="WithHoldStatements.freinsNameSign" style="padding-left: 0px"></div>
+                        </div>
+                        <div class="col-xs-9 pl_0 pr_0">
+                            <input type="text" style="width: 100%" ng-model="WithHoldStatements.freinsName">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-2 control-label"><span>报表生成状态：</span></div>
+                <div class="col-xs-4">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"  ng-model="withHoldStatus11" ng-change="getWithHoldStatus(withHoldStatus11,withHoldStatus22)" style="width:14px;height:14px"><span>&nbsp;&nbsp;已生成&nbsp;&nbsp;</span>
+                    <input type="checkbox" ng-model="withHoldStatus22" ng-change="getWithHoldStatus(withHoldStatus11,withHoldStatus22)" style="width:14px;height:14px"><span>&nbsp;&nbsp;未生成&nbsp;&nbsp;</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>结算单币种：</span></div>
+                <div class="col-xs-4">
+                    <select-list base-code="Currency" ng-model="WithHoldStatements.currency" ng-value="WithHoldStatements.Currency">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>结算单生成日期起期：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="WithHoldStatements.settleStartDate"  class="date" id="date7" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+                <div class="col-xs-2 control-label"><span>结算单生成日期止期：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="WithHoldStatements.settleEndDate"  class="date" id="date5" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary" ng-click="queryStatements(WithHoldStatements)">查询</button>
+                <button class="btn btn-success" ng-click="withHoldStatus11=false;withHoldStatus22=false;resetWithHoldingStatements()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表内容-->
+    <div class="venus_table">
+        <span ng-if="!selectAllDisabled" class="color_red font_size_12">注：代扣代缴对象、币种和费用类型不同不允许勾选合并生成代扣代缴报表</span>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-disabled="!selectAllDisabled" ng-change="selectedAll()" ng-model="status.checkedAccountAll" style="height: auto;padding: 0;"></th>
+                <th>机构名称</th>
+                <th>结算单号</th>
+                <th>结算单生成日期</th>
+                <th>费用类型</th>
+                <th>代扣代缴对象代码</th>
+                <th>代扣代缴对象</th>
+                <th>原币币种</th>
+                <th>费用金额(原位币)</th>
+                <th>结算汇率</th>
+                <th>费用金额(本位币)</th>
+                <th>代扣增值税</th>
+                <th>代扣城建税</th>
+                <th>代扣教育费附加税</th>
+                <th>代扣地方教育费附加税</th>
+                <th>代扣附加税合计</th>
+                <th>代扣总税费合计</th>
+                <th>代扣代缴单号</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="WithHoldingStatement in WithHoldingStatements track by $index">
+                <td ng-class="WithHoldingStatement.selectedClass"><input type="checkbox" ng-disabled="WithHoldingStatement.withHoldNo||WithHoldingStatement.disabled" ng-change="selectedOne(WithHoldingStatement)" ng-model="WithHoldingStatement.checked"></td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.comCname}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.settleNo}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.settleDate|mcDate}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.chargeType | mcCode:'ChargeType'}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.freinsCode}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.freinsName}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.currency1}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.planFee}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.exchangeRate1}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.planFeeCNY}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.vaTaxFeeCNY}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.vaTaxFeeCNYFJCJ}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.vaTaxFeeCNYFJJY}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.vaTaxFeeCNYFJDFJY}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.vaTaxFeeCNYFJ}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.vaTaxFeeCNY+WithHoldingStatement.vaTaxFeeCNYFJ|number:2}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">{{WithHoldingStatement.withHoldNo}}</td>
+                <td ng-class="WithHoldingStatement.selectedClass">
+                    <div ng-if="WithHoldingStatement.withHoldNo">
+                       <a ng-click="invalidStatement(WithHoldingStatement.withHoldNo)"><i class="glyphicon glyphicon-floppy-remove color-oranage"></i>作废</a>
+                       <a ng-click="printOne(WithHoldingStatement.withHoldNo)"><i class="glyphicon glyphicon-new-window color-oranage"></i>打印</a>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--表格底部-->
+    <div ng-if="pagination.totalItems>0" class="row list_content_bottom">
+        <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                ng-click="queryStatements('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row list_footer" ng-if="checkedRecords.length>0">
+        <button class="btn btn-success" ng-click="Reports()">生成报表</button>
+    </div>
+</div>
+
+

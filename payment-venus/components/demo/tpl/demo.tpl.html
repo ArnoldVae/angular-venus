@@ -1,0 +1,296 @@
+<!--公共样式、demo-->
+<div ng-controller="DemoCtrl">
+    <div class="section ">
+        <div>
+            <h4>国际化demo</h4>
+            <!--国际化实例-->
+            <div class="section">
+                    <div style="border: 1px solid #c0c0c0">
+                        <div class="pull-right">
+                            <span>切换</span>
+                            <button ng-click="switchLanguage('zh-cn')" translate>btn_zh</button>
+                            <button ng-click="switchLanguage('en-us')" translate>btn_en</button>
+                        </div>
+                        <h4>过滤</h4>
+                        <p>json中定义: <span style="color: #00A1CB">{{"title" | translate}}</span></p>
+                        <p>请求后端返回数据展示，正常绑定变量，translate翻译:<span style="color: #00A1CB">{{person.name | translate}}</span></p>
+                        <p>往json中定好的语句中插入一个变量，传到json中: <span style="color: #00A1CB">{{ 'obj' | translate:person}}</span></p>
+
+                        <h4>指令</h4>
+                        <p>json中定义: <span style="color: #00A1CB" translate="title"></span></p>
+                        <p>请求后端返回数据展示，正常绑定变量，translate翻译:<span style="color: #00A1CB" translate="{{person.name}}"></span></p>
+                        <p>往json中定好的语句中插入一个变量，传到json中:<span style="color: #00A1CB" translate="obj" translate-values="person"></span></p>
+                        <p>使用messageformat: <span style="color: #00A1CB" translate="selectName" translate-values="{zhName:'second',enName:'second'}" translate-interpolation="messageformat"></span></p>
+                        <button ng-click="goTranslate()">点击查看控制器使用国际化</button>
+                    </div>
+                </div>
+        </div>
+
+        <div>
+            <h4>-1.人员、机构双击域：</h4>
+            <!--机构-->
+            <select-list
+                    ng-model="martin.companyCode"
+                    ng-value="martin.companyValue"
+                    displayType="CODE"
+                    show-type="codeValue"
+
+                    data="{comCode:user.comCode,newComCode:martin.companyCode}"
+
+                    selectType="organization"
+                    style="width: 300px" required>
+            </select-list>
+            <p>机构：ng-model:{{a.userCode}}</p>
+
+            <!--人员-->
+            <select-list ng-model="a.userCode"
+                         ng-value="a.userValue"
+                         displayType="CODE"
+                         selectType="user"
+                         parent="a.businessCode222"
+                         style="width: 300px" required>
+            </select-list>
+            <!--<p>人员：ng-model:{{a.companyCode}}</p>-->
+            <p>人员：ng-model:{{martin.companyCode}}</p>
+
+        </div>
+        <div>
+            <h4>-1.业务部门、业务员双击域：</h4>
+            <!--业务部门-->
+            <select-list
+                    data='{centerCode:centerCode,"comCode":comCode}'
+                    selectType="salesDepartment"
+                    ng-model="infoToView.confirmQuery.comCode"
+                    ng-value="infoToView.confirmQuery.comName"
+                    wait-change="clearOperator()"
+            >
+            </select-list>
+            <p>机构：ng-model:{{a.userCode}}</p>
+
+            <!--人员-->
+            <select-list ng-model="a.userCode"
+                         ng-value="a.userValue"
+                         displayType="CODE"
+                         selectType="user"
+                         parent="a.businessCode222"
+                         style="width: 300px" required>
+            </select-list>
+            <!--<p>人员：ng-model:{{a.companyCode}}</p>-->
+            <p>人员：ng-model:{{martin.companyCode}}</p>
+
+        </div>
+
+        <!--千分位指令-->
+        <div>
+            <h4>0.千分位：</h4>
+            <input type="text" mc-format-switch transmit-type="number"  ng-model="demo.amount" class="form-control">
+            <p>ng-model:{{demo.amount}}</p>
+        </div>
+        <!--千分位指令-->
+        <div>
+            <h4>0.数字校验框：</h4>
+            <input type="text" mc-input-cut transmit-type="number" input-type="float" min-value='0' maxlength="10" ng-model="demo.amount1">
+            <p>ng-model:{{demo.amount1}}</p>
+        </div>
+        <!--缴费指令demo-->
+        <button pay-data="data.payData" pay-callback="reloadData()">缴费</button>
+
+        <!--搜索框-->
+        <div>
+            <h4>1.多选列表：</h4>
+            <check-List
+                    title-Names="titleNames"
+                    value-Items="lists"
+                    db-target="name3"
+                    s-Item="showTarget()"
+                    d-Item="deleteTarget()"
+                    m-Item="modifyTarget()">
+            </check-List>
+        </div>
+
+        <div ng-init="hu='0'">
+            <h4>2.滑动按钮</h4>
+            <mc-checkbox c-id="checkbox1" c-type="switch" c-true="0" c-false="1" c-model="hu" class="code_switch"></mc-checkbox>--{{hu}}
+
+        </div>
+        <br>
+
+
+
+        <!--button-group-->
+        <div>
+            <h4>3.button-group</h4><br>
+            <span>showFlag:-----{{showFlag}}</span>
+            <br><br>
+
+            <btn-group btns="btns" b-click="changeMenu(index)"
+                       d-click="test()"
+                       custom="true"></btn-group>
+
+            <br><br>
+        </div>
+
+
+        <!--codetype-->
+        <div>
+            <h4>4.下拉域-{{demo.demo}}</h4><br>
+            <!--demo-->
+            <div class="input-group-sm col-sm-6">
+                多选<div mc-code-select multiple code="businessType" ng-model="demo.demo" ></div>
+                单选<div mc-code-select code="sex" ng-model="sex" parent="businessType"></div>
+
+
+
+                <ui-select ng-model="sex"
+                           style="width: 600px;"
+                           title="Choose">
+                    <ui-select-match placeholder="Enter..." allow-clear="true"> {{$select.selected.value}}</ui-select-match>
+                    <ui-select-choices repeat="sex.code as sex  in sexCodes track by $index"
+                                       refresh="ctrl.refreshAddresses($select.search)"
+                                       refresh-delay="0">
+                        <span ng-bind-html="sex.code"></span> |
+                        <span ng-bind-html="sex.value"></span>
+                    </ui-select-choices>
+                </ui-select>
+
+            </div>
+
+        </div>
+
+
+        <br>
+        <br>
+        <br>
+        <br><br><br><br>
+        <!--mc-action-button-->
+        <div><br>
+            <h4>5.action-button</h4><br>
+            <button mc-action-button class="btn btn-success" confirm="true" confirm-delay="5000" confirm-text="确定提交吗" ng-click="jiekou()">确认</button>
+            <button mc-action-button class="btn btn-success"   ng-click="test1()">确认</button>
+            <button mc-action-button class="btn btn-success" confirm="true" confirm-delay="5000" confirm-text="确定删除吗" ng-click="deleteFn()">确认1</button>
+            <br><span ng-if="showFlag">ceshi</span>
+        </div>
+
+
+        <br>
+        <br>
+        <br>
+        <!--双击域+焦点定位-->
+        <div>
+            <h4>6.双击域+焦点定位</h4>
+            <p>ng-model={{a.businessCode}}</p>
+            <br>
+            <p>ng-value={{a.businessValue}}</p>
+            <!--demo1-code-->
+            <ng-form name="selectTest">
+                <div class="input-group-sm col-xs-2">
+                    <select-list base-code="exchCurrency"
+                                 ng-model="a.businessCode"
+                                 ng-value="a.businessValue"
+                                 warn-text="测试"
+                                 select-value="{businessType:a.businessCode}"
+                                 displayType="CODE"
+                                 style="width: 300px" required>
+                    </select-list>
+                </div>
+                <br>
+                <br>
+                <br>
+                <!--demo2-value-->
+                <div class="input-group-sm col-xs-2">
+                    <select-list base-code="exchCurrency"
+                                 ng-model="a.businessCode"
+                                 ng-value="a.businessValue"
+                                 select-value="{businessType:a.businessCode}"
+                                 style="width: 300px">
+                    </select-list>
+                </div>
+                <input type="text" warn-text="111" ng-model="b" required>
+                <div class="input-group-sm col-xs-2" id="click1">
+                    <mc-code-select code="workMonth" ng-model="demo.demo" warn-text="下拉一" required></mc-code-select>
+                    <mc-code-select code="workYear" ng-model="sex" parent="businessType" warn-text="下拉二" required></mc-code-select>
+                </div>
+                <button ng-click="ltest()">表单测试</button>
+            </ng-form>
+        </div>
+        <button ng-click="modalTest()">弹窗焦点测试</button>
+
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!--字段校验-->
+        <div>
+            <h4>7.字段校验</h4>
+
+            身份证号：<input type="text"
+                   id-card="insuredIdentifyType"
+                   ng-model="IdentifyNumber"
+                   maxlength="18"
+                   warn-text="证件号码">
+        </div>
+        <div>
+            1-5的正则：<input type="text"
+                        ng-model="aaa"
+                        ng-pattern="/^(?:[1-5]|5)$/"
+                        warn-text="数字">
+        </div>
+        <br>
+        <br>
+        <br>
+        <h2>打印</h2>
+        <button class="btn btn-success" ng-click="printTest()">打印测试</button>
+        <br>
+        <!--公共变量-->
+        <div>
+            <h4>8.公共变量</h4>
+           登录机构代码：{{comCode}}--$scope.comCode<br><br>
+            用户代码：{{usercode}}--$scope.usercode<br><br>
+            核算单位代码：{{centerCode}}--$scope.centerCode<br><br>
+            获取服务器时间：$$util.getServerTimestamp()<br><br>
+            设置服务器和本地时间戳的差异：$$util.setTimestampGap()<br><br>
+
+        </div>
+        <!--公共方法-->
+        <div ng-init="testTime=1478152925667">
+            <h4>9.公共方法</h4>
+            <p style="color: #00A1CB">时间戳html页面过滤器：mcDate，mcSuperDate，mcSmallDate</p>
+            &nbsp;&nbsp; &nbsp;{{testTime|mcDate}}---mcDate<br>
+            &nbsp;&nbsp; &nbsp;{{testTime|mcSuperDate}}---mcSuperDate<br>
+            &nbsp;&nbsp; &nbsp;{{testTime|mcSmallDate}}---mcSmallDate<br>
+            <p style="color: #00A1CB">时间戳controller转换器：getTargetDate(addYear,addMonth,addDay)，dateConversion()，dateConversionTime(),dateStringConversion(),dateStringConversionTime()</p>
+            &nbsp;&nbsp; &nbsp;获取目标日期：getTargetDate(addYear,addMonth,addDay)---例如：获取明年昨日Date.getTargetDate(1,0,-1)过去为负值<br><br>
+            &nbsp;&nbsp; &nbsp;日期格式转换字符（年月日）例如：Date.dateConversion()<br><br>
+            &nbsp;&nbsp; &nbsp;日期格式转换字符（年月日时分秒）例如：Date.dateConversionTime()<br><br>
+            &nbsp;&nbsp; &nbsp;日期字符格式转换日期（年月日）例如：String.dateStringConversion()<br><br>
+            &nbsp;&nbsp; &nbsp;日期字符格式转换日期（年月日时分秒）例如：String.dateStringConversionTime()<br><br>
+            <p style="color: #00A1CB">字符串四则运算方法：floatMul(arg1，arg2)，floatSub(arg1，arg2)，floatAdd(arg1，arg2),floatDiv(arg1，arg2)</p>
+            注入$$util
+            &nbsp;&nbsp; &nbsp;加：例如：$$util.floatAdd(arg1，arg2)<br><br>
+            &nbsp;&nbsp; &nbsp;减：例如：$$util.floatSub(arg1，arg2)<br><br>
+            &nbsp;&nbsp; &nbsp;乘：例如：$$util.floatMul(arg1，arg2)<br><br>
+            &nbsp;&nbsp; &nbsp;除：例如：$$util.floatDiv(arg1，arg2)<br><br>
+            <p style="color: #00A1CB">日期差值运算</p>
+            注入$$util
+            &nbsp;&nbsp; &nbsp;例如：$$util.dateDiff(beginTime，endTime，timeType)timeType可选“day”（计算天数差值）或“sec”（计算秒差值）<br><br>
+            <p style="color: #00A1CB">回车转义英文逗号</p>
+            注入$$util
+            &nbsp;&nbsp; &nbsp;加：例如：$$util.translateEnter(strList)
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!--<h4>Todo list</h4>-->
+<!--<input type="text" ng-model="demo">-->
+<!--<div class="row">-->
+<!--<todo-list items="todoList" toggle-fn="toggleItem(item)"></todo-list>-->
+<!--</div>-->
+<!--{{todoList}}-->

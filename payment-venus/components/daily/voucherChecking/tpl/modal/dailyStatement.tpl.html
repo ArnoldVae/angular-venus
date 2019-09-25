@@ -1,0 +1,117 @@
+<!--日结单信息-->
+<div class="modal-content" style="width: 82%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">凭证信息</div>
+    </div>
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">凭证号：</label>
+                <div class="col-md-4">
+                    {{paymentList2.certificateNo}}
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">凭证类型：</label>
+                <div class="col-xs-8">
+                    {{paymentList2.certificateType | mcCode:"accPayType"}}
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">会计期间：</label>
+                <div class="col-xs-8">{{paymentList2.operateDate}}</div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">凭证日期：</label>
+                <div class="col-xs-8">{{paymentList2.certificateDate |mcDate}}</div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">核算单位：</label>
+                <div class="col-xs-8">{{paymentList2.centerCode}}</div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">收付员：</label>
+                <div class="col-xs-8">{{paymentList2.handlerCode}}</div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">凭证状态：</label>
+                <div class="col-xs-8">{{paymentList2.certificateStatus | mcCode:"ChecksType"}}</div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">送财务标识：</label>
+                <div class="col-xs-8">{{paymentList2.sendFlag | mcCode:"sendSapFlag"}}</div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">凭证标志：</label>
+                <div class="col-xs-8">{{paymentList2.certificateFlag}}</div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">财务凭证号：</label>
+                <div class="col-xs-8">{{paymentList2.sapFlag}}</div>
+            </div>
+            <div class="form-group"></div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <div class="venus_modal_tableName">
+            <span>凭证分录信息</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th rowspan="2">序号</th>
+                <th rowspan="2">摘要</th>
+                <th rowspan="2">科目代码</th>
+                <th rowspan="2">科目名称</th>
+                <th rowspan="2">币种</th>
+                <th rowspan="2">汇率</th>
+                <th colspan="2">借方</th>
+                <th colspan="2">贷方</th>
+                <th colspan="2">辅助核算项</th>
+                <th rowspan="2">银行结算信息</th>
+            </tr>
+            <tr>
+                <th>交易币</th>
+                <th>本位币</th>
+                <th>交易币</th>
+                <th>本位币</th>
+                <th>辅助核算码</th>
+                <th>辅助核算名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in paymentList">
+                <td>{{d.serialNo}}</td>
+                <td>{{d.abstracts}}</td>
+                <td>{{d.accountCode}}</td>
+                <td>{{d.accountName}}</td>
+                <td>{{d.currency}}</td>
+                <td>{{d.exchangeRate}}</td>
+                <td>{{d.tradeCurrency}}</td>
+                <td>{{d.standardCurrency}}</td>
+                <td>{{d.tradeCurrencys}}</td>
+                <td>{{d.standardCurrencys}}</td>
+                <td>{{d.auxiliaryCode}}</td>
+                <td>{{d.auxiliaryName}}</td>
+                <td>{{d.bankMessage}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row list_content_bottom">
+        <div class="row list_content_bottom" ng-if="pagination.totalItems2>0">
+            <span class="text-left" align="bottom">共查到{{pagination.totalItems2}}条记录</span>
+        </div>
+        <pagination ng-if="pagination.totalItems2>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems2"
+                    page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                    previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                    ng-click="searchAdviceOfSettlement()" style="margin: 0 20px 20px 0;" boundary-links="true"
+                    on-select-page="onSelectPage(page)"></pagination>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning btn-width" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+
+

@@ -1,0 +1,126 @@
+<!--账户信息修改-->
+<div class="section venus_hasFooter">
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入支付单号" type="text" class="form-control"
+                       ng-model="accountRevise.accountInfoCondition.visaserialNo">
+                <span class="input-group-addon cursor_pointer" ng-click="searchAccountInfo()"><div
+                        class="glyphicon glyphicon-search"></div></span>
+            </div>
+        </div>
+        <div ng-show="!accountRevise.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="accountRevise.moreFlag=!accountRevise.moreFlag">高级查询</span></div>
+        <div ng-show="accountRevise.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="accountRevise.moreFlag=!accountRevise.moreFlag ">普通查询</span></div>
+    </div>
+    <div class="mc_form" ng-if="accountRevise.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">支付单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountRevise.accountInfoCondition.visaserialNo">
+                </div>
+                <!--<div class="col-xs-4"><span>业务号：</span></div>-->
+                <!--<div class="col-xs-7">-->
+                    <!--<input type="text" ng-model="accountRevise.accountInfoCondition.certiNo">-->
+                <!--</div>-->
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">保单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountRevise.accountInfoCondition.policyno">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">投保人：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountRevise.accountInfoCondition.appliName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">被保险人：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountRevise.accountInfoCondition.insuredName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">卡号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountRevise.accountInfoCondition.bankaccount">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">支付状态：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select code="payMentFlag" ng-model="accountRevise.accountInfoCondition.flag"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchAccountInfo()">查询</button>
+                <button class="btn btn-primary" ng-click="resetAccountInfo()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>支付单号</th>
+                <th>机构</th>
+                <th>银行名称</th>
+                <th>开户银行</th>
+                <th>账号名称</th>
+                <th>卡号</th>
+                <th>投保人</th>
+                <th>被保险人</th>
+                <th>支付状态</th>
+                <th>支付金额</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in accountRevise.accountInfoList">
+                <td>{{$index+1}}</td>
+                <td><a ng-click="lookVisaSerialNo(d)">{{d.visaserialNo}}</a></td>
+                <td>{{d.comcode}}</td>
+                <td>{{d.banktype}}</td>
+                <td>{{d.bank}}</td>
+                <td>{{d.receiverfullname}}</td>
+                <td>{{d.bankaccount}}</td>
+                <td>{{d.appliName}}</td>
+                <td>{{d.insuredName}}</td>
+                <td ng-switch="d.flag">
+                    <span ng-switch-when="2">退票</span>
+                    <span ng-switch-when="z">支付信息待修改</span>
+                </td>
+                <td>{{d.payamount|format}}</td>
+                <td><a href="" ng-click="reviseInfo(d)">修改</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="accountRevise.pagination.totalItems>0" class="row list_content_bottom">
+        <span class="text-left" align="bottom">共{{accountRevise.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="accountRevise.pagination.totalItems>accountRevise.pagination.pageSize"
+                ng-model="accountRevise.pagination.pageIndex"
+                class="accountRevise.pagination-sm pull-right"
+                total-items="accountRevise.pagination.totalItems"
+                page="accountRevise.pagination.pageIndex"
+                items-per-page="accountRevise.pagination.pageSize"
+                max-size="accountRevise.pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchAccountInfo('page')"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+</div>
+

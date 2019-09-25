@@ -1,0 +1,74 @@
+body {
+    font-family: "微软雅黑 Neue", Helvetica, Arial, sans-serif;
+    background-color: #BDC3C7;
+}
+
+.navbar-default {
+    background-color: #fff;
+    border:none;
+    border-bottom: solid 1px #95A5A6;
+    height: 56px;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    line-height: 24px;
+}
+
+.nav-bar .glyphicon {
+    font-size: 22px;
+    color: #33495F;
+}
+
+.navbar-nav.navbar-right > li {
+    margin-right: 8px
+}
+
+.navbar-nav.navbar-right > li:last-child {
+    margin-right: 32px
+}
+
+.navbar-nav select {
+    margin-top: 15px;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+input{
+    height: 30px;
+    border-radius: 4px;
+    border-style:solid;
+    border:1px solid #ccc;
+}
+
+.modal-title {
+    font-size: 16px;
+    text-align: center;
+}
+
+.glyphicon-option-horizontal:before {
+    content: "\e234";
+}
+
+.panel {
+    border-radius: 8px;
+}
+
+.panel-heading {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.panel-heading {
+    padding: 4px 10px;
+}
+
+.panel-body {
+    padding: 8px;
+    font-size: 12px;
+}

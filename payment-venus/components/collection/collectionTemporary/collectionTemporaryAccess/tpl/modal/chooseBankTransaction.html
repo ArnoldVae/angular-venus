@@ -1,0 +1,138 @@
+<div class="modal-content" style="width: 1010px;padding:0 24px">
+    <div class="modal-header" style="min-height: 20px;padding: 0">
+        <a class="glyphicon glyphicon-remove pull-right venus_modal_icon" ng-click="cancel()"></a>
+        <h5 class="text-center">统一格式银行流水查询</h5>
+    </div>
+    <div class="venus_table">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-3 control-label"><span>统一格式银行流水号：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:100%" ng-model="colRegCondition.transactionNo">
+                </div>
+                <div class="col-md-3 control-label"><span>原银行流水号：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:100%" ng-model="colRegCondition.transactionNo">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3 control-label"><span>账户归属机构：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:100%" ng-model="colRegCondition.transactionNo">
+                </div>
+                <div class="col-md-3 control-label"><span>银行账号：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:100%" ng-model="colRegCondition.transactionNo">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3 control-label"><span>对方户名：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:100%" ng-model="colRegCondition.transactionNo">
+                </div>
+                <div class="col-md-3 control-label"><span>币种：</span></div>
+                <div class="col-md-3">
+                    <!--<select-list style="width:100%" base-code="Currency"-->
+                                 <!--ng-model="newColRegCondition.currenCY1"-->
+                                 <!--ng-value="newColRegCondition.Currency">-->
+                    <!--</select-list>-->
+                    <input type="text" style="width:100%" ng-model="colRegCondition.transactionNo">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3 control-label"><span>交易金额：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:89px" class="half-input" ng-model="colRegCondition.earlierSumFee">
+                    <span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <input type="text" style="width:90px" class="half-input" ng-model="colRegCondition.laterSumFee">
+                </div>
+                <div class="col-md-3 control-label"><span>交易日期：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:89px" class="half-input date" ng-model="colRegCondition.earlierMonth"  id="date43" jedate format="YYYY-MM-DD">
+                    <span>&nbsp;&nbsp;至&nbsp;&nbsp;</span>
+                    <input type="text" style="width:90px" class="half-input date" ng-model="colRegCondition.laterMonth"  id="date44" jedate format="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3 control-label"><span>认领状态：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width:100%" ng-model="colRegCondition.transactionNo">
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary"  ng-click="addCollectSearch()">查询</button>
+                <button class="btn btn-success" ng-click="addCollectionReset()">重置</button>
+            </div>
+        </form>
+    </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="collection.collectionAddCheckedAll" ng-change="checkedAllCollection(collection.collectionAddCheckedAll,collectionSearchList);selectedChangeClass(collectionSearchList)"></th>
+                    <th>统一格式银行流水号</th>
+                    <th>交易日期</th>
+                    <th>原银行流水号</th>
+                    <th>账户归属机构</th>
+                    <th>银行账号</th>
+                    <th>对方户名</th>
+                    <th>对方账号</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th>借贷标志</th>
+                    <th>认领状态</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="a in confirmList">
+                    <td ng-class="a.changeClass"><input type="checkbox" ng-model="a.checked" ng-change="checkedAddCollection();selectedChangeClass(collectionSearchList)" ></td>
+                    <td ng-class="a.changeClass">{{a.transactionNo}}</td>
+                    <td ng-class="a.changeClass" ng-switch="a.certiType">
+                        <span ng-switch-when="T">投保单</span>
+                        <span ng-switch-when="R">保单</span>
+                        <span ng-switch-when="E">批单</span>
+                    </td>
+                    <td ng-class="a.changeClass">{{a.planserialNo}}</td>
+                    <td ng-class="a.changeClass">{{a.classCode}}</td>
+                    <td ng-class="a.changeClass">{{a.riskCode}}</td>
+                    <td ng-class="a.changeClass">{{a.appliName}}</td>
+                    <td ng-class="a.changeClass">{{a.currenCY1}}</td>
+                    <td ng-class="a.changeClass">{{a.premiumPlanFee}}</td>
+                    <td ng-class="a.changeClass">{{a.planFee}}</td>
+                    <td ng-class="a.changeClass" ng-switch="a.transactionNoFlag ">
+                        <span ng-switch-when="0">否</span>
+                        <span ng-switch-when="1">是</span>
+                    </td>
+                    <td ng-class="a.changeClass">{{a.premiumPlanFee}}</td>
+                    <td ng-class="a.changeClass">{{a.planFee}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_content_bottom" ng-if="paginationA.totalItems>0">
+            <span class="text-left" align="bottom">共{{paginationA.totalItems}}条记录</span>
+            <pagination
+                    ng-if="paginationA.totalItems>paginationA.pageSize"
+                    ng-model="paginationA.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="paginationA.totalItems"
+                    page="paginationA.pageIndex"
+                    items-per-page="paginationA.pageSize"
+                    max-size="paginationA.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click="addCollectSearch()"
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+        <div class="row text-center" style="padding: 25px 0">
+        <button class="btn btn-primary btn-width" ng-click="settlementConfirmation()">提交选择</button>
+        <button class="btn btn-primary btn-width">返回</button>
+    </div>
+</div>

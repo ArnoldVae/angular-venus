@@ -1,0 +1,21 @@
+<div class="multi-editor-tabset-inner-wrapper" >
+    <div class="tab"
+         ng-mouseleave="$editor.mouseleave()"
+         ng-mousedown="$editor.mousedown($event,document)"
+         oncontextmenu="return false"
+         ng-blur="$editor.ngblur()"
+         ng-class="{'active': $editor.activeIndex === $index}"
+         ng-repeat="document in $editor.documents">
+        <span ng-click="$editor.switchDocument($index)">{{document.label}}</span>
+        <i class="glyphicon glyphicon-remove "
+           ng-class="{'color_white': $editor.activeIndex === $index}"
+           ng-click="$editor.closeDocument($index)"></i>
+
+        <div class="tabsMenu" ng-show="document.showTabMenu">
+            <div  ng-repeat="tab in document.tabs " class="tabMenu" >
+                <div ng-click="$editor.closeMenu(tab,$parent.$index)">{{tab.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+

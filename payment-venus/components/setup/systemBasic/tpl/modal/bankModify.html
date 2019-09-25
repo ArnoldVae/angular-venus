@@ -1,0 +1,108 @@
+
+<!--银行账号修改页面-->
+<div class="modal-content" style="width: 72%;">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">账号修改</div>
+    </div>
+    <div class="modal-body" style="margin-bottom: -10px;margin-right: 100px">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group" style="margin-bottom: 0">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">核算单位：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        <select-list
+                                data='{"comCode":user.centerCode}'
+                                selectType="accountOrganization"
+                                my-class="col-xs-12"
+                                wait-change="myModalFunc()"
+                                ng-model="bankNoData.centerCode"
+                                ng-value="bankNoData.centerName"
+                                my-class="col-xs-12"
+                        >
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">银行账号：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="bankNoData.bankAccountNo" class="col-xs-12" disabled>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">账号名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="bankNoData.bankAccountName" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">银行编码：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="bankNoData.bankCode" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">银行名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="bankNoData.bankName" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">存款性质：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="saveNature" ng-model="bankNoData.saveNature" class="col-xs-12 padding_clear"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">账户类型：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select  code="accountType" ng-model="bankNoData.accountType" class="col-xs-12 padding_clear"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">币种：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select  code="Currency" ng-model="bankNoData.currency" class="col-xs-12 padding_clear"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">科目代码：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="titleCode"
+                                     ng-model="bankNoData.titleCode"
+                                     ng-value="bankNoData.titleName"
+                                     select-value="{titleCode:bankNoData.titleCode}"
+                                     displayType="CODE"
+                                     my-class="col-xs-12"
+                                     style="width: 200px" required>
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">科目名称：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="titleCode"
+                                     ng-model="bankNoData.titleCode"
+                                     ng-value="bankNoData.titleName"
+                                     select-value="{titleCode:bankNoData.titleCode}"
+                                     my-class="col-xs-12"
+                                     style="width: 200px" required>
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">有效状态：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select  code="IsValidStatus" ng-model="bankNoData.validStatus" class="col-xs-12 padding_clear"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+        <button class="btn btn-primary" ng-click="resetData()">重置</button>
+        <button class="btn btn-success" ng-click="modifySubmit()">确认</button>
+    </div>
+</div>

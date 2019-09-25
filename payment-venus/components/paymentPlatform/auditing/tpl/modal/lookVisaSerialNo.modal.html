@@ -1,0 +1,62 @@
+<!--支付单信息详细清单页面-->
+<div class="modal-content" style="width: 75%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">支付单信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <!--<div class="col-xs-4"><span>计算书号：</div>-->
+                    <!--<div class="col-xs-8 "><span ng-bind="visaSerialNoDto.certino"></span></div>-->
+                    <label class="col-xs-4">支付单号：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.visaserialNo"></span></div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">保单号：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.policyno"></span></div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">支付状态：</label>
+                    <div class="col-xs-8 ">{{visaSerialNoDto.flag|mcCode:'sendSpay_signFlag'}}</div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">业务类型：</label>
+                    <div class="col-xs-8 " ng-switch="visaSerialNoDto.paytype">
+                        <span ng-switch-when="1">赔款</span>
+                        <span ng-switch-when="2">手续费</span>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">机构：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.comcname"></span></div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">银行名称：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.banktype"></span></div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">领款人名称：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.receiverfullname"></span></div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">领款人账号：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.bankaccount"></span></div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">应付币种：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.currenCY"></span></div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">应付总金额：</label>
+                    <div class="col-xs-8 "><span ng-bind="visaSerialNoDto.payamount"></span></div>
+                </div>
+                <div class="form-group"></div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

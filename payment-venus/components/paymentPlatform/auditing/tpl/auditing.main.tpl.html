@@ -1,0 +1,10 @@
+<!--送支付平台审核模块-->
+<div class="section">
+    <div class="row list_query text-center">
+        <btn-group btns="auditing.tapName" b-click="changeTap(index)"></btn-group>
+    </div>
+    <!--待审批记录查询-->
+    <div ng-if="auditing.tapFlag=='1'" ng-include="'components/paymentPlatform/auditing/tpl/auditing.tpl.html'" ></div>
+    <!--已审批记录查询-->
+    <div ng-if="auditing.tapFlag=='2'" ng-include="'components/paymentPlatform/auditing/tpl/approved.tpl.html'"></div>
+</div>

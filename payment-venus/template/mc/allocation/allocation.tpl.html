@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span>{{$allocation.title}}</span>
+        <span ng-if="$allocation.showType == 'icon' && !$allocation.checkState" class="glyphicon glyphicon-edit pull-right" ng-click="$allocation.goCheckState()"></span>
+        <span ng-if="$allocation.showType == 'icon' && $allocation.checkState" class="pull-right" ng-click="$allocation.cancelCheckState()">完成</span>
+    </div>
+
+    <!--任务类型筛选 鼠标滑上触发配置-->
+    <div class="panel-body allocation" ng-mouseenter="$allocation.goTurn()" ng-init="$allocation.goTurn()" id="idData" ng-if="$allocation.showType == 'btn'">
+        <div class="allocation_content" style="min-height: 20px">
+            <a class="allocation_before">
+                <div class="tag margin-left-5"
+                     ng-repeat="data in $allocation.data | filter:{checked:true}"
+                     ng-class="{'checked':data.checked}">
+                    {{data.text}}
+                </div>
+            </a>
+            <div class="allocation_after">
+                <div class="tag margin-left-5"
+                     ng-repeat="data in $allocation.data" ng-click="$allocation.checkText(data.id)"
+                     ng-class="{'checked':data.checked}">
+                    {{data.text}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--快捷操作 点击触发配置-->
+    <div class="panel-body" ng-if="$allocation.showType == 'icon'">
+        <div ng-if="!$allocation.checkState" class="col-xs-4 col-sm-4 col-md-4 margin_clear padding_clear text-center" ng-repeat="data in $allocation.data | filter:{checked:true}">
+            <a style="color: #333" ng-href="#/{{data.actionURL}}">
+                <img ng-src="{{data.image}}" style="width:40px">
+                <div>{{data.text}}</div>
+            </a>
+        </div>
+        <div ng-if="$allocation.checkState" class="col-xs-4 col-sm-4 col-md-4 margin_clear padding_clear text-center" ng-repeat="data in $allocation.data">
+            <img ng-src="{{data.image}}" style="width:40px">
+            <div>{{data.text}}</div>
+            <div ng-if="!data.checked" style="color: #00af2c" ng-click="$allocation.checkText(data.id)" class="allocation_tip glyphicon glyphicon-plus-sign"></div>
+            <div ng-if="data.checked" ng-click="$allocation.checkText(data.id)" class="allocation_tip glyphicon glyphicon-minus-sign"></div>
+        </div>
+    </div>
+</div>

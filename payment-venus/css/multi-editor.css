@@ -1,0 +1,68 @@
+.multi-editor-tabset {
+    font-size: 13px;
+    background-color: #fff;
+    border-bottom: solid 1px #E7ECF0;
+}
+
+.multi-editor-tabset-inner-wrapper {
+    /*border-bottom: solid 3px #e5e5e5;*/
+}
+
+.multi-editor-tabset .tab {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-right: 1px solid #c5b8b8;
+    border-radius: 4px;
+
+}
+
+.multi-editor-tabset .tab.active {
+    border-bottom-color: #E7ECF0;
+    border: 0;
+    /*background-color: #69AFDC;*/
+    background-color: #63C9DA;
+    border-radius: 3px;
+    color: white;
+}
+
+.multi-editor-tabset .tab .glyphicon {
+    font-size: 12px;
+    color: #8d8d8d;
+}
+.tabsMenu{
+    position: absolute;
+    z-index: 1000;
+    display: block;
+    float: left;
+    min-width: 120px;
+    margin: 2px 0 0;
+    font-size: 13px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.tabMenu{
+    padding: 5px;
+    color:black;
+}
+.tabMenu:hover{
+    background: #f1f0f0;
+}

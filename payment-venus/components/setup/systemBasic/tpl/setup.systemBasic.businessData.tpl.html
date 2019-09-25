@@ -1,0 +1,29 @@
+<!--业务基础数据设置-->
+<div  class="section venus_hasFooter">
+        <br>
+    <div ng-if="!infoToView.isBankMerchantSetup">
+        <div  style="text-align: center;">
+            <btn-group  btns="infoToView.tapName" b-click="changeTapB(index)" custom="true"></btn-group>
+        </div>
+        <div>
+            <hr>
+            <!--收付员设置-->
+            <div ng-if="infoToView.tapFlagB=='1'" ng-include="'components/setup/systemBasic/tpl/tax/receivingClerk.tpl.html'"></div>
+            <!--会计期间设置-->
+            <div ng-if="infoToView.tapFlagB=='2'" ng-include="'components/setup/systemBasic/tpl/tax/accountingPeriodSet.tpl.html'"></div>
+            <!--<div ng-if="tapFlagB=='2'" ng-include=""></div>-->
+            <!--银行账号维护-->
+            <div ng-if="infoToView.tapFlagB=='3'" ng-include="'components/setup/systemBasic/tpl/tax/bankAccountMaintenance.tpl.html'"></div>
+            <!--账龄区间设置-->
+            <div ng-if="infoToView.tapFlagB=='4'" ng-include="'components/setup/systemBasic/tpl/tax/agingInterval.tpl.html'"></div>
+            <!--兑换率设置-->
+            <div ng-if="infoToView.tapFlagB=='5'" ng-include="'components/setup/systemBasic/tpl/tax/exchange.tpl.html'" ></div>
+            <!--工作日管理-->
+            <div ng-if="infoToView.tapFlagB=='6'" ng-include="'components/setup/systemBasic/tpl/tax/workDayManagement.tpl.html'"></div>
+            <!--现金流量设置-->
+            <!--<div ng-if="tapFlagB=='6'" ng-include="'components/setup/systemBasic/tpl/cashFlow.tpl.html'"></div>-->
+        </div>
+    </div>
+    <!--银行账号-->
+    <div ng-if="infoToView.isBankMerchantSetup" ng-include="'components/setup/systemBasic/tpl/tax/bankMerchantSetup.tpl.html'"></div>
+</div>

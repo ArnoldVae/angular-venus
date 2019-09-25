@@ -1,0 +1,98 @@
+<!--操作员设置-->
+<div>
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入操作员代码" type="text" style="" class="form-control"
+                   ng-model="infoToView.operator.queryConditions.userCode">
+                <span class="input-group-addon cursor_pointer" ng-click="findPublic(constants.FINDERCONFIG.TARGET.OPERATOR)">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!infoToView.operator.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.operator.moreFlag=!infoToView.operator.moreFlag;saveInputData()">高级查询</span></div>
+        <div ng-show="infoToView.operator.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.operator.moreFlag=!infoToView.operator.moreFlag;saveInputData()">普通查询</span></div>
+    </div>
+    <div class="mc_form" ng-if="infoToView.operator.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">操作员代码：</label>
+                <div class="col-xs-7">
+                    <!--普通录入域class模版-->
+                    <input type="text" class="col-xs-12" ng-model="infoToView.operator.queryConditions.userCode">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">操作员姓名：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="infoToView.operator.queryConditions.userName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">归属机构：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="infoToView.operator.queryConditions.comCode">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构级别：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select code="ims_comLevel" ng-model="infoToView.operator.queryConditions.flag"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success"  ng-click="findPublic(constants.FINDERCONFIG.TARGET.OPERATOR)">查询</button>
+                <button class="btn btn-primary"  ng-click="operatorReset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>操作员代码</th>
+                <th>操作员姓名</th>
+                <th>归属机构</th>
+                <th>机构级别</th>
+                <th>查看</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat=" d in infoToView.operator.queryList">
+                <td>{{$index+1}}</td>
+                <td>{{d.userCode}}</td>
+                <td>{{d.userName}}</td>
+                <td>{{d.comCode}}</td>
+                <td>{{d.flag|mcCode:'ims_flag'}}</td>
+                <td><a href="" ng-click="showOperator(d)">详细信息</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-if="infoToView.operator.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.operator.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.operator.pagination.totalItems>infoToView.operator.pagination.pageSize"
+                ng-model="infoToView.operator.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.operator.pagination.totalItems"
+                page="infoToView.operator.pagination.pageIndex"
+                items-per-page="infoToView.operator.pagination.pageSize"
+                max-size="infoToView.operator.pagination.maxSize"
+                previous-text="{{infoToView.operator.pagination.previousText}}"
+                next-text="{{infoToView.operator.pagination.nextText}}"
+                first-text="{{infoToView.operator.pagination.firstText}}"
+                last-text="{{infoToView.operator.pagination.lastText}}"
+                ng-click="findPublic(constants.FINDERCONFIG.TARGET.OPERATOR,'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+
+        </pagination>
+    </div>
+</div>

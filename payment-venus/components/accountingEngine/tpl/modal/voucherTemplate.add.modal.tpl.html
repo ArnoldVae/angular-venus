@@ -1,0 +1,223 @@
+<!--凭证模版-->
+<div class="modal-content" style="width: 70%" >
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">收付场景</div>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form row">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">类型代码：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="payType"
+                                     account-flag="true"
+                                     displayType="CODE"
+                                     ng-model="infoToView.paySceneData.payType"
+                                     ng-value="infoToView.paySceneData.payTypeName"
+                                     ng-disabled="target=='detail'||target=='modify'"
+                                     wait-change="subString()" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">类型名称：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="payType"
+                                     account-flag="true"
+                                     ng-model="infoToView.paySceneData.payType"
+                                     ng-value="infoToView.paySceneData.payTypeName"
+                                     wait-change="subString()"
+                                     ng-disabled="target=='detail'||target=='modify'" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">场景代码：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12"  type="text" disabled ng-model="infoToView.paySceneData.payItem">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">场景名称：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12"  type="text" ng-disabled="target=='detail'" ng-model="infoToView.paySceneData.payItemName">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">开始日期：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-12 float-left date" ng-disabled="target=='detail'"
+                               ng-model="infoToView.paySceneData.startDate" id="date20" name="date" jedate format="YYYY-MM-DD">                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">结束日期：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-12 float-left date" ng-disabled="target=='detail'"
+                               ng-model="infoToView.paySceneData.endDate" id="date21" name="date" jedate format="YYYY-MM-DD">                   </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">创建日期：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-12 float-left date" ng-disabled="target=='detail'"
+                               ng-model="infoToView.paySceneData.createDate" id="date22" name="date" jedate format="YYYY-MM-DD">                 </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收付原因：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="payReason"
+                                     displaytype="CODE"
+                                     account-flag="true"
+                                     ng-model="infoToView.paySceneData.payRefReason"
+                                     ng-value="infoToView.paySceneData.payRefReasonName"
+                                     ng-disabled="target=='detail'||target=='modify'"
+                                     wait-change="subString()" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否代收/代付：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="100" c-type="switch" c-true="0" c-false="1"
+                                     class="code_switch"
+                                     c-disabled="target=='detail'||target=='modify'"
+                                     ng-click="subString()"
+                                     c-model="infoToView.paySceneData.relation1">
+                        </mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否跨币别：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="101" c-type="switch" c-true="0" c-false="1"
+                                     class="code_switch"
+                                     c-disabled="target=='detail'||target=='modify'"
+                                     ng-click="subString()"
+                                     c-model="infoToView.paySceneData.relation2">
+                        </mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否预收/预付：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="102" c-type="switch" c-true="0" c-false="1"
+                                     class="code_switch"
+                                     c-disabled="target=='detail'||target=='modify'"
+                                     ng-click="subString()"
+                                     c-model="infoToView.paySceneData.relation3">
+                        </mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">预留属性1：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="103" c-type="switch" c-true="0" c-false="1"
+                                     class="code_switch"
+                                     c-disabled="target=='detail'||target=='modify'"
+                                     ng-click="subString()"
+                                     c-model="infoToView.paySceneData.relation4">
+                        </mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">预留属性2：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="104" c-type="switch" c-true="0" c-false="1"
+                                     class="code_switch"
+                                     c-disabled="target=='detail'||target=='modify'"
+                                     ng-click="subString()"
+                                     c-model="infoToView.paySceneData.relation5">
+                        </mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">有效：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="105" c-type="switch" c-true="0" c-false="1"
+                                     class="code_switch"
+                                     c-disabled="target=='detail'||target=='modify'"
+                                     c-model="infoToView.paySceneData.validStatus">
+                        </mc-checkbox>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>收付场景</th>
+                    <th>凭证序号</th>
+                    <th>凭证张数</th>
+                    <th>机构类型</th>
+                    <th>业务币/收付币</th>
+                    <th>属性4</th>
+                    <th>属性5</th>
+                    <th>状态</th>
+                    <th ng-if="target!='detail'">凭证设置操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="scene in infoToView.paySceneData.lists">
+
+                    <!--收付场景-->
+                    <td><a ng-click="getSceneDetail(scene,$index)">{{scene.payItem}}</a></td>
+                    <!--序号-->
+                    <td>{{scene.serialNo}}</td>
+                    <!--凭证张数-->
+                    <td>{{infoToView.paySceneData.lists.length}}</td>
+                    <!--机构类型-->
+                    <td>
+                        <div class="input-group-sm" style="width: 100px;margin-left: 10px">
+                            <div mc-code-select code="ComType" ng-model="scene.relation1" ng-disabled="target=='detail'"></div>
+                        </div>
+                    </td>
+                    <!--业务币/收付币-->
+                    <td>
+                        <div class="input-group-sm" style="width: 100px;margin-left: 10px">
+                            <div mc-code-select code="BusinessCollectionCurrency" ng-model="scene.relation2" ng-disabled="target=='detail'" ></div>
+                        </div>
+                    </td>
+                    <!--属性4-->
+                    <td></td>
+                    <!--属性5-->
+                    <td></td>
+                    <!--状态-->
+                    <td>
+                        <div class="input-group-sm" style="width: 100px;margin-left: 10px">
+                            <div mc-code-select code="SceneStatus" ng-model="scene.validStatus" ng-disabled="target=='detail'" ></div>
+                        </div>
+                    </td>
+                    <td style="width: 160px" ng-if="target!='detail'">
+                    <span class="glyphicon glyphicon-minus-sign"
+                          ng-click="newSceneDelete($index)"
+                          ng-disabled="target=='detail'"
+                          style="color: #cb2028"></span>
+                    </td>
+                </tr>
+                    <tr style="height: 41px" ng-if="target!='detail'">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="width: 160px">
+                     <span class="glyphicon glyphicon-plus-sign"
+                           ng-disabled="target=='detail'"
+                           ng-click="newSceneAdd()"
+                     ></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-if="target!='detail'" class="btn btn-success" ng-click="sceneSave()">保存</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

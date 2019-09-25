@@ -1,0 +1,9 @@
+<!--工作日管理页面-->
+<div class="section venus_hasFooter">
+    <div class="row list_query">
+        <div mc-code-select code="workDay" ng-model="infoToView.taxFlag.code" class="exs" aria-disabled="true" aria-readonly="true">
+    </div>
+    </div>
+    <div ng-if="infoToView.taxFlag.code=='1'" ng-include="'components/setup/systemBasic/tpl/tax/workDayInitialize.html'"></div>
+    <div ng-if="infoToView.taxFlag.code=='2'" ng-include="'components/setup/systemBasic/tpl/tax/workDaySet.html'"></div>
+</div>

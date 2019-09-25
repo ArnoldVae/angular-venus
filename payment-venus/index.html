@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head id="head">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=9"/>-->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."/>
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+
+
+    <title>收付管理平台</title>
+
+    <script>
+        document.createElement('ui-select');
+        document.createElement('ui-select-match');
+        document.createElement('ui-select-choices');
+        document.createElement('mc-select');
+        document.createElement('code-type');
+        document.createElement('ng-form');
+        document.createElement('select-list');
+    </script>
+    <script>
+        (function(){
+            //统一版本管理，更改版本后可以防止缓存问题
+            window.VENUS = {
+                version: '1.1.108',
+                runMode: 'dev'//运行模式选择  dev |  uat |  product
+            };
+            var loadStylesWithVersion = function(styles, version){
+                for(var i=0;i<styles.length;i++){
+                    var link = document.createElement("link");
+                    link.rel = "stylesheet";
+                    link.href= styles[i] + "?v=" + version;
+                    document.getElementById('head').appendChild(link);
+                }
+            };
+
+            loadStylesWithVersion([
+                    'css/bootstrap.3.1.1.css',
+                    'css/bootstrap.mc.css',
+                    'css/mc.bakery-0.0.2.css',
+                    'css/select.0.19.5.min.css',//下拉
+                    'css/main.css',//框架样式
+                    'css/jedate.css',//日期
+                    'css/select.css',//下拉样式
+                    'css/multi-editor.css',//多标签
+                    'css/common.css',//公共样式
+                    'css/menu.css',//菜单
+                    'css/header.css',//头部
+                    'css/printInfo.css',//打印（签单业务缴费）
+                    'css/login.css',//登陆
+                    'css/dashboard.css'//工作台样式
+                ],
+                window.VENUS.version);
+        })();
+    </script>
+    <script src="lib/es5-shim.js"></script>
+    <script src="lib/es5-sham.min.js"></script>
+</head>
+<body id="ng-app"  ng-controller="IndexCtrl" ui-router-styles style="background-color: #E7ECF0" class="frame-container">
+
+    <!--<div ng-show="isLogout" ng-include="'frame/login/login.tpl.html'"></div>-->
+    <!--<div ng-if="!isLogout">-->
+        <div ng-include="'frame/header/header.tpl.html'" ng-controller="HeaderCtrl"></div>
+        <div class="row multi-editor-tabset has-left-nav has-top-nav">
+            <div mc-multi-editor></div>
+        </div>
+        <div ng-if="dataInitSuccess" class="container-fluid has-left-nav" ui-view="main"></div>
+        <div ng-if="menusInitSuccess" ng-controller="MenuCtrl" ng-include="'frame/menu/menu.tpl.html'"></div>
+    <!--</div>-->
+    <!--初始化系统loading-->
+    <div class="splash-window"></div>
+    <!--请求服务时loading-->
+    <div class="loading"></div>
+
+    <!--解决ie下console问题-->
+    <!--[if IE]>
+    <script >
+        if (!window.console || !console.firebug){
+            var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml", "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+
+            window.console = {};
+            for (var i = 0; i < names.length; ++i)
+                window.console[names[i]] = function() {}
+        }
+    </script>
+    <![endif]-->
+
+    <script>
+
+    (function(){
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "lib/require/require.js";
+        script.setAttribute('data-main','main.js?v=' + window.VENUS.version);
+        document.getElementById('head').appendChild(script);
+    })();
+</script>
+
+</body>
+</html>

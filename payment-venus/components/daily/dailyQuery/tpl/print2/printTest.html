@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+</head>
+<link rel="stylesheet" href="../../../../../../css/bootstrap.3.1.1.css">
+<link rel="stylesheet" href="../../../../../../css/printInfo.css">
+<script src="../../../../../../lib/require/require.js" data-main="printTest.ctrl"></script>
+<style>
+    .printing .noPrint{
+        dispdlay:none;
+    }
+    table td{
+        text-align: left;
+        height: 18px;
+        line-height: 18px!important;
+    }
+</style>
+<body class="printing">
+<div id="ng-app1" ng-controller="PrintCtrl" class="bgfff p0-100">
+    <!--日结单信息-->
+    <div class="modal-content" style="width: 1010px;padding:0 24px;margin-top: 5%">
+        <div class="modal-header" style="min-height: 20px;padding: 0">
+            <h5 class="text-center">日收付业务流水清单</h5>
+        </div>
+        <div class="form_two">
+            <form class="form-horizontal">
+                <div class="form-group" style="padding:0 15px">
+                    <span style="float:left">收付员：</span>
+                    <div class="fl">
+                        {{handlerCode}}
+                    </div>
+                </div>
+                <div class="form-group" style="padding:0 15px">
+                    <span style="float:left">币种：</span>
+                    <div class="fl">{{currency}}</div>
+                </div>
+                <div class="form-group" style="padding:0 15px">
+                    <span style="float:left">业务日期：</span>
+                    <div class="fl">{{balanceDate}}</div>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>临时凭证号</th>
+                    <th>收付方式</th>
+                    <th>业务类型</th>
+                    <th>业务单据号</th>
+                    <th>银行票据号</th>
+                    <th>银行名称</th>
+                    <th>银行账号</th>
+                    <th>借（收）方发生金额</th>
+                    <th>贷（收）放发生金额</th>
+                    <th>收付单位</th>
+                    <th>核算单位</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in printData2">
+                    <td>{{d.serialNo}}</td>
+                    <td>{{d.certificateNo}}</td>
+                    <td>{{d.paytype | mcCode:"paymentMehtod"}}</td>
+                    <td>{{d.businessType | mcCode:"payRefReason"}}</td>
+                    <td>{{d.certiNo}}</td>
+                    <td>{{d.payNoticeNo}}</td>
+                    <td>{{d.bankName}}</td>
+                    <td>{{d.accountNo}}</td>
+                    <td>{{d.debitSum}}</td>
+                    <td>{{d.creditSum}}</td>
+                    <td>{{d.comCode}}</td>
+                    <td>{{d.centerCode}}</td>
+                    <td>{{d.quantity}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="printImg" class="config_button" style="text-align: center;margin-top: 20px">
+        <button class="btn btn-success" ng-click="printTest()">打印</button>
+        <button class="btn btn-warning" onclick="window.close()">关闭</button>
+    </div>
+</div>
+</div>
+</body>
+</html>

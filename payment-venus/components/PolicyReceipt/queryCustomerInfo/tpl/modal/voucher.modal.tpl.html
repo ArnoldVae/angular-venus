@@ -1,0 +1,143 @@
+<!--凭证信息-->
+<div class="modal-content" style="width: 71%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">凭证信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form row">
+            <form class="form-horizontal">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">凭证号：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.certificateNo}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">凭证类型：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.certificateType}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">会计期间：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.operateDate}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">凭证日期：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.certificateDate|mcDate}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">核算单位：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.centerCode}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">收付员：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.handlerCode}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">凭证状态：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.certificateStatus|mcCode:'vouStatus'}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">送财务标识：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.sendFlag | mcCode:"sendSapFlag"}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">凭证标志：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.certificateFlag}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    <label class="col-xs-4">财务凭证号：</label>
+                    <div class="col-xs-8">
+                        {{paymentList2.sapFlag}}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>凭证分录信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th rowspan="2">序号</th>
+                    <th rowspan="2">摘要</th>
+                    <th rowspan="2">科目代码</th>
+                    <th rowspan="2">科目名称</th>
+                    <th rowspan="2">币种</th>
+                    <th rowspan="2">汇率</th>
+                    <th colspan="2">借方</th>
+                    <th colspan="2">贷方</th>
+                    <th colspan="2">辅助核算项</th>
+                    <th rowspan="2">银行结算信息</th>
+                </tr>
+                <tr>
+                    <th>交易币</th>
+                    <th>本位币</th>
+                    <th>交易币</th>
+                    <th>本位币</th>
+                    <th>辅助核算码</th>
+                    <th>辅助核算名称</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="payment in paymentList">
+                    <td>{{payment.serialNo}}</td>
+                    <td>{{payment.abstracts}}</td>
+                    <td>{{payment.accountCode}}</td>
+                    <td>{{payment.accountName}}</td>
+                    <td>{{payment.currency|mcCode:'Currency'}}</td>
+                    <td>{{payment.exchangeRate}}</td>
+                    <td>{{payment.tradeCurrency|mcCode:'Currency'}}</td>
+                    <td>{{payment.standardCurrency|mcCode:'Currency'}}</td>
+                    <td>{{payment.tradeCurrencys|mcCode:'Currency'}}</td>
+                    <td>{{payment.standardCurrencys|mcCode:'Currency'}}</td>
+                    <td>{{payment.auxiliaryCode}}</td>
+                    <td>{{payment.auxiliaryName}}</td>
+                    <td>{{payment.bankMessage}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--表格底部-->
+        <div ng-if="pagination.totalItems2>0" class="row list_content_bottom">
+            <span class="text-left" align="bottom">共{{pagination.totalItems2}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems2>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems2"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    ng-click="voucher('page')"
+                    class="pagination-small"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

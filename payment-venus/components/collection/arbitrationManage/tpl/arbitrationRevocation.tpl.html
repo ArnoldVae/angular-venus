@@ -1,0 +1,75 @@
+<!--仲裁撤销页面-->
+<!--查询部分-->
+<div class="row list_query margin-top-15">
+    <div class="col-md-5">
+        <div class="input-group">
+            <input placeholder="请输银行流水号" type="text" class="form-control"
+                   ng-model="arbitrationReturn.visaSerialNo">
+            <span class="input-group-addon cursor_pointer" ng-click="searchArbitrationReturn()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+        </div>
+    </div>
+</div>
+<!--列表内容-->
+<div class="venus_table">
+    <h4>银行流水信息</h4>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>银行流水号</th>
+            <th>银行账号</th>
+            <th>付款人</th>
+            <th>付款方账号</th>
+            <th>账户机构代码</th>
+            <th>到账时间</th>
+            <th>金额</th>
+            <th>币种</th>
+            <th>银行流水状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in arbitrationReturn.List">
+            <td>{{d.policyNo}}</td>
+            <td>{{d.businessNature}}</td>
+            <td>{{d.agentName}}</td>
+            <td>{{d.riskCode}}</td>
+            <td>{{d.coinsName}}</td>
+            <td>{{d.startDate}}</td>
+            <td>{{d.planFee}}</td>
+            <td>{{d.currency1}}</td>
+            <td>{{d.businessType}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="venus_table">
+    <h4>已仲裁交易认领记录</h4>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>交易批次号</th>
+            <th>收付机构</th>
+            <th>收付时间</th>
+            <th>币种</th>
+            <th>金额</th>
+            <th>操作员代码</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in arbitrationReturn.list">
+            <td>{{d.policyNo}}</td>
+            <td>{{d.coinsName}}</td>
+            <td>{{d.startDate}}</td>
+            <td>{{d.currency1}}</td>
+            <td>{{d.planFee}}</td>
+            <td>{{d.riskCode}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--列表底部悬浮块-->
+<div class="row text-center list_footer">
+    <button class="btn btn-default">导出excel</button>
+    <button class="btn btn-primary" ng-click="arbitrationReturnResult()">撤销仲裁结果</button>
+</div>

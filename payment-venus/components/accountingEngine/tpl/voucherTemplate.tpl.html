@@ -1,0 +1,143 @@
+<!--收付场景／凭证模版设置-->
+<div class="section">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-12 col-sm-7 col-md-5 form-group">
+            <div class="input-group float-left margin-right-30 wb75">
+                <input placeholder="请输入场景代码" type="text" style="" class="form-control"
+                       ng-model="infoToView.voucherTemplate.queryConditions.payItem">
+                <span class="input-group-addon cursor_pointer" ng-click="queryPublic(constants.TARGET.VOUCHERTEMPLATE)">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+            <div ng-show="!infoToView.voucherTemplate.moreFlag" class="form-group list_query_font float-left"><span ng-click="infoToView.voucherTemplate.moreFlag=!infoToView.voucherTemplate.moreFlag">高级查询</span></div>
+            <div ng-show="infoToView.voucherTemplate.moreFlag" class="form-group list_query_font float-left"><span ng-click="infoToView.voucherTemplate.moreFlag=!infoToView.voucherTemplate.moreFlag">普通查询</span></div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-7 form-group">
+            <span class="control-label float-left light_height_30">是否有效：</span>
+            <div class="float-left col-xs-5 col-sm-4 col-md-3 padding_clear" mc-code-select code="isFlag" ng-model="infoToView.voucherTemplate.queryConditions.validStatus"></div>
+        </div>
+    </div>
+
+
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="infoToView.voucherTemplate.moreFlag">
+        <form class="form-horizontal">
+            <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                <label class="col-xs-4" >场景名称：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.voucherTemplate.queryConditions.payItemName">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                <label class="col-xs-4" >收付类型：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="payType"
+                                 account-flag="true"
+                                 ng-model="infoToView.voucherTemplate.queryConditions.payType"
+                                 ng-value="infoToView.voucherTemplate.queryConditions.payName"
+                                 displayType="CODE"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                <label class="col-xs-4" >收付类型名称：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="payType"
+                                 account-flag="true"
+                                 ng-model="infoToView.voucherTemplate.queryConditions.payType"
+                                 ng-value="infoToView.voucherTemplate.queryConditions.payName"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="queryPublic(constants.TARGET.VOUCHERTEMPLATE)">查询</button>
+                <button class="btn btn-primary" ng-click="resetVoucherTemplate()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表内容-->
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>收付类型代码</th>
+                <th>收付类型名称</th>
+                <th>场景代码</th>
+                <th>场景名称</th>
+                <th>版本号信息</th>
+                <th>是否有效</th>
+                <th></th>
+                <th>创建日期</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="scene in infoToView.voucherTemplate.queryList">
+                <td>{{$index+1}}</td>
+                <td>{{scene.payType}}</td>
+                <td>{{scene.payTypeName}}</td>
+                <td>{{scene.payItem}}</td>
+                <td>{{scene.payItemName}}</td>
+                <td>{{scene.version}}</td>
+                <td>
+                    <mc-checkbox c-model="scene.validStatus" c-true="1" c-false="0" c-disabled="true"></mc-checkbox>
+                </td>
+                <td><a ng-click="editVoucherTemplate('detail',scene)">核算详情</a></td>
+                <td>{{scene.createDate|date:'yyyy-MM-dd'}}</td>
+                <td>
+                    <a ng-click="editVoucherTemplate('modify',scene)">修改</a>
+                    <a ng-click="deletePublic(constants.TARGET.VOUCHERTEMPLATE,scene)">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--表格底部-->
+    <div ng-if="infoToView.voucherTemplate.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.voucherTemplate.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.voucherTemplate.pagination.totalItems>infoToView.voucherTemplate.pagination.pageSize"
+                ng-model="infoToView.voucherTemplate.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.voucherTemplate.pagination.totalItems"
+                page="infoToView.voucherTemplate.pagination.pageIndex"
+                items-per-page="infoToView.voucherTemplate.pagination.pageSize"
+                max-size="infoToView.voucherTemplate.pagination.maxSize"
+                previous-text="{{infoToView.voucherTemplate.pagination.previousText}}"
+                next-text="{{infoToView.voucherTemplate.pagination.nextText}}"
+                first-text="{{infoToView.voucherTemplate.pagination.firstText}}"
+                last-text="{{infoToView.voucherTemplate.pagination.lastText}}"
+                ng-click="queryPublic(constants.TARGET.VOUCHERTEMPLATE,'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <div class="input-group col-xs-3" style="float: left">
+            <input placeholder="请选择要上传的文件" type="text" class="form-control" ng-model="fileItem.name">
+            <a href="javascript:;" class="input-group-addon cursor_pointer">
+                <div class="glyphicon">浏览</div>
+                <input name="certificate" nv-file-select uploader="uploader" ng-click="clearItems()"
+                       type="file" class="collectscene_file_item" multiple/>
+            </a>
+        </div>
+        <div class="col-xs-7">
+            <button class="btn btn-success pull-left" ng-click="submitImport()">提交</button>
+            <button class="btn btn-primary pull-left" ng-click="voucherDetailed()">模板下载</button>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-primary pull-right" ng-click="editVoucherTemplate('add')">新增</button>
+        </div>
+    </div>
+
+</div>

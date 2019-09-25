@@ -1,0 +1,306 @@
+<!--预认领页面-->
+<div class="section venus_hasFooter">
+    <div class="float-right addBtn" ng-show="infoFlag" ng-click="changeTapBtn()">
+        <button class="btn btn-primary">新增</button>
+    </div>
+    <div class="float-right addBtn" ng-show="!infoFlag&&tapFlag=='0'" ng-click="changeTapBtn()">
+        <button class="btn btn-warning">返回</button>
+    </div>
+    <div class="float-right addBtn" ng-show="!infoFlag&&(tapFlag=='1'||tapFlag=='2')" ng-click="showInfo()">
+        <button class="btn btn-warning">返回</button>
+    </div>
+    <!--查询界面-->
+    <div ng-if="infoFlag">
+        <div class="row list_query">
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <input placeholder="请输入业务单号" type="text" style="" class="form-control"
+                           ng-model="preClaimCondition.certiNo">
+                    <span class="input-group-addon cursor_pointer" ng-click="searchPreClaim()"><div
+                            class="glyphicon glyphicon-search"></div></span>
+                </div>
+            </div>
+            <div ng-show="!moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                    ng-click="changeMoreFlag()">高级查询</span></div>
+            <div ng-show="moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                    ng-click="changeMoreFlag()">普通查询</span></div>
+        </div>
+        <div class="mc_form" ng-show="moreFlag">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">业务单号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="preClaimCondition.certiNo" class="col-xs-12">
+                    </div>
+                    <span class="color_red">*</span>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">缴付费通知单号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="preClaimCondition.transactionNo" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">缴款人：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="preClaimCondition.paymentName" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">币种：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select code="Currency" ng-model="preClaimCondition.currency"
+                             class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">金额：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="preClaimCondition.sumFeeCnyFrom" class="col-xs-5" mc-format-switch
+                               transmit-type="text">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" ng-model="preClaimCondition.sumFeeCnyTo" class="col-xs-5" mc-format-switch
+                               transmit-type="text">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">认领状态：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select code="preClaimStatus" ng-model="preClaimCondition.claimStatus"
+                             class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">登记日期 从：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="preClaimCondition.inputDateFrom" jedate id="date1"
+                               format="YYYY-MM-DD hh:mm:ss" name="date" class="col-xs-12 date">
+                    </div>
+                    <span class="color_red">*</span>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">到：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="preClaimCondition.inputDateTo" jedate id="date2"
+                               format="YYYY-MM-DD hh:mm:ss" name="date" class="col-xs-12 date">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="centerCode=='02'">
+                    <label class="col-xs-4">平台交易号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="preClaimCondition.tradingNo" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success" ng-click="searchPreClaim()">查询</button>
+                    <button class="btn btn-primary" ng-click="resetPreClaim()">重置</button>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>收付机构</th>
+                    <th>缴费通知单号</th>
+                    <th ng-if="centerCode=='02'">平台交易号</th>
+                    <th>缴款人</th>
+                    <th>币种</th>
+                    <th>缴费金额</th>
+                    <th>认领操作时间</th>
+                    <th>认领操作人</th>
+                    <th>认领状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in preClaimList">
+                    <td>{{$index+1}}</td>
+                    <td>{{d.comCode}}</td>
+                    <td><a href="" ng-click="searchCertiNo(d)">{{d.transactionNo}}</a></td>
+                    <td ng-if="centerCode=='02'">{{d.tradingNo}}</td>
+                    <td>{{d.paymentName}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.sumFeeCny|format}}</td>
+                    <td>{{d.claimOperatorDate}}</td>
+                    <td>{{d.claimOperatorCode}}</td>
+                    <td ng-switch="d.claimStatus">
+                        <span ng-switch-when="0">未认领</span>
+                        <span ng-switch-when="1">预认领</span>
+                        <span ng-switch-when="2">认领确认</span>
+                        <span ng-switch-when="3">认领打回</span>
+                        <span ng-switch-when="4">认领替换</span>
+                        <span ng-switch-when="5">认领撤销</span>
+                    </td>
+                    <td>
+                        <a ng-click="lookMessage(d)"><i class="glyphicon glyphicon-eye-open color-oranage"></i>查看</a>
+                        <a ng-click="changeMessage(d)"><i class="glyphicon glyphicon-pencil color-oranage"></i>修改</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+            <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click="searchPreClaim('page')"
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+    <!--新增页面-->
+    <div ng-if="!infoFlag">
+        <div class="row list_query text-center">
+            <btn-group btns="tapName" b-click="changeTap(index)"></btn-group>
+        </div>
+        <!--缴费通知单查询-->
+        <div ng-if="tapFlag=='1'" ng-include="'components/collection/preClaim/tpl/paymentNotice.tpl.html'"></div>
+        <!--银行流水查询-->
+        <div ng-if="tapFlag=='2'" ng-include="'components/collection/preClaim/tpl/bankFlow.tpl.html'"></div>
+        <!--首页-->
+        <div ng-if="tapFlag=='0'">
+            <div class="venus_table">
+                <div class="venus_modal_tableName">
+                    <span>缴费通知单</span>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>缴费通知单号</th>
+                        <th ng-if="centerCode=='02'">平台交易号</th>
+                        <th>缴费金额</th>
+                        <th>币种</th>
+                        <th>已认领缴费金额</th>
+                        <th>可认领缴费金额</th>
+                        <th>本次认领缴费金额</th>
+                        <th>认领状态</th>
+                        <th>认领次数</th>
+                        <th>操作时间</th>
+                        <th>操作人</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in preClaim.prpJClaimTransactionMainDtoList">
+                        <td>{{d.transactionNo}}</td>
+                        <td ng-if="centerCode=='02'">{{d.tradingNo}}</td>
+                        <td>{{d.sumFeeCny|format}}</td>
+                        <td>{{d.currency}}</td>
+                        <td>{{d.alreadyClaimSumFeeCny|format}}</td>
+                        <td>{{d.canClaimSumFeeCny|format}}</td>
+                        <td><input type="text" ng-model="d.thisClaimSumFeeCny" ng-blur="judgmentSum(d)" mc-format-switch transmit-type="text" class="form-control"></td>
+                        <td ng-switch="d.claimStatus">
+                            <span ng-switch-when="0">未认领</span>
+                            <span ng-switch-when="1">认领中</span>
+                            <span ng-switch-when="2">认领完成</span>
+                        </td>
+                        <td>{{d.claimTimes}}</td>
+                        <td>{{d.operatorDate}}</td>
+                        <td>{{d.operatorCode}}</td>
+                        <td><a href="" ng-click="delPaymentNoticeList($index)">删除</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row list_content_bottom">
+                <span class="text-left" align="bottom">共{{preClaim.prpJClaimTransactionMainDtoList.length}}条记录</span>
+            </div>
+            <div class="venus_table">
+                <div class="venus_modal_tableName">
+                    <span>银行流水信息</span>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>银行流水号</th>
+                        <th>付款人</th>
+                        <th>交易金额</th>
+                        <th>币种</th>
+                        <th>已认领交易金额</th>
+                        <th>可认领交易金额</th>
+                        <th>本次认领交易金额</th>
+                        <th>认领状态</th>
+                        <th>认领次数</th>
+                        <th>交易日期</th>
+                        <th>摘要</th>
+                        <th>是否转无单预收</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in preClaim.prpJClaimBankFlowDetallDtoList">
+                        <td>{{d.unifySerialNum}}</td>
+                        <td>{{d.paymentName}}</td>
+                        <td>{{d.amount}}</td>
+                        <td>{{d.currency}}</td>
+                        <td>{{d.alreadyClaimAmount|format}}</td>
+                        <td>{{d.canClaimAmount|format}}</td>
+                        <td><input type="text" ng-model="d.thisClaimBankFlowAmout" ng-blur="judgmentSum(d)" mc-format-switch transmit-type="text" class="form-control"></td>
+                        <td ng-switch="d.claimStatus">
+                            <span ng-switch-when="0">未认领</span>
+                            <span ng-switch-when="1">认领中</span>
+                            <span ng-switch-when="2">认领完成</span>
+                        </td>
+                        <td>{{d.claimTimes}}</td>
+                        <td>{{d.transDate}}</td>
+                        <td>{{d.summary}}</td>
+                        <td><input type="checkbox" ng-model="d.isNoBill" ng-true-value="1" ng-false-value="0"
+                                   ng-disabled="d.inputRead" ng-change="customInfo(d)"></td>
+                        <td><a href="" ng-click="delBankFlow($index)">删除</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row list_content_bottom">
+                <span class="text-left" align="bottom">共{{preClaim.prpJClaimBankFlowDetallDtoList.length}}条记录</span>
+            </div>
+            <div class="margin-bottom-100">
+                <div class="venus_modal_tableName">
+                    <span>差额调整信息</span>
+                </div>
+                <div class="mc_form">
+                    <form class="form-horizontal">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                            <label class="col-xs-4">缴费单总金额：</label>
+                            <div class="col-xs-7">{{paymentFee|format}}</div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                            <label class="col-xs-4">银行流水总金额：</label>
+                            <div class="col-xs-7">{{bankFlowFee|format}}</div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                            <label class="col-xs-4">差额调整：</label>
+                            <div class="col-xs-7">{{preClaim.differenceAmout|format}}</div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                            <label class="col-xs-4">备注：</label>
+                            <div class="col-xs-7"><input type="text" ng-model="preClaim.remark"></div>
+                        </div>
+                        <div class="form-group"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--列表底部悬浮块-->
+        <div class="row text-center list_footer" ng-if="tapFlag=='0'">
+            <button class="btn btn-success" ng-click="confirmpreClaim()">认领</button>
+            <button class="btn btn-primary" ng-click="resetpreClaim()">重置</button>
+        </div>
+    </div>
+</div>

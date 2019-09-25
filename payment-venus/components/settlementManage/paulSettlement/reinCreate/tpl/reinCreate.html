@@ -1,0 +1,185 @@
+<!--
+再保分出结算
+-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入账单编号" type="text" class="form-control"
+                       ng-model="infoToView.queryConditions.accNo">
+                <span class="input-group-addon cursor_pointer" ng-click="reinCreateSearch()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</span></div>
+        <div ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</span></div>
+    </div>
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">归属机构：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.comCode">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">直接业务号：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.payaccNo">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算人编码：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.reinsCode">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算人名称：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.reinsName">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">合约编码：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.treatyNo">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">合约分项编码：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.sectionNo">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">账单期：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-12 date" ng-model="infoToView.queryConditions.accPeriod" id="date6" jedate format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">险类代码：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.clossCode">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">险种代码：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.riskCode">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">业务年度：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-12 date" ng-model="infoToView.queryConditions.uwYear" id="date10" jedate format="YYYY"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">账单确认日期：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-12 date" ng-model="infoToView.queryConditions.accDate" id="date11" jedate format="YYYY"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group ">
+                <label class="col-xs-4">账单币种：</label>
+                <div class="col-xs-8 margin-bottom-18" >
+                    <div mc-code-select class="col-xs-12 pl0 pr0" code="Currency" aria-disabled="true" aria-readonly="true" ng-model="infoToView.queryConditions.currency1"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">账单类型：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select class="col-xs-12 pl0 pr0" code="AccType" aria-disabled="true" aria-readonly="true" ng-model="infoToView.queryConditions.accType"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">业务类型：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select class="col-xs-12 pl0 pr0" code="OptType" aria-disabled="true" aria-readonly="true" ng-model="infoToView.queryConditions.optType"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算状态：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select class="col-xs-12 pl0 pr0" code="SettleStatus" aria-disabled="true" aria-readonly="true" ng-model="infoToView.queryConditions.settleStatus"></div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="reinCreateSearch()">查询</button>
+                <button class="btn btn-primary" ng-click="resetReinCreate()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-change="selectedExAll(infoToView.queryList,infoToView.checkedAll);changeExClass();getCheckedArray()"
+                               ng-model="infoToView.checkedAll"></th>
+                    <th>结算状态</th>
+                    <th>结算单编号</th>
+                    <th>账单编号</th>
+                    <th>直接业务号</th>
+                    <th>合约分项号</th>
+                    <th>结算人编码</th>
+                    <th>结算人名称</th>
+                    <th>业务年度</th>
+                    <th>账单币种</th>
+                    <th>账单余额</th>
+                    <th>账单期</th>
+                    <th>账单确认日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="e in infoToView.queryList" ng-class="{true:'venus_table_check',false:''}[e.checked]">
+                    <td><input type="checkbox" ng-change="selectedExOne();changeExClass();getCheckedArray();" ng-model="e.checked"></td>
+                    <td>{{e.settleStatus|mcCode:'SettleStatus'}}</td>
+                    <td>{{e.settleNo}}</td>
+                    <td><a ng-click="reinCreateDetail(e)">{{e.accNo}}</a></td>
+                    <td>{{e.payAccNo}}</td>
+                    <td>{{e.sectionNo}}</td>
+                    <td>{{e.reinsCode}}</td>
+                    <td>{{e.reinsName}}</td>
+                    <td>{{e.uwYear}}</td>
+                    <td>{{e.currency1}}</td>
+                    <td>{{e.planFee}}</td>
+                    <td>{{e.accPeriod}}</td>
+                    <td>{{e.accDate}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div ng-if="infoToView.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.queryList.length}}条记录</span>
+        <pagination
+                ng-if="infoToView.queryList.length>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                ng-click="reinCreateSearch('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row list_footer" ng-if="infoToView._queryList.length>0">
+        <button class="btn btn-primary" ng-click="reinPaySubmit()">结付{{infoToView._queryList.length}}笔</button>
+    </div>
+</div>

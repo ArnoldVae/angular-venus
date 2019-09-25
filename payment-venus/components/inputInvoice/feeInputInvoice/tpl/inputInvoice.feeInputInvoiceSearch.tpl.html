@@ -1,0 +1,89 @@
+<!--手续费进项发票查询-->
+<div class="row list_query">
+    <div class="col-xs-5">
+        <div class="input-group" >
+            <input placeholder="请输入结算单号" type="text" style="" class="form-control" ng-model="infoToView.invoiceConditionSearch.certiNo">
+            <span  class="input-group-addon cursor_pointer" ng-click="findAllInvoice()">
+                <div  class="glyphicon glyphicon-search"></div></span>
+        </div>
+    </div>
+        <div ng-show="!infoToView.serchmoreFlag" type="button" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.serchmoreFlag=!infoToView.serchmoreFlag;newsaveInputData()">高级查询</div>
+        <div  ng-show="infoToView.serchmoreFlag" type="button" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.serchmoreFlag=!infoToView.serchmoreFlag;newsaveInputData()">普通查询</div>
+</div>
+<div class="mc_form" ng-if="infoToView.serchmoreFlag">
+    <form class="form-horizontal">
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">发票号：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.invoiceConditionSearch.invoiceNo">
+            </div>
+        </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">发票代码：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.invoiceConditionSearch.invoiceCode">
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">结算单号：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.invoiceConditionSearch.certiNo">
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">开票日期：</label>
+            <div class="col-xs-7">
+                <input type="text" ng-model="infoToView.invoiceConditionSearch.billingDate"  class="date col-xs-12" id="date9" jedate
+                       format="YYYY-MM-DD"/>
+            </div>
+        </div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success btn-width"  ng-click="findAllInvoice()">查询</button>
+            <button class="btn btn-primary btn-width" ng-click="resetReparations()">重置</button>
+        </div>
+    </form>
+</div>
+<div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>发票号</th>
+            <th>发票代码</th>
+            <th>结算单号</th>
+            <th>发票类型</th>
+            <th>开票日期</th>
+            <th>合计不含税金额</th>
+            <th>合计税额</th>
+            <th>合计含税金额</th>
+            <th>发票认证人</th>
+            <th>发票登记人</th>
+            <th>发票登记日期</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in infoToView.confirmListfindAll">
+            <td ng-class="d.changeClass">{{d.invoiceNo}}</td>
+            <td ng-class="d.changeClass">{{d.invoiceCode}}</td>
+            <td ng-class="d.changeClass">{{d.certiNo}}</td>
+            <td ng-class="d.changeClass">{{d.invoiceType | mcCode:"voiceType"}}</td>
+            <td ng-class="d.changeClass">{{d.billingDate}}</td>
+            <td ng-class="d.changeClass">{{d.sumNoTaxFee}}</td>
+            <td ng-class="d.changeClass">{{d.sumTaxFee}}</td>
+            <td ng-class="d.changeClass">{{d.sumFee}}</td>
+            <td ng-class="d.changeClass">{{d.authCode}}</td>
+            <td ng-class="d.changeClass">{{d.registerCode}}</td>
+            <td ng-class="d.changeClass">{{d.registDate | mcDate}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row list_content_bottom">
+    <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+        <span class="text-left" align="bottom">共查到{{pagination.totalItems}}条记录</span>
+    </div>
+    <pagination ng-if="pagination.totalItems>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                ng-click="findAllInvoice('page')" style="margin: 0 20px 20px 0;" boundary-links="true"
+                on-select-page="onSelectPage(page)"></pagination>
+</div>

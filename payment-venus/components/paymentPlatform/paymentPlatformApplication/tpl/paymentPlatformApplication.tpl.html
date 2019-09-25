@@ -1,0 +1,176 @@
+<!--赔款送支付平台-->
+<div class="section venus_hasFooter">
+        <div class="row list_query">
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <input placeholder="请输入计算书号" type="text"  class="form-control" ng-model="payApply.reparationsCondition.compensateNo">
+                    <span class="input-group-addon cursor_pointer" ng-click="searchReparations()"><div  class="glyphicon glyphicon-search"></div></span>
+                </div>
+            </div>
+            <div ng-show="!payApply.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="payApply.status.moreFlag=!payApply.status.moreFlag">高级查询</span></div>
+            <div ng-show="payApply.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="payApply.status.moreFlag=!payApply.status.moreFlag ">普通查询</span></div>
+        </div>
+        <div class="mc_form" ng-if="payApply.status.moreFlag">
+            <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">计算书号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="payApply.reparationsCondition.compensateNo">
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">计算书号清单：</label>
+                <div class="col-xs-7">
+                    <textarea class="col-xs-12" cols="25" rows="4" ng-model="payApply.reparationsCondition.compensateNoList"></textarea>
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">实际支付单号：</label>
+                    <div class="col-xs-7">
+                        <input type="text"  class="col-xs-12" ng-model="payApply.reparationsCondition.certiID">
+                    </div>
+                </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">保单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text"  ng-model="payApply.reparationsCondition.policyNo">
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">险种：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="riskCode" my-class="col-xs-12"
+                                 force-remote="true"
+                                 ng-model="payApply.reparationsCondition.riskCode"
+                                 ng-value="payApply.reparationsCondition.RiskType">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">币种：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="Currency" my-class="col-xs-12"
+                                 ng-model="payApply.reparationsCondition.currency1"
+                                 ng-value="payApply.reparationsCondition.Currency">
+                    </select-list>
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-7">
+                    <select-list data='{"centerCode":centerCode,"comCode":comCode}'
+                                 selectType="salesDepartment" my-class="col-xs-12"
+                                 ng-model="payApply.reparationsCondition.comCode"
+                                 ng-value="payApply.reparationsCondition.businessPart"
+                                 wait-change="clearOperator()">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务员：</label>
+                <div class="col-xs-7">
+                    <select-list data='{"comCode":comCode,"checkComCode":payApply.reparationsCondition.comCode}'
+                                 selectType="operatorName" my-class="col-xs-12"
+                                 ng-model="payApply.reparationsCondition.handler1Code"
+                                 ng-value="payApply.reparationsCondition.businessMan">
+                    </select-list>
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">投保人名称：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="payApply.reparationsCondition.appliName">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">被保人名称：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="payApply.reparationsCondition.insuredName">
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">支付状态：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select code="sendSpay_signFlag" ng-model="payApply.reparationsCondition.signFlag"></div>
+                    </div>
+                </div>
+            </div>
+                <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchReparations()">查询</button>
+                <button class="btn btn-primary" ng-click="resetReparations()">重置</button>
+            </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <!--<th><input type="checkbox" ng-model="payApply.status.reparationsCheckedAll" ng-change="checkedReparationsAll();changeReparationsClass()"></th>-->
+                    <!--<th></th>-->
+                    <th>计算书号</th>
+                    <th>支付单号</th>
+                    <th>保单号</th>
+                    <th>业务类型</th>
+                    <th>机构</th>
+                    <th>银行名称</th>
+                    <th>领款人名称</th>
+                    <th>领款人账号</th>
+                    <th>应付币种</th>
+                    <th>应付金额</th>
+                    <th>支付状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in payApply.reparationsList">
+                    <!--<td ng-class="d.changeClass"><input type="checkbox" ng-model="d.checked" ng-change="checkedReparationsOne();changeReparationsClass()"></td>-->
+                    <!--<td ng-class="d.changeClass"><input type="radio" ng-click="changeOne($index)" name="radio" ng-model="$parent.payApply.status.radio" value="{{$index}}"></td>-->
+                    <td ng-class="d.changeClass">{{d.compensateNo}}</td>
+                    <td ng-class="d.changeClass">{{d.certiID}}</td>
+                    <td ng-class="d.changeClass">{{d.policyNo}}</td>
+                    <td ng-class="d.changeClass" ng-switch="d.certiType">
+                        <span ng-switch-when="P">赔款</span>
+                    </td>
+                    <td ng-class="d.changeClass">{{d.comCode}}</td>
+                    <td ng-class="d.changeClass">{{d.bankName}}</td>
+                    <td ng-class="d.changeClass">{{d.accountName}}</td>
+                    <td ng-class="d.changeClass">{{d.accountCode}}</td>
+                    <td ng-class="d.changeClass">{{d.currency1}}</td>
+                    <td ng-class="d.changeClass">{{d.planFeeCNY|format}}</td>
+                    <td ng-class="d.changeClass">{{d.signFlag|mcCode:'sendSpay_signFlag'}}</td>
+                </tr>
+                <!--<tr>-->
+                    <!--<td class="text-left" colspan="1">合计金额：</td>-->
+                    <!--<td class="text-left" colspan="11">{{selectReparationsPay}}元</td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+        </div>
+            <div ng-if="payApply.pagination.totalItems>0" class="row list_content_bottom">
+                <span class="text-left" align="bottom">共{{payApply.pagination.totalItems}}条记录</span>
+                <pagination
+                        ng-if="payApply.pagination.totalItems>payApply.pagination.pageSize"
+                        ng-model="payApply.pagination.pageIndex"
+                        class="payApply.pagination-sm pull-right"
+                        total-items="payApply.pagination.totalItems"
+                        page="payApply.pagination.pageIndex"
+                        items-per-page="payApply.pagination.pageSize"
+                        max-size="payApply.pagination.maxSize"
+                        previous-text="上一页"
+                        next-text="下一页"
+                        first-text="首页"
+                        last-text="末页"
+                        class=""
+                        ng-click="searchReparations('page')"
+                        style="margin: 0 20px 20px 0;"
+                        boundary-links="true"
+                        on-select-page="onSelectPage(page)">
+                </pagination>
+        </div>
+    <!--<div class="row text-center list_footer" ng-if="payApply.reparationsList.length>0">-->
+        <!--&lt;!&ndash;<button class="btn btn-default">导出excel</button>&ndash;&gt;-->
+        <!--<button class="btn btn-success" ng-click="sendPaymentPlatform()">送支付平台</button>-->
+    <!--</div>-->
+</div>
+

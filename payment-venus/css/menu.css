@@ -1,0 +1,205 @@
+/*-------------------menu-start-------------------*/
+
+.left-nav {
+    position: fixed;
+    width: 48px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color:#363A3E;
+    color: #fff;
+    overflow: auto;
+    z-index: 999;
+    font-family: "微软雅黑";
+}
+
+.left-nav:hover {
+    width: 175px;
+    cursor: pointer;
+}
+
+.left-nav .nav {
+    width: 175px;
+    padding: 0;
+}
+
+.nav > li a {
+    color: rgba(166, 193, 216, 0.59);
+    padding: 10px 10px 10px 14px;
+}
+
+.left-nav i{
+    color: rgba(112, 197, 237, 0.5);
+}
+
+/*菜单搜索样式*/
+.search_Menu{
+    padding: 7.5px 13px;
+    background-color: #2F2F2F;
+}
+.search_Menu > .input-group > span{
+    cursor: pointer;
+    padding: 5px 8px;
+    background: #24211E;
+    border-right: none;
+    color: #93908F;
+    border-color: #615F5E;
+    z-index: 9;
+    border-radius: 9px;
+}
+.search_Menu > .input-group > span > .glyphicon-search{
+    z-index: 9;
+}
+.left-nav .nav > li:first-child > .input-group > input{
+    background: #24211E;
+    font-size: 14px;
+    height: 30px;
+    border-left: none;
+    border-color: #615F5E;
+    color: #93908F;
+    border-radius: 9px;
+    padding-left: 26px;
+    z-index: 8;
+    left: -30px;
+    width: 125%;
+}
+.left-nav .nav > li:first-child > .input-group > input::-webkit-input-placeholder {
+    color: #636161;
+}
+
+/*去掉a标签默认背景*/
+.left-nav .nav > li > a:hover, .nav > li > a:focus{
+    background-color: transparent;
+}
+
+.left-nav .nav > li.active a {
+    background: #AFD8ED;
+    background: -webkit-linear-gradient(#97EFD3, #61A7DD); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#97EFD3, #61A7DD); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#97EFD3, #61A7DD); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#97EFD3, #61A7DD); /* 标准的语法 */
+}
+
+.left-nav .nav > li.active > a:hover{
+    background-color: #AFD8ED;
+    background: -webkit-linear-gradient(#97EFD3, #61A7DD); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#97EFD3, #61A7DD); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#97EFD3, #61A7DD); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#97EFD3, #61A7DD); /* 标准的语法 */
+    color: #fff;
+}
+
+/*.left-nav .nav > li > a:hover{*/
+/*background-color: #AFD8ED;*/
+/*background: -webkit-linear-gradient(#97EFD3, #61A7DD); !* Safari 5.1 - 6.0 *!*/
+/*background: -o-linear-gradient(#97EFD3, #61A7DD); !* Opera 11.1 - 12.0 *!*/
+/*background: -moz-linear-gradient(#97EFD3, #61A7DD); !* Firefox 3.6 - 15 *!*/
+/*background: linear-gradient(#97EFD3, #61A7DD); !* 标准的语法 *!*/
+/*}*/
+
+.left-nav .nav > li a i {
+    font-size: 20px;
+    margin-right: 12px;
+}
+
+.left-nav .nav > li.active a i ,.left-nav .nav > li.active a span{
+    color: #fff;
+}
+
+.left-nav .nav > li .badge {
+    border-radius: 6px;
+    background-color: #f8cf16;
+    color: #555f85;
+    margin-top: 3px;
+    margin-right: 15px;
+}
+
+
+.left-sec-nav{
+    left: 170px;
+    z-index: 999;
+    position: fixed;
+    background: #41474A;
+    height: 100%;
+    top: 56px;
+    width: 235px;
+    color: #B4B6B8;
+    padding-bottom: 56px;
+    border-left: 1px solid #41474a;
+    box-shadow: -9px -8px 15px -8px #000;
+}
+
+.left-sec-nav a:hover{
+    background-color: #AFD8ED;
+    background: -webkit-linear-gradient(#97EFD3, #61A7DD); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#97EFD3, #61A7DD); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#97EFD3, #61A7DD); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#97EFD3, #61A7DD); /* 标准的语法 */
+    color: #fff;
+}
+
+/*二级菜单标题*/
+.left-sec-nav span{
+    font-size: 20px;
+    padding: 0 22px;
+    line-height: 5;
+    color: rgba(112, 197, 237, 0.5);
+}
+
+.left-sec-nav a {
+    padding: 3px 24px;
+    line-height: 30px;
+    display: block;
+    color: #B4B6B8;
+}
+.left-sec-nav button{
+    position: absolute;
+    right: 5px;
+    border: none;
+    color: #B4B6B8;
+    background: transparent;
+    line-height: 28px;
+    font-size: 16px;
+}
+
+.left-sec-nav .nav > ul a {
+    padding-top: 15px;
+}
+.left-sec-nav .nav > li a {
+    padding: 0 45px;
+}
+
+/*三级菜单*/
+.left-third-nav{
+    background-color: #343A42;
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+
+.left-third-nav ul{
+    padding-left: 0;
+}
+
+.left-third-nav ul li a{
+    color: #B4B6B8;!important;
+}
+.left-third-nav ul li a:hover{
+    background-color: #AFD8ED;
+    background: -webkit-linear-gradient(#97EFD3, #61A7DD); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#97EFD3, #61A7DD); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#97EFD3, #61A7DD); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#97EFD3, #61A7DD); /* 标准的语法 */
+    color: #fff;
+}
+
+.animate {
+    transition: all 320ms ease-in-out
+}
+
+.show-when-mouseover {
+    display:none;
+}
+.left-nav:hover .show-when-mouseover{
+    display:inline-block;
+}
+/*-------------------menu-end-------------------*/

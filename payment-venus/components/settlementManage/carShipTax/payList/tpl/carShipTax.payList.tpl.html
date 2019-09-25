@@ -1,0 +1,219 @@
+<!--
+生成结算单
+-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入保单号" type="text" class="form-control"
+                       ng-model="infoToView.queryConditions.certinoList">
+                <span class="input-group-addon cursor_pointer" ng-click="payListQuery()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</span></div>
+        <div ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</span></div>
+    </div>
+
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18" style="margin-bottom: 0">
+                <label class="col-xs-4">保/批单号列表：</label>
+                <div class="col-xs-7">
+                    <textarea class="col-xs-12" name="" id="t1" cols="25" rows="4" ng-model="infoToView.queryConditions.certinoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">起始保/批单号:：</label>
+                <div class="col-xs-7">
+                    <!--普通录入域class模版-->
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.certinoStart">
+
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">终止保/批单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.certinoEnd">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">结算单号：</label>
+                <div class="col-xs-7" >
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.attribute3">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">核算单位：</label>
+                <div class="col-xs-7" >
+                    <select-list
+                            my-class="col-xs-12"
+                            data='{"centerCode":centerCode,"comCode":comCode}'
+                            selectType="salesDepartment"
+                            ng-model="infoToView.queryConditions.centercode"
+                            ng-value="infoToView.queryConditions.centerName"
+                    >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">业务归属部门：</label>
+                <div class="col-xs-7">
+                    <select-list
+                            my-class="col-xs-12"
+                            data='{"centerCode":centerCode,"comCode":comCode}'
+                            selectType="salesDepartment"
+                            ng-model="infoToView.queryConditions.comcode"
+                            ng-value="infoToView.queryConditions.comName"
+                    >
+                    </select-list>
+                    <!--<input type="text" ng-model="infoToView.queryConditions.operatorName"><br><br>-->
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">起保日期：</label>
+                <div class="col-xs-7" >
+                    <input type="text" class="date col-xs-12" ng-change="changeInputDate()" max-date={{today}} ng-model="infoToView.queryConditions.startdate" id="date8" name="date" jedate format="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">终保日期：</label>
+                <div class="col-xs-7" >
+                    <input type="text" class="col-xs-12 date" ng-change="changeInputDate()" ng-model="infoToView.queryConditions.enddate" id="date9" name="date" jedate format="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">统计期间：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="infoToView.queryConditions.earlierMonth" max-date={{today}} ng-change="changeInputDate()" class="date col-xs-5" id="date5" jedate
+                           format="YYYY-MM-DD"/>
+                    <span class="col-xs-2 text-center">至</span>
+                    <input type="text" ng-model="infoToView.queryConditions.laterMonth" ng-change="changeInputDate()" class="date col-xs-5" id="date6" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">车牌号码：</label>
+                <div class="col-xs-7">
+                    <!--普通录入域class模版-->
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.licenseno">
+
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">身份证号：</label>
+                <div class="col-xs-7">
+                    <!--普通录入域class模版-->
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.identifynumber">
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="payListQuery()">查询</button>
+                <button class="btn btn-primary" ng-click="payListReset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <span ng-if="infoToView.checkAllFlag" class="color_red font_size_12">注：已注销或已作废、已结算的条目不能进行结算处理</span>
+        <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-change="selectedPayListAll();changePayListClass()"
+                               ng-disabled="infoToView.checkAllFlag"
+                               ng-model="infoToView.checkAll"></th>
+                    <th>保/批单号</th>
+                    <th>结算单号</th>
+                    <th>起保日期</th>
+                    <th>终保日期</th>
+                    <th>纳税人</th>
+                    <th>车牌号码</th>
+                    <th>车架号</th>
+                    <th>业务渠道</th>
+                    <th>机构</th>
+                    <th>生效日期</th>
+                    <th>应收币种</th>
+                    <th>身份证号</th>
+                    <th>当年应收</th>
+                    <th>往年补缴</th>
+                    <th>滞纳金</th>
+                    <th>应结金额</th>
+                    <!--<th>生成结算单状态</th>-->
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="pay in infoToView.queryList" ng-class="{true:'venus_table_check',false:''}[pay.checked]">
+                    <td><input type="checkbox" ng-change="selectedPayListOne();changePayListClass()" ng-model="pay.checked" ng-disabled="pay.disabled"></td>
+                    <td>{{pay.certino}}</td>
+                    <td>{{pay.attribute3}}</td>
+                    <td>{{pay.startdate|mcDate}}</td>
+                    <td>{{pay.enddate|mcDate}}</td>
+                    <td>{{pay.taxpayername}}</td>
+                    <td>{{pay.licenseno}}</td>
+                    <td>{{pay.frameno}}</td>
+                    <td>{{pay.businessnature}}</td>
+                    <td>{{pay.comcode}}</td>
+                    <td>{{pay.validdate|mcDate}}</td>
+                    <td>{{pay.currency1|mcCode:'Currency'}}</td>
+                    <td>{{pay.identifynumber}}</td>
+                    <td>{{pay.taxactual|format}}</td>
+                    <td>{{pay.previouspay|format}}</td>
+                    <td>{{pay.latefee|format}}</td>
+                    <td>{{pay.alltaxfee|format}}</td>
+                    <!--<td ng-switch="pay.attribute2">-->
+                        <!--<span ng-switch-when="0">作废</span>-->
+                        <!--<span ng-switch-when="1">已生成结算单</span>-->
+                    <!--</td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div ng-if="pagination.totalItems>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                ng-click="payListQuery('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+
+    <div class="row text-center list_footer">
+        <div class="input-group col-xs-3" style="float: left">
+            <input placeholder="请选择要上传的文件" type="text" class="form-control" ng-model="fileItem.name">
+            <a href="javascript:;" class="input-group-addon cursor_pointer">
+                <div class="glyphicon">浏览</div>
+                <input name="certificate" nv-file-select uploader="uploader" ng-click="clearCarItems()"
+                       type="file" class="collectscene_file_item" multiple/>
+            </a>
+        </div>
+        <div class="col-xs-7">
+            <button class="btn btn-success pull-left" ng-click="carShipUploadFile()">提交</button>
+            <button class="btn btn-warning pull-left margin-left-6" ng-click="resetUploadFile()">重置</button>
+            <button class="btn btn-primary pull-left margin-left-6" ng-click="downLoadTem()">下载模板</button>
+        </div>
+        <div class="col-xs-2" ng-if="infoToView._queryList.length>0">
+            <button class="btn btn-success" ng-click="payLsitSubmit()">确认{{infoToView._queryList.length}}笔</button>
+        </div>
+    </div>
+
+</div>

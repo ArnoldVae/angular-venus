@@ -1,0 +1,111 @@
+<div class="modal-content" style="width: 71%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">待登记进项发票业务信息</div>
+    </div>
+    <!--高级查询表单-->
+    <div class="modal-body">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">保/批单号 从：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="invoiceData.modalQuery.certiNo1" >
+                        <span class="color_red">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">到：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="invoiceData.modalQuery.certiNo2" >
+                        <span class="color_red">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">保/批单号列表：</label>
+                    <div class="col-xs-8">
+                        <textarea cols="25" rows="3" class="col-xs-10" style="display: inline-block" ng-model="invoiceData.modalQuery.certiNoList"></textarea>
+                        <span class="color_red">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">联共保人名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="invoiceData.modalQuery.coinsName" >
+                        <span class="color_red">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">费用类型：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="typeOfExpense" class="col-xs-10 pl0 pr0" ng-model="invoiceData.modalQuery.chargeType"></div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">包含历史数据：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="checkbox1" c-type="switch" c-true="2" c-false="1" c-model="invoiceData.modalQuery.containsHisData" style="margin-left: 0" class="code_switch"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success" ng-click="search()">查询</button>
+                    <button class="btn btn-primary" ng-click="reset()">重置</button>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <span class="color_red font_size_12" ng-if="invoiceData.cck.disabled">注：联/共保人代码不同不能同时勾选</span>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-change="selectedPayAll()" ng-model="invoiceData.cck.checkAll" ng-disabled="invoiceData.cck.disabled"></th>
+                    <th>保/批单号</th>
+                    <th>费用类型</th>
+                    <th>险种</th>
+                    <th>税率</th>
+                    <th>投保人</th>
+                    <th>被保险人</th>
+                    <th>联/共保人代码</th>
+                    <th>联/共保人名称</th>
+                    <th>应收本位币含税金额</th>
+                    <th>应收本位币不含税金额</th>
+                    <th>应收税额</th>
+                    <th>可抵扣含税金额</th>
+                    <th>可抵扣不含税金额</th>
+                    <th>可抵扣税额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="invoiceRegister in invoiceRegisterList" ng-class="{true: 'venus_table_check', false: ''}[invoiceRegister.checked]">
+                    <td><input type="checkbox" ng-change="selectedPayOne();checkedBoxChanged(invoiceRegister)"
+                               ng-model="invoiceRegister.checked"
+                               ng-disabled="!(invoiceRegister.coinsCode==invoiceData.status.coinsCode||invoiceData.status.disabled)"></td>
+                    <td>{{invoiceRegister.certiNo}}</td><!--保/批单号-->
+                    <td>{{invoiceRegister.chargeType}}</td><!--费用类型-->
+                    <td>{{invoiceRegister.riskCode}}</td><!--险种-->
+                    <td>{{invoiceRegister.taxRate}}</td><!--税率-->
+                    <td>{{invoiceRegister.appliName}}</td><!--投保人-->
+                    <td>{{invoiceRegister.insuredName}}</td><!--被保险人-->
+                    <td>{{invoiceRegister.coinsCode}}</td><!--联/共保人代码-->
+                    <td>{{invoiceRegister.coinsName}}</td><!--联/共保人名称-->
+                    <td>{{invoiceRegister.planFeeCNYContainsTax |format}}</td><!--应收本位币含税金额-->
+                    <td>{{invoiceRegister.planFeeCNY |format}}</td><!--应收本位币不含税金额-->
+                    <td>{{invoiceRegister.vaTaxFeeCNY |format}}</td><!--应收税额-->
+                    <td>{{invoiceRegister.canDeductVisaFee |format}}</td><!--可抵扣含税金额-->
+                    <td>{{invoiceRegister.canDeductNtVisaFee |format}}</td><!--可抵扣不含税金额-->
+                    <td>{{invoiceRegister.canDeductTaxFee |format}}</td><!--可抵扣税额-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--总条数-->
+    <div class="row list_content_bottom" ng-if="invoiceRegisterList.length >0">
+        <span class="text-left" align="bottom">共{{invoiceRegisterList.length}}条记录</span>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirm()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

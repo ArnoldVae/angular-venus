@@ -1,0 +1,40 @@
+<!--生成进项税抵扣凭证-->
+<div class="section venus_hasFooter">
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group col-md-12 col-sm-12">
+                <label class="col-xs-4 col-md-2">生成凭证日期：</label>
+                <div class="col-xs-8 col-md-4">
+                    <input type="text" class="date col-xs-10" ng-model="produceCer.go.date" id="date1" jedate format="YYYY-MM-DD">
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="produce()">查询</button>
+                <button class="btn btn-primary" ng-click="reset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>批次号</th>
+                <th>错误代码</th>
+                <th>错误说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="vouResponseInfo in produceCerData.vouResponseInfos">
+                <td>{{produceCerData.batchNo}}</td>
+                <td>{{vouResponseInfo.errorCode}}</td>
+                <td>{{vouResponseInfo.errorDesc}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--总条数-->
+    <div class="row list_content_bottom" ng-if="produceCerData.vouResponseInfos.length >0">
+        <span class="text-left" align="bottom">共{{produceCerData.vouResponseInfos.length}}条记录</span>
+    </div>
+</div>

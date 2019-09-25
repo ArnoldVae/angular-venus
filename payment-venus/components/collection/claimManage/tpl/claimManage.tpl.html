@@ -1,0 +1,247 @@
+<!--赔款送支付平台-->
+<div class="section" style="padding-bottom: 50px">
+    <div class="float-right addBtn"  ng-show="infoFlag" ng-click="infoFlag=false"><button class="btn btn-default">新增</button></div>
+    <div class="float-right addBtn" ng-show="!infoFlag"  ng-click="infoFlag=true"><button class="btn btn-primary">返回</button></div>
+    <div ng-if="infoFlag">
+        <div class="row poundage-header" ng-show="!moreFlag">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input placeholder="请输入缴费通知单号" type="text" style="" class="form-control" ng-model="reparationsCondition.visaSerialNo">
+                    <span class="input-group-addon cursor_pointer" ng-click="collectionSearch()"><div  class="glyphicon glyphicon-search"></div></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button ng-show="!moreFlag" type="button" class="btn btn-link" ng-click="moreFlag=!moreFlag">高级查询</button>
+                <button  ng-show="moreFlag" type="button" class="btn btn-link" ng-click="moreFlag=!moreFlag">普通查询</button>
+            </div>
+        </div>
+        <hr>
+        <div class="access_center" ng-show="moreFlag">
+            <div class="row">
+                <div class="col-md-3 ml-60"><span>缴付费通知单号：</span></div>
+                <div class="col-md-3">
+                    <input type="text" ng-model="reparationsCondition.visaSerialNo">
+                </div>
+                <div class="col-md-3" style="padding-left: 68px"><span>业务单号：</span></div>
+                <div class="col-md-3">
+                    <input type="text" ng-model="reparationsCondition.visaSerialNo">
+                </div>
+            </div>
+            <div class="row margin-top-15">
+                <div class="col-md-3 ml-60"><span>生成日期：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width: 90px" ng-model="reparationsCondition.flag9">
+                    至
+                    <input type="text" style="width: 90px" ng-model="reparationsCondition.flag9">
+                </div>
+                <div class="col-md-3 ml-60"><span>金额：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width: 90px" ng-model="reparationsCondition.flag9">
+                    至
+                    <input type="text" style="width: 90px" ng-model="reparationsCondition.flag9">
+                </div>
+            </div>
+            <div class="row margin-top-15">
+                <div class="col-md-3 ml-60"><span>缴付费状态：</span></div>
+                <div class="col-md-3">
+                    <div class="input-group-sm select-width" >
+                        <div mc-code-select code="CollectStatus" ng-model="reparationsCondition.flag" ></div>
+                    </div>
+                </div>
+                <div class="col-md-3 ml-60"><span>币种：</span></div>
+                <div class="col-md-3">
+                    <div class="input-group-sm select-width" >
+                        <div mc-code-select code="exCurrency" ng-model="reparationsCondition.flag1" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-15">
+                <div class="col-md-3 ml-60"><span>客户名称：</span></div>
+                <div class="col-md-3">
+                    <input type="text" ng-model="reparationsCondition.flag7">
+                </div>
+
+            </div>
+            <div class="row margin-top-15 tc">
+                <button class="btn btn-primary btn-width"  ng-click="collectionSearch()">查询</button>
+                <button class="btn btn-primary btn-width" ng-click="collectionReset()">重置</button>
+            </div>
+        </div>
+        <div class="bank-result">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="collection.collectionCheckedAll" ng-change="checkedAllCollection()" style="height: 15px"></th>
+                    <th>机构代码</th>
+                    <th>缴付费通知单号</th>
+                    <th>机构名称</th>
+                    <th>客户名称</th>
+                    <th>金额</th>
+                    <th>币种</th>
+                    <th>状态</th>
+                    <th>生成时间</th>
+                    <th>打印标志</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in collectionList">
+                    <td ng-class="d.changeClass"><input type="checkbox" ng-model="d.checked" ng-change="checkedCollection()" style="height: 15px"></td>
+                    <td ng-class="d.changeClass">{{d.demo1}}</td>
+                    <td ng-class="d.changeClass">{{d.demo2}}</td>
+                    <td ng-class="d.changeClass">{{d.demo3}}</td>
+                    <td ng-class="d.changeClass">{{d.demo4}}</td>
+                    <td ng-class="d.changeClass">{{d.demo5}}</td>
+                    <td ng-class="d.changeClass">{{d.demo6}}</td>
+                    <td ng-class="d.changeClass">{{d.demo7}}</td>
+                    <td ng-class="d.changeClass">{{d.demo8}}</td>
+                    <td ng-class="d.changeClass">{{d.demo9}}</td>
+                    <td ng-class="d.changeClass">
+                        <div class="dropdown">
+                        <span style="font-weight: 900" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            ···
+                        </span>
+                            <ul style="min-width: 30px;margin-left: 4px;" class="dropdown-menu dropdownMenu-bySelf" aria-labelledby="dropdownMenu1">
+                                <li><a>查看</a></li>
+                                <li><a ng-click="printMessage()">打印</a></li>
+                                <li><a>修改</a></li>
+                                <li><a>作废</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <pagination
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click="searchReparations()"
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+        <div style="float: right;">
+            <button class="btn btn-primary btn-width">导出excel</button>
+        </div>
+    </div>
+    <div ng-if="!infoFlag">
+        <div class="row poundage-header">
+            <div class="col-md-8">
+
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+        <div class="access_center">
+            <div class="row">
+                <div class="col-md-3 ml-60"><span>业务单号：</span></div>
+                <div class="col-md-3">
+                    <input type="text" ng-model="reparationsCondition.visaSerialNo">
+                </div>
+                <div class="col-md-3" style="padding-left: 68px"><span>归属机构：</span></div>
+                <div class="col-md-3">
+                    <input type="text" ng-model="reparationsCondition.visaSerialNo">
+                </div>
+            </div>
+            <div class="row margin-top-15">
+                <div class="col-md-3 ml-60"><span>传送日期：</span></div>
+                <div class="col-md-3">
+                    <input type="text" style="width: 90px" ng-model="reparationsCondition.flag9">
+                    至
+                    <input type="text" style="width: 90px" ng-model="reparationsCondition.flag9">
+                </div>
+                <div class="col-md-3 ml-60"><span>投保人：</span></div>
+                <div class="col-md-3">
+                    <input type="text" ng-model="reparationsCondition.flag7">
+                </div>
+            </div>
+            <div class="row margin-top-15">
+                <div class="col-md-3 ml-60"><span>被保险人：</span></div>
+                <div class="col-md-3">
+                    <input type="text" ng-model="reparationsCondition.flag7">
+                </div>
+
+            </div>
+            <div class="row margin-top-15 tc">
+                <button class="btn btn-primary btn-width"  ng-click="addCollectSearch()">查询</button>
+                <button class="btn btn-primary btn-width" ng-click="collectionReset()">重置</button>
+            </div>
+        </div>
+        <div class="table-top-button">
+            <button class="btn btn-primary float-right" ng-click="addCollectList()">添加到收付费列表</button>
+        </div>
+
+        <div class="search-result">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="collection.collectionCheckedAll" ng-change="checkedAllCollection()" style="height: 15px"></th>
+                    <th>机构代码</th>
+                    <th>业务单号</th>
+                    <th>机构名称</th>
+                    <th>投保人</th>
+                    <th>金额</th>
+                    <th>原币种</th>
+                    <th>被保人</th>
+                    <th>结算币种</th>
+                    <th>结算金额</th>
+                    <th>起保日期</th>
+                    <th>生效日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in collectionSearchList">
+                    <td ng-class="d.changeClass"><input type="checkbox" ng-model="d.checked" ng-change="checkedCollection()" style="height: 15px"></td>
+                    <td ng-class="d.changeClass">{{d.demo1}}</td>
+                    <td ng-class="d.changeClass">{{d.demo2}}</td>
+                    <td ng-class="d.changeClass">{{d.demo3}}</td>
+                    <td ng-class="d.changeClass">{{d.demo4}}</td>
+                    <td ng-class="d.changeClass">{{d.demo5}}</td>
+                    <td ng-class="d.changeClass">{{d.demo6}}</td>
+                    <td ng-class="d.changeClass">{{d.demo7}}</td>
+                    <td ng-class="d.changeClass">{{d.demo8}}</td>
+                    <td ng-class="d.changeClass">{{d.demo9}}</td>
+                    <td ng-class="d.changeClass">{{d.demo10}}</td>
+                    <td ng-class="d.changeClass">{{d.demo11}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <pagination
+                        ng-model="pagination.pageIndex"
+                        class="pagination-sm pull-right"
+                        total-items="pagination.totalItems"
+                        page="pagination.pageIndex"
+                        items-per-page="pagination.pageSize"
+                        max-size="pagination.maxSize"
+                        previous-text="上一页"
+                        next-text="下一页"
+                        first-text="首页"
+                        last-text="末页"
+                        class=""
+                        ng-click="searchReparations()"
+                        style="margin: 0 20px 20px 0;"
+                        boundary-links="true"
+                        on-select-page="onSelectPage(page)">
+                </pagination>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="pull-right">-->
+        <!--<span style="padding-right: 30px">合计金额：{{selectReparationsPay}}元</span>-->
+        <!--<button class="btn btn-primary fr" ng-click="sendPaymentPlatform()">送支付平台</button>-->
+    <!--</div>-->
+</div>

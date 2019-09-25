@@ -1,0 +1,141 @@
+<div class="modal-content" style="width: 88%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">认领确认</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>缴费通知单</span>
+            </div>
+            <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>缴费通知单号</th>
+                <th ng-if="user.centerCode=='02'">平台交易号</th>
+                <th>缴费金额</th>
+                <th>币种</th>
+                <th>已认领缴费金额</th>
+                <th>可认领缴费金额</th>
+                <th>本次认领缴费金额</th>
+                <th>登记日期</th>
+                <th>认领状态</th>
+                <th>认领次数</th>
+                <th>预认领日期</th>
+                <th>预认领操作人</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in confirmClaimCondition.prpJClaimTransactionMainDtoList">
+                <td>{{d.transactionNo}}</td>
+                <td ng-if="user.centerCode=='02'">{{d.tradingNo}}</td>
+                <td>{{d.sumFeeCny|format}}</td>
+                <td>{{d.currency}}</td>
+                <td>{{d.alreadyClaimSumFeeCny|format}}</td>
+                <td>{{d.canClaimSumFeeCny|format}}</td>
+                <td>{{d.thisClaimSumFeeCny|format}}</td>
+                <td>{{d.inputDate}}</td>
+                <td ng-switch="d.claimStatus">
+                    <span ng-switch-when="0">未认领</span>
+                    <span ng-switch-when="1">认领中</span>
+                    <span ng-switch-when="2">认领完成</span>
+                </td>
+                <td>{{d.claimTimes}}</td>
+                <td>{{d.claimOperatorDate}}</td>
+                <td>{{d.claimOperatorCode}}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>银行流水信息</span>
+            </div>
+            <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>银行流水号</th>
+                <th>收款方账号</th>
+                <th>付款人</th>
+                <th>交易金额</th>
+                <th>币种</th>
+                <th>已认领交易金额</th>
+                <th>可认领交易金额</th>
+                <th>本次认领交易金额</th>
+                <th>认领状态</th>
+                <th>认领次数</th>
+                <th>交易日期</th>
+                <th>摘要</th>
+                <th>是否转无单预收</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in confirmClaimCondition.prpJClaimBankFlowDetallDtoList">
+                <td>{{d.unifySerialNum}}</td>
+                <td>{{d.bankAccount}}</td>
+                <td>{{d.paymentName}}</td>
+                <td>{{d.amount|format}}</td>
+                <td>{{d.currency}}</td>
+                <td>{{d.alreadyClaimAmount|format}}</td>
+                <td>{{d.canClaimAmount|format}}</td>
+                <td>{{d.thisClaimBankFlowAmout|format}}</td>
+                <td ng-switch="d.bankFlowClaimStatus">
+                    <span ng-switch-when="0">未认领</span>
+                    <span ng-switch-when="1">认领中</span>
+                    <span ng-switch-when="2">认领完成</span>
+                </td>
+                <td>{{d.claimTimes}}</td>
+                <td>{{d.transDate}}</td>
+                <td>{{d.summary}}</td>
+                <td><input type="checkbox" ng-model="d.isNoBill" ng-true-value="1" ng-false-value="0" disabled></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="venus_modal_tableName">
+            <span>差额调整信息</span>
+        </div>
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">差额调整：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="confirmClaimCondition.differenceAmout" class="col-xs-12" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">备注：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="confirmClaimCondition.remark"  class="col-xs-12" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="confirmClaimCondition.differenceAmout>0">
+                <label class="col-xs-4">差额科目：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="diffSubjectCodeSub"
+                                 ng-model="confirmClaimCondition.differenceSubjectCode"
+                                 ng-value="confirmClaimCondition.differenceCode"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="confirmClaimCondition.differenceAmout<0">
+                <label class="col-xs-4">差额科目：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="diffSubjectCodeAdd"
+                                 ng-model="confirmClaimCondition.differenceSubjectCode"
+                                 ng-value="confirmClaimCondition.differenceCode"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group"></div>
+        </form>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirmClaim()">确认认领</button>
+        <button class="btn btn-primary" ng-click="claimRepulse()">认领打回</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

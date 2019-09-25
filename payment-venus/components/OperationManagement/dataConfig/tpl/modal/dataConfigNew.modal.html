@@ -1,0 +1,55 @@
+<div class="modal-content" style=" width:71%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">数据源信息配置新增</div>
+    </div>
+    <!--高级查询表单-->
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">配置方式类型：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="configMold" class="col-xs-10 pl0 pr0"
+                         ng-model="dataConfig.info.routingType" style="display: inline-block"></div>
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">配置结果值：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="configResult" class="col-xs-10 pl0 pr0"
+                         ng-model="dataConfig.info.routingVal" style="display: inline-block"></div>
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">配置条件值：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="dataConfig.info.routingCondition">
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">有效标示：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="validIdentification" class="col-xs-10 pl0 pr0"
+                         ng-model="dataConfig.info.valid" style="display: inline-block"></div>
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">优先级：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="dataConfig.info.routingLevel">
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="form-group"></div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="dataConfigSave()">保存</button>
+        <button class="btn btn-primary" ng-click="reset()">重置</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

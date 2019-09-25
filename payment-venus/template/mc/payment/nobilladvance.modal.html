@@ -1,0 +1,151 @@
+<!--无单预收-->
+<div class="modal-content" style="width: 90%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">无单预收款抵扣</div>
+    </div>
+    <div class="modal-body" >
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">无单预收流水号：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="colRegCondition.preBillNo">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">统一格式银行流水号：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10"  ng-model="colRegCondition.unifySerialNum">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">原始金额：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-4" mc-format-switch transmit-type="text" ng-model="colRegCondition.prePayFeeMin">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" class="col-xs-4" mc-format-switch transmit-type="text" ng-model="colRegCondition.prePayFeeMax">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">可用金额：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-4" mc-format-switch transmit-type="text" ng-model="colRegCondition.availableFeeMin">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" class="col-xs-4" mc-format-switch transmit-type="text" ng-model="colRegCondition.availableFeeMax">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <!--<span class="col-xs-2 control-label">机构代码：</span>-->
+                    <!--<div class="col-xs-4">-->
+                        <!--<select-list base-code="operatorCode" ng-model="colRegCondition.comCode" ng-value="colRegCondition.riskCode" >-->
+                        <!--</select-list>-->
+                    <!--</div>-->
+                    <label class="col-xs-4">转无单预收款来源：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="noBillSouce" ng-model="colRegCondition.dataSource" class="col-xs-10 pl0 pr0" aria-disabled="true" aria-readonly="true"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">转无单预收日期：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-4 date" ng-model="colRegCondition.payRefDateStart"  id="date41" jedate format="YYYY-MM-DD">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" class="col-xs-4 date" ng-model="colRegCondition.payRefDateEnd"  id="date40" jedate format="YYYY-MM-DD">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <!--<label class="col-xs-4">客户代码：</label>-->
+                    <!--<div class="col-xs-4">-->
+                        <!--<select-list base-code="operatorCode" ng-model="colRegCondition.customCode" ng-value="colRegCondition.riskCode" >-->
+                        <!--</select-list>-->
+                    <!--</div>-->
+                    <label class="col-xs-4">客户名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10"  ng-model="colRegCondition.customName">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">对方账户：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10"  ng-model="colRegCondition.accountCode">
+                    </div>
+                </div>
+                <!--<div class="form-group col-xs-12 col-sm-12 col-md-6">-->
+                    <!--<label class="col-xs-4">转无单预收款来源：</label>-->
+                    <!--<div class="col-xs-4">-->
+                        <!--<div mc-code-select code="noBillSouce" ng-model="colRegCondition.dataSource" class="col-xs-10 pl0 pr0" aria-disabled="true" aria-readonly="true"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group"></div>
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success"  ng-click="searchAdviceOfSettlement()">查询</button>
+                    <button class="btn btn-primary" ng-click="collectionReset()">重置</button>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <!--<th><input type="checkbox" ng-model="colRegCondition.checkedAll" ng-change="checkedAll(colRegCondition.checkedAll,confirmList);changeClass(confirmList)"></th>-->
+                    <th></th>
+                    <th>无单预收流水号</th>
+                    <th>统一格式银行流水号</th>
+                    <th>客户代码</th>
+                    <th>客户名称</th>
+                    <th>机构代码</th>
+                    <th>转无单预收款来源</th>
+                    <th>原始金额</th>
+                    <th>可用金额</th>
+                    <th>币种</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in confirmList">
+                    <td ng-class="d.changeClass"><input type="radio" ng-click="change($index)" value="A" name="a"></td>
+                    <!--<td ng-class="d.changeClass"><input type="checkbox" ng-model="d.checked" ng-change="checkedBankFlowOne();changeClass(confirmList)">-->
+                    <td ng-class="d.changeClass">{{d.preBillNo}}</td>
+                    <td ng-class="d.changeClass">{{d.unifySerialNum}}</td>
+                    <td ng-class="d.changeClass">{{d.customCode}}</td>
+                    <td ng-class="d.changeClass">{{d.customName}}</td>
+                    <td ng-class="d.changeClass">{{d.comCode}}</td>
+                    <td ng-class="d.changeClass" ng-switch="d.dataSource">
+                        <span ng-switch-when="01">银行流水转无单预收</span>
+                        <span ng-switch-when="02">溢额保费转无单预收</span>
+                    </td>
+                    <td ng-class="d.changeClass">{{d.prePayFee|format}}</td>
+                    <td ng-class="d.changeClass">{{d.availableFee|format}}</td>
+                    <td ng-class="d.changeClass">{{d.currency}}</td>
+                    <td ng-class="d.changeClass">{{d.remark}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+            <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click="searchAdviceOfSettlement('page')"
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="checkedList()">添加到列表</button>
+    </div>
+</div>

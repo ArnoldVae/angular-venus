@@ -1,0 +1,17 @@
+<!--系统基础数据设置-->
+<div class="section venus_hasFooter">
+    <div>
+        <br>
+        <div class="AccountTap" style="text-align: center;">
+            <btn-group  btns="infoToView.tapHeader" b-click="changeTapA(index)" custom="true"></btn-group>
+        </div>
+        <div>
+            <hr>
+            <div ng-if="infoToView.tapFlagA=='1'" ng-include="'components/setup/systemBasic/tpl/tax/paymentInstitution.tpl.html'" ></div>
+            <!-- TODO:权限管理、操作员设置-->
+            <div ng-if="infoToView.tapFlagA=='2'" ng-include="'components/setup/systemBasic/tpl/tax/operator.tpl.html'"></div>
+            <div ng-if="infoToView.tapFlagA=='3'" ng-include="'components/setup/systemBasic/tpl/tax/postAuthority.tpl.html'"></div>
+        </div>
+
+    </div>
+</div>

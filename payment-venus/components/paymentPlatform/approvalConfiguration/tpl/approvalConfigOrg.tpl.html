@@ -1,0 +1,88 @@
+<!--机构-->
+<div class="section venus_hasFooter">
+    <div class="row list_query margin-top-15">
+    <!--下拉切换条件-->
+    <!--<div class="input-group-sm col-sm-2">-->
+        <!--<div mc-code-select code="approvalConfigFlag" ng-model="orgCondition.approvalFlag" ></div>-->
+    <!--</div>-->
+        <div class="form-group col-xs-12 col-sm-12 col-md-4">
+    <label class=" col-xs-4">业务类型</label>
+    <div class=" col-xs-8">
+        <div class="col-xs-10 pl0 pr0">
+            <div mc-code-select code="audit_businessType" ng-model="approvalConfig.autoApprovalDto.businessType"></div>
+        </div>
+    </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-4">
+    <label class=" col-xs-4">机构名称</label>
+    <div class=" col-xs-8">
+        <select-list my-class="col-xs-10" ng-model="approvalConfig.autoApprovalDto.centerCode" ng-value="approvalConfig.autoApprovalDto.centerName" selectType="organization" data="{comCode:comCode,newComCode:approvalConfig.autoApprovalDto.centerName}">
+        </select-list>
+    </div>
+        </div>
+        <div class="form-group col-xs-6 col-sm-6 col-md-2">
+    <div class="list_query_font">
+        <button class="btn btn-success" ng-click="searchAutoApproval()">查询</button>
+    </div>
+        </div>
+    <div class="float-right addBtn">
+        <button class="btn btn-primary" ng-click="addApprovalAuto()">新增</button>
+    </div>
+</div>
+<div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>机构名称</th>
+            <th>单位名称</th>
+            <th>业务类型</th>
+            <th>自动审批金额</th>
+            <th>是否有效</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in approvalConfig.autoApprovalList">
+            <td>{{$index+1}}</td>
+            <td>{{d.centerCode}}</td>
+            <td>{{d.centerName}}</td>
+            <td ng-switch="d.businessType">
+                <span ng-switch-when="01">赔款</span>
+                <span ng-switch-when="02">保费</span>
+                <span ng-switch-when="03">手续费</span>
+            </td>
+            <td>{{d.amountUpper|format}}</td>
+            <td ng-switch="d.validStatus">
+                <span ng-switch-when="1">有效</span>
+                <span ng-switch-when="0">无效</span>
+            </td>
+            <td><a href="" ng-click="reviseAutoApproval(d)"><i class="glyphicon glyphicon-pencil color-oranage"></i>信息修改</a>
+                <a href="" ng-click="deleteAutoApproval(d)"><i class="glyphicon glyphicon-floppy-remove color-oranage"></i>删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="approvalConfig.pagination.totalItems>0" class="row list_content_bottom">
+    <span class="text-left" align="bottom">共{{approvalConfig.pagination.totalItems}}条记录</span>
+    <pagination
+            ng-if="approvalConfig.pagination.totalItems>approvalConfig.pagination.pageSize"
+            ng-model="approvalConfig.pagination.pageIndex"
+            class="approvalConfig.pagination-sm pull-right"
+            total-items="approvalConfig.pagination.totalItems"
+            page="approvalConfig.pagination.pageIndex"
+            items-per-page="approvalConfig.pagination.pageSize"
+            max-size="approvalConfig.pagination.maxSize"
+            previous-text="上一页"
+            next-text="下一页"
+            first-text="首页"
+            last-text="末页"
+            class=""
+            ng-click="searchAutoApproval('page')"
+            style="margin: 0 20px 20px 0;"
+            boundary-links="true"
+            on-select-page="onSelectPage(page)">
+    </pagination>
+</div>
+</div>

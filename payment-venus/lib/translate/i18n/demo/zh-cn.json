@@ -1,0 +1,8 @@
+{
+  "title":"标题",
+  "btn_en": "English",
+  "btn_zh": "汉语",
+  "obj":"插入一个人名字:{{name}},年龄:{{age}}",
+  "selectName": "名字:{zhName, select, first{杨浩田} second{杨维超} third{哈哈} other{韩纪远}}",
+  "modalMessage":"这是中文！"
+}

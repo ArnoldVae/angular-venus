@@ -1,0 +1,132 @@
+<!--批量收款-批量收款查询-->
+<div class="section venus_hasFooter">
+<div class="row list_query">
+    <div class="col-xs-5">
+        <div class="input-group" >
+            <input placeholder="请输入缴费通知单号" type="text" style="" class="form-control" ng-model="infoToView.collectionSearchs.transactionNo">
+            <span  class="input-group-addon cursor_pointer" ng-click="searchOutputBlueInvoices()">
+                <div  class="glyphicon glyphicon-search"></div></span>
+        </div>
+    </div>
+        <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</div>
+        <div  ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</div>
+</div>
+<!-- 这是列表 -->
+<div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">导入文件名：</label>
+                <div class="col-xs-7">
+                    <!--<select-list my-class="col-xs-12" base-code="documentName" ng-model="infoToView.collectionSearchs.impFileNum" ng-value="infoToView.collectionSearchs.handler1CodeName" >-->
+                    <!--</select-list>-->
+                    <input type="text" class="col-xs-12" ng-model="infoToView.collectionSearchs.impFileNum"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">操作员代码：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" data='{"comCode":comCode,"checkComCode":centerCode}' selectType="operatorName" ng-model="infoToView.collectionSearchs.operatorCode" ng-value="infoToView.collectionSearchs.riskCodeName">
+                    </select-list>
+                    <!--<select-list my-class="col-xs-12" base-code="operatorCode" ng-model="infoToView.collectionSearchs.operatorCode" ng-value="infoToView.collectionSearchs.riskCodeName" >-->
+                    <!--</select-list>-->
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">导入时间：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="date col-xs-5" id="date1" jedate
+                           format="YYYY-MM-DD" ng-model="infoToView.collectionSearchs.startDate">
+                    <span class="col-xs-2 text-center">至</span>
+                    <input type="text" class="date col-xs-5" id="date2" jedate
+                           format="YYYY-MM-DD" ng-model="infoToView.collectionSearchs.endDate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">导入笔数：</label>
+                <div class="col-xs-7">
+                        <input class="col-xs-5" mc-input-cut transmit-type="number" type="text" ng-model="infoToView.collectionSearchs.numMin">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input class="col-xs-5" mc-input-cut transmit-type="number" type="text" ng-model="infoToView.collectionSearchs.numMax">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">导入金额：</label>
+                <div class="col-xs-7">
+                        <input type="number" class="col-xs-5" mc-format-switch transmit-type="text" ng-model="infoToView.collectionSearchs.amountMin">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="number" class="col-xs-5" mc-format-switch transmit-type="text" ng-model="infoToView.collectionSearchs.amountMax">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">处理结果：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select code="treatmentTesult" ng-model="infoToView.collectionSearchs.impDealRst" class="col-xs-12 pl0 pr0"></div>
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchOutputBlueInvoices()">查询</button>
+                <button class="btn btn-primary" ng-click="resetAdviceOfSettlement()">重置</button>
+            </div>
+
+        </form>
+</div>
+
+<div class="venus_table">
+    <div class="list_content">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>文件名称</th>
+                <th>缴费通知单号</th>
+                <th>成功清单</th>
+                <th>失败清单</th>
+                <th>导入时间</th>
+                <th>导入笔数</th>
+                <th>导入金额</th>
+                <th>处理结果</th>
+                <th>操作员</th>
+                <th>缴费状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ci in infoToView.confirmList">
+                <td ng-class="ci.changeClass">{{ci.fileName}}</td>
+                <td ng-class="ci.changeClass">{{ci.transactionNo}}</td>
+                <td ng-class="ci.changeClass" ng-click="showSuceesetModal(ci.transactionNo)">
+                    <a class="cursor_pointer">成功清单</a></td>
+                <td ng-class="ci.changeClass" ng-click="showFileModal(ci.transactionNo)">
+                    <a class="cursor_pointer">失败清单</a></td>
+                <td ng-class="ci.changeClass">{{ci.inputDate}}</td>
+                <td ng-class="ci.changeClass">{{ci.impNum}}</td>
+                <td ng-class="ci.changeClass">{{ci.impAmount}}</td>
+                <td ng-class="ci.changeClass">{{ci.processStatus}}</td>
+                <td ng-class="ci.changeClass">{{ci.operatorCode}}</td>
+                <td ng-class="ci.changeClass">{{ci.toPay}}</td>
+                <td ng-class="ci.changeClass">
+                    <a class="cursor_pointer" ng-show="ci.toPay=='Y'" pay-data="ci">缴费</a>
+                    <a class="cursor_pointer" ng-click="deleteMessage(ci.transactionNo,$index)">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    <!--表格底部-->
+    <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+        <span class="text-left" align="bottom">共查到{{pagination.totalItems}}条记录</span>
+    </div>
+    <!--表格底部-->
+    <div class="row list_content_bottom">
+        <pagination ng-if="pagination.totalItems>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                    page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                    previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                    ng-click="importCond('page')" style="margin: 0 20px 20px 0;" boundary-links="true"
+                    on-select-page="onSelectPage(page)"></pagination>
+    </div>
+</div>
+<!--<div class="row list_footer">-->
+    <!--<button class="btn btn-primary">导出excel</button>-->
+<!--</div>-->

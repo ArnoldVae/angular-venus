@@ -1,0 +1,104 @@
+<!--联共保确定弹窗-->
+<div class="modal-content" style="width: 72%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">联共保信息</div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table" style="overflow-x: hidden">
+        <div class="venus_modal_tableName">
+            <span>业务信息</span>
+        </div>
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>业务号</th>
+                <th>保单号</th>
+                <th>业务员代码</th>
+                <th>被保险人名称</th>
+                <th>险种</th>
+                <th>共保接收人</th>
+                <th>币别</th>
+                <th>支付原因</th>
+                <th>支付金额</th>
+                <th>期数</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="c in commonSelectList">
+                <td>{{c.certiNo}}</td>
+                <td>{{c.policyNo}}</td>
+                <td>{{c.handler1Name}}</td>
+                <td>{{c.insuredName}}</td>
+                <td>{{c.riskCode}}</td>
+                <td>{{c.coinsName}}</td>
+                <td>{{c.currency1}}</td>
+                <td>{{c.payMassage}}</td>
+                <td>{{c.billFee}}</td>
+                <td>{{c.planSerialNo}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="mc_form">
+            <div class="venus_modal_tableName">
+                <span>共保方银行账户信息</span>
+            </div>
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收款单位编号：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="com.bankitemcode">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收款行地址（省）：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="com.bankOfProvince">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收款单位名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="com.bankitemname">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收款行地址（市）：</label>
+                    <div class="col-xs-8" >
+                        <input type="text" class="col-xs-10" ng-model="com.bankOfCity">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收款账户账号：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="com.accountcode">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收款行地址（路）：</label>
+                    <div class="col-xs-8" >
+                        <input type="text" class="col-xs-10" ng-model="com.bankothdetailRod">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收款账户名称：</label>
+                    <div class="col-xs-8" >
+                        <input type="text" class="col-xs-10" ng-model="com.accountName">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">商户类型：</label>
+                    <div class="col-xs-8" >
+                        <div mc-code-select  code="Accounttype" ng-model="com.accounttype" class="col-xs-10 pl0 pr0"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="comSubmit()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+
+    </div>
+</div>

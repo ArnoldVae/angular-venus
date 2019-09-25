@@ -1,0 +1,44 @@
+.print-header{
+    width: 800px;
+    margin: 0 auto;
+}
+.print-header h4{
+    text-align: center;
+}
+.print-content hr{
+    border-top:2px solid #bbbbbb;
+}
+.print-content-top{
+    border:1px solid #bbbbbb;
+    position: relative;
+    overflow: auto;
+}
+.print-ul{width:100%;padding:4px 0;float: left;background: #fff;margin-bottom:10px;list-style: none;}
+.print-ul li{width:24%;height:35px;float:left;position:relative;}
+.print-ul li span{color:#333;font-size:14px;line-height:35px;}
+.print-ul .span_right{text-align: right}
+.print-ul .span_left{text-align: left;padding-left: 10px}
+.print-ul-center{width:100%;padding-top:10px;float: left;background: #fff;list-style: none;}
+.print-ul-center li{width:39%;height:35px;float:left;position:relative;}
+.print-ul-center li span{color:#333;font-size:14px;line-height:35px;}
+.print-ul-center .span_right{text-align: right}
+.print-ul-center .span_left{text-align: left;padding-left: 10px}
+.print-ul-center li textarea{height: 69px;width: 105%;}
+.print-ul-center select {width:300px;outline: 0;border: 1px solid #dfdfdf;height: 30px;border-radius: 4px}
+.print-ul-center input {width:300px;outline: 0;border: 1px solid #dfdfdf;height: 30px;border-radius: 4px;padding-left: 3px}
+/*底部按钮样式*/
+.config_button{
+    text-align:center;
+    width: 100%;
+    min-height: 50px;
+    padding: 15px;
+}
+.config_button button{
+    color: #fff;
+    background-color: #428bca;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    width: 118px;
+    line-height: 30px;
+}

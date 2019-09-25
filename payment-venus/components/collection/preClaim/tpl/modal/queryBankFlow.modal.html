@@ -1,0 +1,155 @@
+<!--查询银行流水-->
+<div class="modal-content" style="width: 80%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">银行流水信息查询</div>
+    </div>
+    <div class="modal-body" >
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">银行流水号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="modalBankFlow.unifySerialNum" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">账户归属机构：</label>
+                    <div class="col-xs-7">
+                        <select-list wait-change="myFunc()"
+                                     ng-model="modalBankFlow.comCode"
+                                     ng-value="modalBankFlow.businessValue"
+                                     selectType="accountOrganization"
+                                     data="{comCode:centerCode,newComCode:modalBankFlow.businessValue}"
+                                     my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                    <span class="color_red">*</span>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">银行账号：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select data="bankTypeCNY" ng-model="modalBankFlow.bankAccount" class="col-xs-12 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">认领状态：</label>
+                    <div class="col-xs-7"> <div mc-code-select code="claimStatusTwo" ng-model="modalBankFlow.claimStatus" class="col-xs-12 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">对方户名：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="modalBankFlow.paymentName" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">对方账号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="modalBankFlow.paymentAccount" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">交易金额：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="modalBankFlow.amountFrom"  mc-format-switch transmit-type="text" class="col-xs-5">
+                        <span  class="col-xs-2 text-center">至</span>
+                        <input type="text" ng-model="modalBankFlow.amountTo"  mc-format-switch transmit-type="text"  class="col-xs-5">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">交易日期：</label>
+                    <div class="col-xs-7">
+                        <input type="text" ng-model="modalBankFlow.transDateFrom" jedate id="date5" format="YYYY-MM-DD" name="date" class="col-xs-5 date">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" ng-model="modalBankFlow.transDateTo" jedate id="date6" format="YYYY-MM-DD" name="date" class="col-xs-5 date">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">币种：</label>
+                    <div class="col-xs-7">
+                        <div mc-code-select code="Currency" ng-model="modalBankFlow.currency" class="col-xs-12 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success" ng-click="searchBankFlow()">查询</button>
+                    <button class="btn btn-primary" ng-click="resetBankFlow()">重置</button>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="status.checkedAll" ng-change="checkedAll(status.checkedAll,modalBankFlowList)"></th>
+                    <th>银行流水账号</th>
+                    <th>交易日期</th>
+                    <th>账户归属机构</th>
+                    <th>银行账号</th>
+                    <th>对方户名</th>
+                    <th>对方账号</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th>已认领交易金额</th>
+                    <th>可认领交易金额</th>
+                    <th>借贷标志</th>
+                    <th>认领状态</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in modalBankFlowList" ng-class="{true: 'venus_table_check', false: ''}[d.checked]">
+                    <td><input type="checkbox" ng-model="d.checked" ng-change="checkedBankFlowOne()">
+                    </td>
+                    <td>{{d.unifySerialNum}}</td>
+                    <td>{{d.transDate}}</td>
+                    <td>{{d.comCode}}</td>
+                    <td>{{d.bankAccount}}</td>
+                    <td>{{d.paymentName}}</td>
+                    <td>{{d.paymentAccount}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.amount|format}}</td>
+                    <td>{{d.alreadyClaimAmount|format}}</td>
+                    <td>{{d.canClaimAmount|format}}</td>
+                    <td ng-switch="d.drSign">
+                        <span ng-switch-when="1">借</span>
+                        <span ng-switch-when="2">贷</span>
+                    </td>
+                    <td ng-switch="d.claimStatus">
+                        <span ng-switch-when="0">未认领</span>
+                        <span ng-switch-when="1">认领中</span>
+                        <span ng-switch-when="2">认领完成</span>
+                    </td>
+                    <td>{{d.remark}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+            <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click="searchBankFlow('page')"
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="addList()">添加到列表</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

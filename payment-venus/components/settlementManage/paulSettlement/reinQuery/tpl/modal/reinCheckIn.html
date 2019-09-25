@@ -1,0 +1,76 @@
+<div class="modal-content" style="width: 70%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">结算信息</div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>业务信息</span>
+            <span class="venus_modal_tableSubName">（共有{{accountSelectList.length}}条信息）</span>
+        </div>
+
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>结算单号</th>
+                <th>再保接受人</th>
+                <th>结算币种</th>
+                <th>结算金额</th>
+                <th>经办人</th>
+                <th>结算单日期</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{reListObj.settleNo}}</td>
+                <td>{{reListObj.reinsName}}</td>
+                <td>{{reListObj.currency2}}</td>
+                <td>{{reListObj.payRefFee|number:2}}</td>
+                <td>{{reListObj.settlerCode}}</td>
+                <td>{{reListObj.settleDate|mcDate}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-body account-modal-submit venus_table" style="height: 300px">
+        <div class="venus_modal_tableName">
+            <span>收付信息</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>收付币种</th>
+                <th>收付方式</th>
+                <th ng-if="bankTypeCNYF" style="width: 30%">银行账户/往来单位</th>
+                <th>收付金额</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ref in reObj">
+                <td><span>{{ref.confirmCurrency}}</span></td>
+                <td style="width: 150px">
+                    <select-list wait-change="getBank(ref)" data="{comCode:user.centerCode,permitPayType:'PP01'}" selectType="payway" ng-model="ref.payWay" ng-value="ref.payWayName">
+                    </select-list>
+                </td>
+                <td style="width: 240px" ng-if="bankTypeCNYF">
+                    <div class="input-group-sm "style="width: 240px">
+                        <div mc-code-select data="bankTypeCNYF" ng-model="ref.accountNo" ></div>
+                    </div>
+                </td>
+                <td><input type="text" ng-model="ref.sumPayRefFee"
+                           ng-disabled="(reObj.length-1)>$index"
+                           ng-blur="payChange(ref.sumPayRefFee,$index)"></td>
+                <td><span class="glyphicon glyphicon-minus-sign"
+                             ng-click="deleteAccount($index)"
+                             style="color: #cb2028"></span></td>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="reinDetailSubmit()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

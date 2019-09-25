@@ -1,0 +1,18 @@
+<div>
+    <input id="{{myId}}"
+           ng-if="cType===undefined || cType==='normal'"
+           type="checkbox"
+           ng-model="$parent.cModel"
+           ng-true-value="{{cTrue}}"
+           ng-false-value="{{cFalse}}" ng-disabled="cDisabled">
+
+    <input id="{{myId}}"
+           ng-if="cType==='switch'"
+           type="checkbox"
+           ng-model="$parent.cModel"
+           ng-true-value="{{cTrue}}"
+           ng-false-value="{{cFalse}}"
+           class="switch"
+           ng-disabled="cDisabled"/>
+    <label style="padding-top: 0" ng-if="cType==='switch'" for="{{myId}}" class="switch-label"></label>
+</div>

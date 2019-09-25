@@ -1,0 +1,87 @@
+<!--框架左侧菜单-->
+
+<div class="left-nav drop-shadow has-top-nav animate" style="overflow: hidden" ng-mouseover="showSearchMenu()" ng-mouseleave="resetMenuActive();hiddenSearchMenu()">
+    <nav style="width: 135%;height: 100%;overflow-x: hidden;overflow-y: auto;padding-right:30px;">
+        <ul class="nav">
+            <!--搜索框-->
+            <li ng-if="isSearchMenu" class="search_Menu">
+                <div class="input-group">
+                    <span class="input-group-addon"><div class="glyphicon glyphicon-search"></div></span>
+                    <input placeholder="查询菜单" type="text" ng-model="search.menu" class="form-control">
+                </div>
+            </li>
+            <!--搜索后显示-->
+            <li ng-repeat="searchMenu in searchMenus | filter:search.menu" ng-if="!!search.menu && isSearchMenu" ng-mouseover="getSearchChecked(searchMenu)" ng-class="{'active': searchMenu.checked}">
+                <a ng-href="#/{{searchMenu.actionURL||'noPage'}}" ui-sref-opts="{reload:'{{searchMenu.actionURL}}'}">
+                    <span ng-bind="searchMenu.menuCName"></span>
+                </a>
+            </li>
+
+            <!--搜索前显示-->
+            <!--搜索框占位图标-->
+            <li ng-if="!isSearchMenu">
+                <a><i class="glyphicon glyphicon-search"></i></a>
+            </li>
+            <li ng-repeat="menu in menus" ng-class="{'active': menu.checked}" ng-if="!search.menu || !isSearchMenu">
+                <a ng-if="showMenuShade" ui-sref-opts="{reload:'{{menu.actionURL}}'}"
+                   ng-mouseover="selectFirstMenu(menu)">
+                    <i ng-class="menu.image"></i>
+                    <span ng-bind="menu.menuCName"></span>
+                    <div ng-if="menu.menuCName=='工作台'" class="badge pull-right ">7</div>
+                </a>
+                <a ng-if="!showMenuShade" ng-href="#/{{menu.actionURL||'noPage'}}" ui-sref-opts="{reload:'{{menu.actionURL}}'}"
+                   ng-mouseover="selectFirstMenu(menu)">
+                    <i ng-class="menu.image"></i>
+                    <span ng-bind="menu.menuCName"></span>
+                    <div ng-if="menu.menuCName=='工作台'" class="badge pull-right ">7</div>
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+    <div class="left-sec-nav show-when-mouseover" style="overflow-x: hidden;overflow-y: auto;" ng-if="showMenuShade && !search.menu">
+        <span>{{secondMenu.menuCName}}</span>
+        <div ng-repeat="secMenu in secondMenu.nodes track by $index" ng-class="{'active': secMenu.checked}">
+            <a ng-if="secMenu.nodes.length>0" ng-click="selectSecondMenu(secMenu);">{{secMenu.menuCName}}
+                <button ng-if="secMenu.nodes.length>0 && !secMenu.showThirdMenu">+</button>
+                <button ng-if="secMenu.nodes.length>0 && secMenu.showThirdMenu">-</button>
+            </a>
+            <a ng-if="secMenu.nodes.length<=0" ng-href="#/{{secMenu.actionURL||'noPage'}}" ng-click="selectSecondMenu(secMenu);">{{secMenu.menuCName}}
+                <button ng-if="secMenu.nodes.length>0 && !secMenu.showThirdMenu">+</button>
+                <button ng-if="secMenu.nodes.length>0 && secMenu.showThirdMenu">-</button>
+            </a>
+            <div class="left-third-nav" is-menu="true" menu-index="{{$index}}" ng-if="secMenu.nodes.length>0 && secMenu.showThirdMenu">
+                <ul class="">
+                    <li ng-repeat="thirdMenu in secMenu.nodes">
+                        <a ng-href="#/{{thirdMenu.actionURL}}" ng-click="selectThirdMenu()">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{thirdMenu.menuCName}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--<div ng-if="showMenuShade">-->
+<!--<div class="secondMenu_shade" ng-click="cancelFirstMenu()"></div>-->
+<!--<div class="secondMenu_menu">-->
+<!--<a class="secondMenu_menuCName">-->
+<!--<span class="glyphicon glyphicon-circle-arrow-left" ng-click="cancelFirstMenu()" style="font-size: 30px;color:rgba(255,255,255,.5);cursor: pointer"></span>-->
+<!--<span style="color:#e8a343;font-size: 16px;position: relative;top: -7px;left: 4px;">{{secondMenu.menuCName}}</span>-->
+<!--</a>-->
+<!--<div class="secondMenu-list" ng-repeat="secMenu in secondMenu.nodes track by $index" ng-class="{'active': secMenu.checked}">-->
+<!--<a ui-sref="{{secMenu.actionURL||'noPage'}}" ng-click="selectSecondMenu(secMenu)">{{secMenu.menuCName}}</a>-->
+<!--<div mc-dropdown is-menu="true" menu-index="{{$index}}" ng-if="secMenu.nodes.length>0">-->
+<!--<ul class="nav nav-pills nav-stacked" style="margin-top: -10px">-->
+<!--<li ng-repeat="thirdMenu in secMenu.nodes">-->
+<!--<a ui-sref="{{thirdMenu.actionURL}}" ng-click="cancelFirstMenu()">{{thirdMenu.menuCName}}</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->

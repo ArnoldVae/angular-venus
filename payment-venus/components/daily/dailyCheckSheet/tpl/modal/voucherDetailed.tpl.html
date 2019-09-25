@@ -1,0 +1,51 @@
+<!--日结单信息-->
+<div class="modal-content" style="width: 82%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">凭证详细信息</div>
+    </div>
+    <div class="venus_table">
+        <div class="form-group" style="margin-top: 23px;height:150px;">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th rowspan="2">凭证号</th>
+                    <th rowspan="2">分录号</th>
+                    <th rowspan="2">会计科目</th>
+                    <th rowspan="2">成本中心</th>
+                    <th rowspan="2">险种</th>
+                    <th rowspan="2">币别</th>
+                    <th colspan="2">借方</th>
+                    <th colspan="2">贷方</th>
+                    <th rowspan="2">凭证摘要</th>
+                </tr>
+                <tr>
+                    <th>原币金额</th>
+                    <th>本位币金额</th>
+                    <th>原币金额</th>
+                    <th>本位币金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in paymentList">
+                    <td>{{d.voucherNo}}</td>
+                    <td>{{d.suffixNo}}</td>
+                    <td>{{d.itemCode}}</td>
+                    <td>{{d.f02}}</td>
+                    <td>{{d.f05}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.debitSource}}</td>
+                    <td>{{d.debitDest}}</td>
+                    <td>{{d.creditSource}}</td>
+                    <td>{{d.creditDest}}</td>
+                    <td>{{d.remark}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning btn-width" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

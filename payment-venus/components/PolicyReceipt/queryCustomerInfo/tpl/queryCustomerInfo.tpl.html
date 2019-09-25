@@ -1,0 +1,136 @@
+<!--客户化查询页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入客户代码" type="text" style="" class="form-control"
+                       ng-model="queryCustomerInfoNew.info.customerCode" maxlength="20">
+                <span class="input-group-addon cursor_pointer" ng-click="queryCustomerInfo()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <span ng-show="!queryCustomerInfoNew.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="queryCustomerInfoNew.status.moreFlag=!queryCustomerInfoNew.status.moreFlag">高级查询</span></span>
+        <span ng-show="queryCustomerInfoNew.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="queryCustomerInfoNew.status.moreFlag=!queryCustomerInfoNew.status.moreFlag">普通查询</span></span>
+    </div>
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="queryCustomerInfoNew.status.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="col-xs-4">客户类型：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0" mc-code-select code="customerType" ng-model="queryCustomerInfoNew.info.customerType"></div>
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="col-xs-4"><span>客户性质：</span></label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0" mc-code-select code="customerKind" ng-model="queryCustomerInfoNew.info.customerKind"></div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="col-xs-4"><span>客户代码：</span></label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="queryCustomerInfoNew.info.customerCode"/>
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="col-xs-4"><span>客户名称：</span></label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="queryCustomerInfoNew.info.customerName"/>
+                </div>
+            </div>
+            <!--<div class="form-group col-md-6 col-sm-12">-->
+                <!--<label class="col-xs-4"><span>证件号：</span></label>-->
+                <!--<div class="col-xs-7">-->
+                    <!--<input type="text" class="col-xs-12" ng-model="queryCustomerInfoNew.info.identifyNumber"/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="col-xs-4"><span>手机号：</span></label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="queryCustomerInfoNew.info.mobile"/>
+                </div>
+            </div>
+            <!--<div class="form-group col-md-6 col-sm-12">-->
+                <!--<label class="col-xs-4"><span>车牌号：</span></label>-->
+                <!--<div class="col-xs-7">-->
+                    <!--<input type="text" class="col-xs-12" ng-model="queryCustomerInfoNew.info.carId"/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="queryCustomerInfo()">查询</button>
+                <button class="btn btn-primary" ng-click="reset()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表内容-->
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>客户代码</th>
+                <th>客户名称</th>
+                <th>客户性质</th>
+                <th>客户类型</th>
+                <th>证件类型</th>
+                <!--<th>证件号码</th>-->
+                <th>手机号</th>
+                <!--<th>车牌号</th>-->
+                <th>客户风险等级</th>
+                <th>是否股东</th>
+                <th>创建日期</th>
+                <th colspan="2">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ClientInformation in queryCustomerInfoNew.CustomerInfoList track by $index">
+                    <td>{{$index+1}}</td>
+                    <td>{{ClientInformation.customerCode}}</td>
+                    <td>{{ClientInformation.customerCName}}</td>
+                    <td>{{ClientInformation.customerKind | mcCode:"customerKind"}}</td>
+                    <td>{{ClientInformation.customerType | mcCode:"customerType"}}</td>
+                    <td>{{ClientInformation.identifyType | mcCode:"IdentifyType"}}</td>
+                    <!--<td>{{ClientInformation.identifyNumber}}</td>-->
+                    <td>{{ClientInformation.mobile}}</td>
+                    <!--<td>{{ClientInformation.carId}}</td>-->
+                    <td>{{ClientInformation.cusLevel | mcCode:'cusLevelType'}}</td>
+                    <td>{{ClientInformation.shareHolderFlag | mcCode:"ShareHolderflag"}}</td>
+                    <td>{{ClientInformation.inputDate | mcDate}}</td>
+                    <td><a ng-click="PolicyInfoQuery(ClientInformation)">业务信息</a></td>
+                    <td><a ng-click="searchAdviceOfSettlement(ClientInformation)">账户</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--表格底部-->
+    <div ng-if="queryCustomerInfoNew.pagination.totalItems>0" class="row list_content_bottom">
+        <span class="text-left" align="bottom">共{{queryCustomerInfoNew.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="queryCustomerInfoNew.pagination.totalItems>queryCustomerInfoNew.pagination.pageSize"
+                ng-model="queryCustomerInfoNew.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="queryCustomerInfoNew.pagination.totalItems"
+                page="queryCustomerInfoNew.pagination.pageIndex"
+                items-per-page="queryCustomerInfoNew.pagination.pageSize"
+                max-size="queryCustomerInfoNew.pagination.maxSize"
+                previous-text="{{queryCustomerInfoNew.pagination.previousText}}"
+                next-text="{{queryCustomerInfoNew.pagination.nextText}}"
+                first-text="{{queryCustomerInfoNew.pagination.firstText}}"
+                last-text="{{queryCustomerInfoNew.pagination.lastText}}"
+                ng-click="queryCustomerInfo('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+</div>
+
+
+

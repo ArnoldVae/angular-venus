@@ -1,0 +1,116 @@
+<div class="modal-content" style="width: 72%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">结算单详情</div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>结算单详情（结算单号：{{payDetail.payrefno}}）</span>
+        </div>
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>业务单号（保单或批单号）</th>
+                <th>保单起保日期</th>
+                <th>车牌号码（船舶代码）</th>
+                <th>纳税人名称</th>
+                <th>纳税人身份证号码</th>
+                <th>缴费起期</th>
+                <th>缴费止期</th>
+                <th>交强险车辆九大类明细</th>
+                <th>当年应缴</th>
+                <th>往来补缴</th>
+                <th>滞纳金</th>
+                <th>应结金额（应结算车船税总额）</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="c in payDetail.prpJCoinsSettleBillList">
+                <td>{{c.certino}}</td>
+                <td>{{c.startdate}}</td>
+                <td>{{c.licenseno}}</td>
+                <td>{{c.taxpayername}}</td>
+                <td>{{c.identifynumber}}</td>
+                <td>{{c.paystartdate}}</td>
+                <td>{{c.payenddate}}</td>
+                <td>{{c.carnaturecode}}</td>
+                <td>{{c.taxactual}}</td>
+                <td>{{c.previouspay}}</td>
+                <td>{{c.latefee}}</td>
+                <td>{{c.alltaxfee}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form_two">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-2 control-label"><span>收付单生成人代码：</span></div>
+                <div class="col-md-4">
+                    {{payDetail.prpJpaymentBillList[0].packagecode}}
+                </div>
+                <div class="col-md-2 control-label"><span>收付单生成单位代码：</span></div>
+                <div class="col-md-4">
+                    {{payDetail.prpJpaymentBillList[0].packageunit}}<br><br>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2 control-label"><span>收付单币种：</span></div>
+                <div class="col-md-4">
+                   {{payDetail.prpJpaymentBillList[0].currency}}<br><br>
+                </div>
+                <div class="col-md-2 control-label"><span>收付单总金额：</span></div>
+                <div class="col-md-4">
+                    {{payDetail.prpJpaymentBillList[0].billfee}}<br><br>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2 control-label"><span>记录状态：</span></div>
+                <div class="col-md-4">
+                    {{payDetail.prpJpaymentBillList[0].itemstatus|mcCode:'Itemstatus'}}
+                </div>
+                <div class="col-md-2 control-label"><span>收付状态（上传状态）：</span></div>
+                <div class="col-md-4">
+                   {{payDetail.prpJpaymentBillList[0].uploadstatus|mcCode:'Uploadstatus'}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2 control-label"><span>车船税结缴单生成日期：</span></div>
+                <div class="col-md-4">
+                   {{payDetail.prpJpaymentBillList[0].inputdate|mcDate}}<br><br>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>结算单支付记录</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>实付币种</th>
+                <th>汇率</th>
+                <th>实付总金额</th>
+                <th>实际收付号</th>
+                <th>收付员</th>
+                <th>收付单位</th>
+                <th>收付日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ref in payDetail.prpJpaymentBillList">
+                <td>{{ref.currency2}}</td>
+                <td>{{ref.exchangerate}}</td>
+                <td>{{ref.realbillfee}}</td>
+                <td>{{ref.realpayrefno}}</td>
+                <td>{{ref.payrefcode}}</td>
+                <td>{{ref.payrefunit}}</td>
+                <td>{{ref.payrefdate}}</td>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

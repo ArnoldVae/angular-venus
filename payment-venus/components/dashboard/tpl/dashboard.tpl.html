@@ -1,0 +1,171 @@
+<div class="row has-right-side-bar">
+    <div class="center_body">
+        <!--我的资料-->
+        <div class="back-white col-xs-12 padding_top_12">
+            <div>我的资料</div>
+            <div class="venus_table">
+                <table class="table table-bordered">
+                    <thead> </thead>
+                    <tbody>
+                    <tr>
+                        <td >账号：</td>
+                        <td>{{usercode}}&nbsp;/&nbsp;{{userName}}</td>
+                        <td>归属机构：</td>
+                        <td>{{userComName}}</td>
+                        <!--<td><a >密码修改</a></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--通知提醒-->
+        <div class="back-white col-xs-12">
+            <div>通知提醒</div>
+            <div class="venus_table dashboard_th">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th width="42">序号</th>
+                        <th class="table_icon">通知内容<span ng-click="DailyPaymentQuery()" class="glyphicon glyphicon-refresh pull-right"></span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td width="42">1</td>
+                        <td class="text-left">财务结账通知：</td>
+                    </tr>
+                    <tr>
+                        <td width="42">2</td>
+                        <td class="text-left">系统版本升级通知：</td>
+                    </tr>
+                    <tr>
+                        <td width="42">3</td>
+                        <td class="text-left">财务会议通知：</td>
+                    </tr>
+                    <tr>
+                        <td width="42">4</td>
+                        <td class="text-left">
+                            <div class="col-xs-12 row" style="margin-bottom: -13px">
+                                <div class="col-xs-2 padding_clear" style="width: 10%">日结失败提醒：</div>
+                                <div id="demo" class="qimo8 col-xs-9" style="width: 85%;margin-left: 25px">
+                                    <div class="qimo">
+                                        <div id="demo1">
+                                            <ul>
+                                                <li ng-repeat="n in dailyFailNotice">{{$index+1}}.{{n}}日结失败&nbsp;&nbsp;&nbsp;</li>
+                                            </ul>
+                                        </div>
+                                        <div id="demo2"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div style="position: relative;right: 17px;font-size: 12px;cursor: pointer;"><a ng-click="goAllDailyFailNotice()">查看全部</a></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+
+        <div class="back-white col-xs-12" ng-if="waitingTasks.length > 0">
+            <div>
+                <span>待办任务</span>
+                <span class="pull-right">
+                    <span class="glyphicon glyphicon-sort-by-alphabet"></span><span>智能排序</span>
+                    <span class="glyphicon glyphicon-plus-sign"></span><span>自定义类型</span>
+                </span>
+            </div>
+            <div ng-repeat="waitingTask in waitingTasks track by $index">
+                <div class="venus_table dashboard_th" style="padding-bottom: 0;width: 100%">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th colspan="10">{{waitingTask.title}}</th>
+                            <th class="table_icon">
+                                <span class="light_height_8">...</span>
+                                <span class="glyphicon glyphicon-refresh "></span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>序号</th>
+                            <th>业务类型</th>
+                            <th>支付文件号</th>
+                            <th>支付币别</th>
+                            <th>支付金额</th>
+                            <th>收款人</th>
+                            <th>收款人账号</th>
+                            <th>归属机构</th>
+                            <th>提交人</th>
+                            <th>提交时间</th>
+                            <th class="table_icon"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="w in waitingTask.list">
+                            <td>{{$index+1}}</td>
+                            <td>{{w.businessType}}</td>
+                            <td>{{w.payNo}}</td>
+                            <td>{{w.payCurrency}}</td>
+                            <td>{{w.paySum}}</td>
+                            <td>{{w.paymentPerson}}</td>
+                            <td>{{w.paymentNo}}</td>
+                            <td>{{w.organization}}</td>
+                            <td>{{w.submitPerson}}</td>
+                            <td>{{w.submitTime}}</td>
+                            <td style="text-align: center"><button class="btn btn-primary">开始操作</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <pagination
+                        ng-model="pagination.pageIndex"
+                        class="pagination-sm pull-right"
+                        total-items="pagination.totalItems"
+                        page="pagination.pageIndex"
+                        items-per-page="pagination.pageSize"
+                        max-size="pagination.maxSize"
+                        previous-text="上一页"
+                        next-text="下一页"
+                        first-text="首页"
+                        last-text="末页"
+                        boundary-links="true"
+                        on-select-page="onSelectPage(page)">
+                </pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="sidebar has-top-nav sidebar-right">
+    <div class="panel panel-default">
+        <div class="panel-heading">日常统计</div>
+        <div class="panel-body">
+            <!--<img src="images/sxt.jpg">-->
+            <div class="echart_content">
+                <div class="echart_content_img" id="main"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <mc-allocation show-type="btn" title="任务类型筛选" data="getTasks" wait-change="getCommission()"></mc-allocation>
+    </div>
+
+    <div>
+        <mc-allocation show-type="icon" title="快捷操作" data="getHotKeys"></mc-allocation>
+    </div>
+</div>

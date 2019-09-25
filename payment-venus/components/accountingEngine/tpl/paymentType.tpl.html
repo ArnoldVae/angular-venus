@@ -1,0 +1,123 @@
+<!--收付类型-->
+<div class="section">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-12 col-sm-7 col-md-5 form-group">
+            <div class="input-group float-left margin-right-30 wb75">
+                <input placeholder="请输入收付类型代码" type="text" style="" class="form-control"
+                       ng-model="infoToView.paymentType.queryConditions.payType">
+                <span class="input-group-addon cursor_pointer" ng-click="queryPublic(constants.TARGET.PAYMENTTYPE)">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+            <div ng-show="!infoToView.paymentType.moreFlag" class="form-group list_query_font float-left"><span ng-click="infoToView.paymentType.moreFlag=!infoToView.paymentType.moreFlag">高级查询</span></div>
+            <div ng-show="infoToView.paymentType.moreFlag" class="form-group list_query_font float-left"><span ng-click="infoToView.paymentType.moreFlag=!infoToView.paymentType.moreFlag ">普通查询</span></div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-7 form-group">
+            <div class="control-label float-left light_height_30">是否有效：</div>
+            <div class="float-left col-xs-5 col-sm-4 col-md-3 padding_clear" mc-code-select code="isFlag" ng-model="infoToView.paymentType.queryConditions.validStatus"></div>
+        </div>
+    </div>
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="infoToView.paymentType.moreFlag">
+        <form class="form-horizontal">
+            <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                <label class="col-xs-4" >收付类型代码：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="payType"
+                                 displayType="CODE"
+                                 account-flag="true"
+                                 ng-model="infoToView.paymentType.queryConditions.payType"
+                                 ng-value="infoToView.paymentType.queryConditions.payName"
+                                 select-value="{paymentAccType:infoToView.paymentType.queryConditions.payType}"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                <label class="col-xs-4" >收付类型名称：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="payType"
+                                 account-flag="true"
+                                 ng-model="infoToView.paymentType.queryConditions.payType"
+                                 ng-value="infoToView.paymentType.queryConditions.payName"
+                                 select-value="{paymentAccType:infoToView.paymentType.queryConditions.payType}"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="queryPublic(constants.TARGET.PAYMENTTYPE)">查询</button>
+                <button class="btn btn-primary" ng-click="resetPaymentType()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表内容-->
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>收款类型代码</th>
+                <th>收款类型名称</th>
+                <th>现金流代码</th>
+                <th>现金流名称</th>
+                <th>是否允许红冲</th>
+                <th>资金科目的借贷标识</th>
+                <th>是否有效</th>
+                <th>创建日期</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="type in infoToView.paymentType.queryList">
+                <td>{{$index+1}}</td>
+                <td>{{type.payType}}</td>
+                <td>{{type.payName}}</td>
+                <td>{{type.cashFlowCode}}</td>
+                <td>{{type.cashFlowName}}</td>
+                <td>{{type.redFlag|codeFilter}}</td>
+                <td>{{type.fundDCFlag}}</td>
+                <td>{{type.validStatus|mcCode:'validStatus1'}}</td>
+                <td>{{type.createDate|date:'yyyy-MM-dd' }}</td>
+                <td>
+                    <a ng-click="editPaymentType('update',type)">修改</a>
+                    <a ng-click="deletePublic(constants.TARGET.PAYMENTTYPE,type)">删除</a>
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <!--表格底部-->
+    <div ng-if="infoToView.paymentType.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.paymentType.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.paymentType.pagination.totalItems>infoToView.paymentType.pagination.pageSize"
+                ng-model="infoToView.paymentType.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.paymentType.pagination.totalItems"
+                page="infoToView.paymentType.pagination.pageIndex"
+                items-per-page="infoToView.paymentType.pagination.pageSize"
+                max-size="infoToView.paymentType.pagination.maxSize"
+                previous-text="{{infoToView.paymentType.pagination.previousText}}"
+                next-text="{{infoToView.paymentType.pagination.nextText}}"
+                first-text="{{infoToView.paymentType.pagination.firstText}}"
+                last-text="{{infoToView.paymentType.pagination.lastText}}"
+                ng-click="queryPublic(constants.TARGET.PAYMENTTYPE, 'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <button class="btn btn-primary" ng-click="editPaymentType('add')">新增</button>
+    </div>
+</div>

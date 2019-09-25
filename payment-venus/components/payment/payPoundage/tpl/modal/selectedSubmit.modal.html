@@ -1,0 +1,87 @@
+<!--付手续费信息弹窗-->
+<div class="modal-content" style="width: 80%;padding: 0 24px;">
+    <!--header-->
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">付手续费信息</div>
+    </div>
+    <!--body-->
+    <div class="modal-body">
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>业务信息</span>
+                <span class="venus_modal_tableSubName">（共有{{conifrmCondition.prpJCommBillDtoList.length}}条信息）</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>结算单号</th>
+                    <th>代理人/协办人</th>
+                    <th>币种</th>
+                    <th>本次应付金额</th>
+                    <th>代扣税金</th>
+                    <th>本次实付金额</th>
+                    <th>制单日期</th>
+                    <th>制单人</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in conifrmCondition.prpJCommBillDtoList">
+                    <td>{{d.visaSerialNo}}</td>
+                    <td>{{d.agentName}}</td>
+                    <td>{{d.currency2}}</td>
+                    <td>{{d.taxDisFee|format}}</td>
+                    <td>{{d.vatFee|format}}</td>
+                    <td>{{d.payCommission|format}}</td>
+                    <td>{{d.packDate}}</td>
+                    <td>{{d.packName}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center" colspan="8">合计：{{conifrmCondition.sumPayCommission | format}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table" style="height:300px">
+            <div class="venus_modal_tableName">
+                <span>收付款信息</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>收付币种</th>
+                    <th>收付方式</th>
+                    <th>银行账号</th>
+                    <th>金额</th>
+                    <th>结算号</th>
+                    <th>收付编号摘要</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in conifrmCondition.prpJpaymentDetailList">
+                    <!--币种-->
+                    <td>{{d.currency2}}</td>
+                    <!--收付方式-->
+                    <td style="width: 10%">
+                        <select-list wait-change="getBank(d)" data="{comCode:user.centerCode,permitPayType:'SP01'}" selectType="payway" ng-model="d.payWay" ng-value="d.payWayName">
+                        </select-list>
+                    </td>
+                    <!--银行账号-->
+                    <td style="width: 250px"><div ng-if="d.payWay=='211'"  mc-code-select data="bankTypeCNYF" ng-model="d.accountNo"></div></td>
+                    <!--金额-->
+                    <td>{{conifrmCondition.sumPayCommission | format}}</td>
+                    <!--结算号-->
+                    <td style="width: 10%"><input type="text" ng-model="d.checkNo" mc-input-cut transmit-type="number" maxlength="10"></td>
+                    <!--收付编号摘要-->
+                    <td style="width: 10%"><input type="text" ng-model="d.attribute1"></td>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <!--footer-->
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="accountSubmit()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

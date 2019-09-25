@@ -1,0 +1,173 @@
+<!--手续费进项发票登记-->
+<div class="modal-content" style="width: 85%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h5 class="text-center">账户信息</h5>
+    </div>
+    <div class="mc_form modal-body">
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>信息录入</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>无单预收流水号</th>
+                    <th>统一格式银行流水号</th>
+                    <th>可用金额</th>
+                    <th>币种</th>
+                    <th>退还金额</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="td-input">
+                    <td ng-bind="auditingConditions.preBillNo"></td>
+                    <td ng-bind="auditingConditions.unifySerialNum"></td>
+                    <td ng-bind="auditingConditions.availableFee"></td>
+                    <td ng-bind="auditingConditions.currency"></td>
+                    <td style="width: 10%"><input type="text" ng-model="auditingConditions.prePayFee" ng-blur="checkFee()"></td>
+                    <td><textarea   class="form-control" rows="1" ng-model="auditingConditions.remark"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <!--<div style="margin: 0 auto;margin-top: 15px;width:15px;"><a ng-click="addTr()" class="glyphicon glyphicon-plus-sign"></a></div>-->
+        </div>
+        <div class="text-left">
+            <span>无单预收收付方式录入</span>
+        </div>
+        <form class="form-horizontal">
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">客户名称：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text"  ng-model="lisr.customName">
+                </div>
+                <span class="color_red" style="display: inline-block">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">账号/卡号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.accountCode">
+                </div>
+                <span class="color_red" style="display: inline-block">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">证件类型：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="IDTYPE"
+                                 my-class="col-xs-12"
+                                 ng-model="lisr.certificateType"
+                                 ng-value="lisr.accountTypwwe"
+                                 style="width: 300px">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">证件号码：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.certificateCode">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">手机号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.ownerPhoneNo">
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">银行名称：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.cankCode">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">开户银行：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.customBankCode">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">联行号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.unionBank">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">省：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.bankProvince">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">市：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.bankCity">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">卡折标志：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="accountFlag"
+                                 my-class="col-xs-12"
+                                 ng-model="lisr.accountFlag"
+                                 ng-value="lisr.accouaantFlag"
+                                 style="width: 300px">
+                    </select-list>
+                </div>
+                <span class="color_red" style="display: inline-block">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">公私标志：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="accountType_company"
+                                 my-class="col-xs-12"
+                                 ng-model="lisr.accountType"
+                                 ng-value="lisr.accounssatType"
+                                 style="width: 300px">
+                    </select-list>
+                </div>
+                <span class="color_red" style="display: inline-block">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">备注：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="lisr.remark">
+                </div>
+            </div>
+            <div class="form-group"></div>
+        </form>
+        <div class="venus_table" style="height: 200px">
+            <div class="venus_modal_tableName">
+                <span>收付款信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>收付币种</th>
+                    <th>收付方式</th>
+                    <th>银行账号</th>
+                    <th>收付金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="width: 252px">{{auditingConditions.currency}}</td>
+                    <td style="width: 10%">
+                        <select-list wait-change="myFuncType()" data="{comCode:centerCode,permitPayType:'ZP01'}" selectType="payway" ng-model="lisr.payWayCode" ng-value="lisr.payWayCodedd">
+                        </select-list>
+                    </td>
+                    <td style="width:339px">
+                        <div ng-show="datfalg"  mc-code-select data="bankTypeCNYF" ng-model="lisr.accountCodeS" class="form_two_select"></div>
+                    </td>
+                    <td style="width: 252px">{{auditingConditions.prePayFee|format}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirmAuditing()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

@@ -1,0 +1,171 @@
+<!--批量蓝票申请-->
+<div class="section venus_hasFooter">
+    <div class="form_three">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>应税/免税标识</span>
+                </div>
+                <div class="col-xs-4">
+                        <div mc-code-select code="TaxFlag" ng-model="batch.taxFlag"  style="width: 240px"></div>
+                </div>
+                <div class="col-xs-2 control-label"><span>保/批单号列表：</span></div>
+                <div class="col-xs-4">
+                    <textarea class="form-control" rows="3" ng-model="batch.certiNoList"></textarea>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary"  ng-click="batchImport()">导入</button>
+                <button class="btn btn-success" ng-click="batchReset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table" ng-if="hideFlag">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>导入流水号</th>
+                <th>费用类型</th>
+                <th>险种</th>
+                <th>税率</th>
+                <th>投保人</th>
+                <th>应收币别</th>
+                <th>应收金额</th>
+                <th>应收折人民币金额</th>
+                <th>未开票金额</th>
+                <th>开票币别</th>
+                <th>开票金额</th>
+                <th>可开票的保/批单数量</th>
+                <th>可开票的保/批单清单</th>
+                <th>不可开票的保/批单数量</th>
+                <th>不可开票的保/批单清单</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="batch in batchList"  ng-class="batch.selectedClass">
+                <td>{{batch.interactNo}}</td>
+                <td>{{batch.payrefReasonName}}</td>
+                <td>{{batch.riskCodeName}}</td>
+                <td>{{batch.vatRatePercentage}}</td>
+                <td>{{batch.appliName}}</td>
+                <td>{{batch.currency1}}</td>
+                <td>{{batch.planFeeContainsTax |number:2}}</td>
+                <td>{{batch.planFeeCNYContainsTax |number:2}}</td>
+                <td>{{batch.notVisaFee |number:2}}</td>
+                <td>CNY</td>
+                <td>{{batch.notVisaFee |number:2}}</td>
+                <td>{{batch.successNum}}</td>
+                <td><a href="">成功清单</a></td>
+                <td>{{batch.errorNum}}</td>
+                <td><a href="">失败清单</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div >
+    <div class="form_two" ng-show="hideFlag">
+        <div class="venus_modal_tableName">
+        </div>
+        <br />
+        <form class="form-horizontal">
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>开票币别</span></div>
+                <div class="col-xs-4">
+                    {{batchCancel.currency}}
+                </div>
+                <div class="col-xs-2 control-label"><span>开票含税金额</span></div>
+                <div class="col-xs-4">
+                    {{batchCancel.visaFee |number:2}}<br><br>
+                </div>
+            </div>
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>税率</span></div>
+                <div class="col-xs-4">
+                    {{batchCancel.taxRate*100+'%'}}
+                </div>
+                <div class="col-xs-2 control-label"><span>开票不含税金额</span></div>
+                <div class="col-xs-4">
+                    {{batchCancel.notVisaFee |number:2}}<br><br>
+                </div>
+            </div>
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>开票申请人</span></div>
+                <div class="col-xs-4">
+                    {{batchCancel.strUserName}}
+                </div>
+                <div class="col-xs-2 control-label"><span>税额</span></div>
+                <div class="col-xs-4">
+                    {{batchCancel.taxFee |number:2}}<br><br>
+                </div>
+            </div>
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>开票对象</span></div>
+                <div class="col-xs-4">
+                        <div mc-code-select code="batchInvoiceObjectType"
+                             ng-model="batchCancel.invoiceObjectType" style=" width: 335px;"
+                             ng-change="changeInfo(batchCancel.invoiceObjectType)"></div>
+                </div>
+                <div class="col-xs-2 control-label"><span>发票类型</span></div>
+                <div class="col-xs-4">
+                        <div mc-code-select code="InvoiceModalType" ng-model="batchCancel.invoiceType" style="width: 200px;"></div><br>
+                </div>
+            </div>
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>付款人（发票抬头）</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="batchCancel.appliName">
+                </div>
+                <div class="col-xs-2 control-label"><span>纳税人身份</span></div>
+                <div class="col-xs-2">
+                        <div mc-code-select code="modalTaxPayer" ng-model="batchCancel.taxPayer" style="width: 200px"></div><br>
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-primary">上传影像</button>
+                    <button class="btn btn-primary">查询影像</button>
+                </div>
+            </div>
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>购方纳税人识别号/统一社会信用代码</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="payInfoDto.taxPayerNo"><br><br>
+                </div>
+                <div class="col-xs-2 control-label"><span>购方地址</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="payInfoDto.address">
+                </div>
+            </div>
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>购方电话</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="payInfoDto.phoneNo"><br><br>
+                </div>
+                <div class="col-xs-2 control-label"><span>购方开户银行</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="payInfoDto.bankName">
+                </div>
+            </div>
+            <div class="form-group form_four">
+                <div class="col-xs-2 control-label"><span>购方银行账号</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="payInfoDto.accountCode"><br><br>
+                </div>
+                <div class="col-xs-2 control-label"><span>备注</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="batchCancel.remark">
+                </div>
+            </div>
+            <div class="form-group form_four" ng-if="batchCancel.invoiceType == '1'">
+                <div class="col-xs-2 control-label"><span>电子邮箱</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="batchCancel.email"><br><br>
+                </div>
+                <div class="col-xs-2 control-label"><span>短信接收电话</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="batchCancel.phoneForReceivingMessage">
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="batchSubmit(payInfoDto)">打印申请</button>
+            <button class="btn btn-warning" ng-click="batchInvoiceCancel()">返回</button>
+        </div>
+    </div>
+</div>

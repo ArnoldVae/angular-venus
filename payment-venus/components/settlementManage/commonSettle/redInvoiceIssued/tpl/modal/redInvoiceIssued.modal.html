@@ -1,0 +1,181 @@
+<!--红票开票申请查询-->
+<div class="modal-content" style="width:71%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">红票开具申请查询</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-change="selectedAll();calculateSum()"
+                                   ng-model="cck.checkOwn"></th>
+                        <th>保/批单号</th>
+                        <th>费用类型</th>
+                        <th>险种</th>
+                        <th>险别</th>
+                        <th>税率</th>
+                        <th>投保人</th>
+                        <th>被保险人</th>
+                        <th>共保人</th>
+                        <th>业务员</th>
+                        <th>应收币别</th>
+                        <th>应收金额</th>
+                        <th>应收折人民币金额</th>
+                        <th>未开票金额</th>
+                        <th>开票币种</th>
+                        <th>开票金额</th>
+                        <th>应缴车船税</th>
+                        <th>往年补缴车船税</th>
+                        <th>车船税滞纳金</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="invoiceSelect in invoiceSelectList" ng-class="{true: 'venus_table_check', false: ''}[invoiceSelect.checked]">
+                        <td><input type="checkbox" ng-model="invoiceSelect.checked" ng-change="selectedComOne();calculateSum()"/></td>
+                        <td>{{invoiceSelect.certiNo}}</td>
+                        <td>{{invoiceSelect.payRefReasonCName}}</td>
+                        <td>{{invoiceSelect.riskCName}}</td>
+                        <td>{{invoiceSelect.kindCode}}</td>
+                        <td>{{invoiceSelect.taxRate * 100 + '%'}}</td>
+                        <td>{{invoiceSelect.appliName}}</td>
+                        <td>{{invoiceSelect.insuredName}}</td>
+                        <td>{{invoiceSelect.coinsName}}</td>
+                        <td>{{invoiceSelect.handler1Code}}</td>
+                        <td>{{invoiceSelect.currency1}}</td>
+                        <td>{{invoiceSelect.planFeeContainsTax |format}}</td>
+                        <td>{{invoiceSelect.planFeeCNYContainsTax |format}}</td>
+                        <td>{{invoiceSelect.notVisaFee |format}}</td>
+                        <td>CNY</td>
+                        <td>{{invoiceSelect.visaFee |format}}</td>
+                        <td>{{invoiceSelect.planFee_R72 |format}}</td>
+                        <td>{{invoiceSelect.planFee_R73 |format}}</td>
+                        <td>{{invoiceSelect.planFee_R74 |format}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">发票代码</label>
+                    <div class="col-xs-8">
+                        {{prpJInvoiceMainDto.invoiceCode}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">发票号码</label>
+                    <div class="col-xs-8">
+                        {{prpJInvoiceMainDto.visaSerialNo}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">开票币种</label>
+                    <div class="col-xs-8">
+                        CNY
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">开票含税金额</label>
+                    <div class="col-xs-8">
+                        {{prpJInvoiceMainDto.totalVisaFee |format}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">税率</label>
+                    <div class="col-xs-8">
+                        {{prpJInvoiceMainDto.vaTaxRateNow*100+'%'}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">开票不含税金额</label>
+                    <div class="col-xs-8">
+                        {{prpJInvoiceMainDto.totalNtVisaFee |format}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">开票申请人</label>
+                    <div class="col-xs-8">
+                        {{prpJInvoiceMainDto.invHandlerName}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">税额</label>
+                    <div class="col-xs-8">
+                        {{prpJInvoiceMainDto.totalVaTaxFee |format}}
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">开票对象</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="InvoiceObjectType" ng-model="prpJInvoiceMainDto.invoiceObjectType" class="col-xs-10 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">发票类型</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="InvoiceModalType" ng-model="prpJInvoiceMainDto.invoiceType" class="col-xs-10 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">购方电话</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="prpJInvoiceMainDto.phoneNo">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">购方地址</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="prpJInvoiceMainDto.address">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">购方开户银行</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="prpJInvoiceMainDto.bankName">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">备注</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="prpJInvoiceMainDto.remark">
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">购方银行账号</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="prpJInvoiceMainDto.accountCode">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">纳税人身份</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="modalTaxPayer" ng-model="prpJInvoiceMainDto.taxPayer"  class="col-xs-10 pl0 pr0"></div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">购方纳税人识别号/统一社会信用代码</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="prpJInvoiceMainDto.taxPayerNo">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">付款人（发票抬头）</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="prpJInvoiceMainDto.payRefName" class="col-xs-10">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success"  ng-click="redInvoiceModalSubmit()">打印申请</button>
+        <button class="btn btn-warning"  ng-click="cancel()">关闭</button>
+    </div>
+</div>

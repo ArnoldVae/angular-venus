@@ -1,0 +1,181 @@
+<!--蓝票开票申请查询-->
+<div class="modal-content" style="width: 1100px;padding: 0 24px">
+    <div class="modal-header">
+        <a class="glyphicon glyphicon-remove pull-right venus_modal_icon" ng-click="blueInvoiceModalCancel()"></a>
+        <h5 class="text-center modal-title">蓝票开票申请查询</h5>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>  </th>
+                <th>保/批单号</th>
+                <th>费用类型</th>
+                <th>险种</th>
+                <th>险别</th>
+                <th>税率</th>
+                <th>投保人</th>
+                <th>被保险人</th>
+                <th>共保人</th>
+                <th>业务员</th>
+                <th>应收币别</th>
+                <th>应收金额</th>
+                <th>应收折人民币金额</th>
+                <th>未开票金额</th>
+                <th>开票币种</th>
+                <th>开票金额</th>
+                <th>应缴车船税</th>
+                <th>往年补缴车船税</th>
+                <th>车船税滞纳金</th>
+                <th>费用性质</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="c in invoiceSelectList">
+                <td ng-class="c.selectedClass"><input type="checkbox" ng-model="c.checked" ng-change="selectedComOne();changeComClass(c)"/></td>
+                <td ng-class="c.selectedClass">{{c.certiNo}}</td>
+                <td ng-class="c.selectedClass">{{c.payRefReasonCName}}</td>
+                <td ng-class="c.selectedClass">{{c.riskCName}}</td>
+                <td ng-class="c.selectedClass">{{c.kindCode}}</td>
+                <td ng-class="c.selectedClass">{{c.taxRate * 100 + '%'}}</td>
+                <td ng-class="c.selectedClass">{{c.appliName}}</td>
+                <td ng-class="c.selectedClass">{{c.insuredName}}</td>
+                <td ng-class="c.selectedClass">{{c.coinsName}}</td>
+                <td ng-class="c.selectedClass">{{c.handler1Code}}</td>
+                <td ng-class="c.selectedClass">{{c.currency1}}</td>
+                <td ng-class="c.selectedClass">{{c.planFeeContainsTax |number:2}}</td>
+                <td ng-class="c.selectedClass">{{c.planFeeCNYContainsTax |number:2}}</td>
+                <td ng-class="c.selectedClass">{{c.notVisaFee |number:2}}</td>
+                <td ng-class="c.selectedClass">CNY</td>
+                <td ng-class="c.selectedClass" style="min-width: 180px">
+                    <input type="number" ng-model="c.visaFee"
+                           mc-format-switch transmit-type="text"
+                           ng-change="changeTotalVisaFee(c)"
+                           class="form-control">
+                </td>
+                <td ng-class="c.selectedClass">{{c.planFee_R72 |number:2}}</td>
+                <td ng-class="c.selectedClass">{{c.planFee_R73 |number:2}}</td>
+                <td ng-class="c.selectedClass">{{c.planFee_R74 |number:2}}</td>
+                <td ng-class="c.selectedClass">{{c.dFFlag}}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="form_modal">
+            <form class="form-horizontal">
+                <div class="form-group margin-top-15">
+                    <div class="col-xs-2 control-label"><span>开票币别</span></div>
+                    <div class="col-xs-4">
+                        {{prpJInvoiceMainDto.currency}}
+                    </div>
+                    <div class="col-xs-2 control-label"><span>开票含税金额</span></div>
+                    <div class="col-xs-4">
+                        {{prpJInvoiceMainDto.totalVisaFee |number:2}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label"><span>税率</span></div>
+                    <div class="col-xs-4">
+                        {{prpJInvoiceMainDto.vaTaxRateNow}}
+                    </div>
+                    <div class="col-xs-2 control-label"><span>开票不含税金额</span></div>
+                    <div class="col-xs-4">
+                        {{prpJInvoiceMainDto.totalNtVisaFee |number:2}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label"><span>开票申请人</span></div>
+                    <div class="col-xs-4">
+                        {{prpJInvoiceMainDto.invHandlerName}}
+                    </div>
+                    <div class="col-xs-2 control-label"><span>税额</span></div>
+                    <div class="col-xs-4">
+                        {{prpJInvoiceMainDto.totalVaTaxFee |number:2}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label"><span>开票对象</span></div>
+                    <div class="col-xs-4">
+                            <div mc-code-select class="form_modal_select"
+                                 ng-model="prpJInvoiceMainDto.invoiceObjectType"  style="width: 240px"
+                                 data="arrays"
+                                ng-disabled="prpJInvoiceMainDto.invoiceObjectType=='3' && invoiceObjectFlag"  ng-change="changeInfo(prpJInvoiceMainDto.invoiceObjectType)"></div>
+                    </div>
+                    <div class="col-xs-2 control-label"><span>发票类型</span></div>
+                    <div class="col-xs-4">
+                            <div mc-code-select code="InvoiceModalType"  class="form_modal_select" ng-model="prpJInvoiceMainDto.invoiceType"  style="width: 240px"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label"><span>付款人（发票抬头）</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="prpJInvoiceMainDto.invoiceHeader1" ng-disabled="prpJInvoiceMainDto.invoiceObjectType=='3' && invoiceObjectFlag" >
+                    </div>
+                    <div class="col-xs-2 control-label"><span>纳税人身份</span></div>
+                    <div class="col-xs-4">
+                            <div mc-code-select class="form_modal_select" code="modalTaxPayer" ng-model="prpJInvoiceMainDto.taxPayer"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label"><span>购方纳税人识别号/统一社会信用代码</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.taxPayerNo">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                    <div class="col-xs-2 control-label"><span>购方地址</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.address">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label"><span>购方电话</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.phoneNo">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                    <div class="col-xs-2 control-label"><span>购方开户银行</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.bankName">
+                        <span class="color_red"  ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 control-label"><span>购方银行账号</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.accountCode">
+                        <span class="color_red" ng-if="prpJInvoiceMainDto.invoiceType=='3'">*</span>
+                    </div>
+                    <div class="col-xs-2 control-label"><span>备注</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.remark">
+                    </div>
+                </div>
+                <div class="form-group" ng-if="prpJInvoiceMainDto.invoiceType=='1'">
+                    <div class="col-xs-2 control-label"><span>电子邮箱</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.email" />
+                    </div>
+                    <div class="col-xs-2 control-label"><span>短信接收电话</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoiceObjects.phoneForReceivingMessage">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="false">
+                    <div class="col-xs-2 control-label"><span>开票类型</span></div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invoicePrintType">
+                    </div>
+                    <div class="col-xs-2 control-label">开票申请人代码</div>
+                    <div class="col-xs-4">
+                        <input type="text" ng-model="invHandlerCode"><br><br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="blueInvoiceModalSubmit()" class="btn btn-primary">打印申请</button>
+    </div>
+</div>

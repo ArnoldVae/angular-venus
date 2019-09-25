@@ -1,0 +1,95 @@
+<!--收付场景详情弹窗-->
+<div class="modal-content" style="width: 70%" >
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">收付场景详情</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>收付场景</th>
+                    <th>序号</th>
+                    <th>收付凭证序号</th>
+                    <th>会计科目编码</th>
+                    <th>借/贷标识</th>
+                    <th>业务币/收付币</th>
+                    <th>属性2</th>
+                    <th>属性3</th>
+                    <th>属性4</th>
+                    <th>属性5</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="voucher in vouchers">
+                    <!--收付场景-->
+                    <td >{{voucher.payItem}}</td>
+                    <!--序号-->
+                    <td>{{voucher.subNo}}</td>
+                    <!--收付凭证序号-->
+                    <td>{{voucher.serialNo}}</td>
+                    <!--会计科目编码-->
+                    <td>
+                        <select-list base-code="accItem"
+                                     displaytype="CODE"
+                                     account-flag="true"
+                                     ng-model="voucher.titleCode"
+                                     ng-value="voucher.titleName"
+                                     style="width: 95%">
+                        </select-list>
+                    </td>
+                    <!--借/贷标识-->
+                    <td>
+                        <input type="radio" name="dcInd{{$index}}" value="1" ng-model="voucher.dcInd" style="height: 12px;"><span class="margin-right-20">借</span>
+                        <input type="radio" name="dcInd{{$index}}" value="0" ng-model="voucher.dcInd" style="height: 12px;"><span>贷</span>
+                    </td>
+                    <!--业务币/收付币-->
+                    <td>
+                        <div class="input-group-sm" style="width: 100px;margin-left: 10px">
+                            <div mc-code-select code="BusinessCollectionCurrency" ng-model="voucher.relation2"></div>
+                        </div>
+                    </td>
+                    <!--属性2-->
+                    <td></td>
+                    <!--属性3-->
+                    <td></td>
+                    <!--属性4-->
+                    <td></td>
+                    <!--属性5-->
+                    <td></td>
+                    <td style="width: 160px">
+                        <span class="glyphicon glyphicon-minus-sign"
+                              ng-click="deleteVoucher($index)"
+                              ng-disabled="target=='detail'"
+                              style="color: #cb2028">
+                        </span>
+                    </td>
+                </tr>
+                <tr style="height: 41px">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="width: 160px">
+                        <span class="glyphicon glyphicon-plus-sign"
+                              ng-click="addVoucher()"
+                        ></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirm()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

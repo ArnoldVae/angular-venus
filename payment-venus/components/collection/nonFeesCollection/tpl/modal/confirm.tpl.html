@@ -1,0 +1,13 @@
+<div class="modal-content" style="width: 30%">
+    <div class="modal-header">
+        <div class="modal-title text-center">缴费</div>
+    </div>
+    <div class="modal-body" style="min-height: 100px">
+        <span>已生成缴费通知单，单号：<a href="">{{confirmPageCondition.transactionNo}}</a></span><br>
+        <span>是否开始进行缴费？</span>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" pay-data="confirmPageCondition"   pay-callback="addSearch()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<!--日结流水单详细信息页面-->
+<div class="modal-content" style="width: 70%;">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">日收付业务流水清单</div>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form row">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">收付人员：</label>
+                    <div class="col-xs-8">
+                        <span ng-bind="dailyFlowCondition.handlerCode"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">收付币种：</label>
+                    <div class="col-xs-8">
+                        <span ng-bind="dailyFlowCondition.currency"></span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">业务时间：</label>
+                    <div class="col-xs-8">
+                        <span ng-bind="dailyFlowCondition.balanceDate"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>临时凭证号</th>
+                    <th>业务类型</th>
+                    <th>收付方式</th>
+                    <th>业务单据号</th>
+                    <th>银行账号</th>
+                    <th>金额</th>
+                    <th>收付单位</th>
+                    <th>核算单位</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in dailyFlowList">
+                    <td>{{$index+1}}</td>
+                    <td>{{d.certificateNo}}</td>
+                    <td>{{d.businessType | mcCode:'tellerDailyLookInfoBusinessType'}}</td>
+                    <td>{{d.payType | mcCode:'paywaycode'}}</td>
+                    <td>{{d.certiNo}}</td>
+                    <td>{{d.accountNo}}</td>
+                    <td>{{d.planFee | number:2}}</td>
+                    <td>{{d.comCode}}</td>
+                    <td>{{d.centerCode}}</td>
+                    <td>{{}}</td>
+                </tr>
+                <tr>
+                    <td>合计：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{sumPlanFee}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="exportdailyFlow()">导出</button>
+        <button class="btn btn-success"  ng-click="printTest()">打印</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

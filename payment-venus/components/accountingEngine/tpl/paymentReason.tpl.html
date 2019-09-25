@@ -1,0 +1,70 @@
+<!--收付原因维护页面-->
+<div class="section">
+    <div class="row list_query">
+        <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+            <div class="input-group">
+                <input placeholder="请输入收付原因代码" type="text" style="" ng-model="infoToView.paymentReason.queryConditions.codeCode" class="form-control">
+                <span style="cursor:pointer;" class="input-group-addon" ng-click="queryPublic(constants.TARGET.PAYMENTREASON)"><div class="glyphicon glyphicon-search"></div></span>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-7 form-group">
+            <span class="control-label float-left light_height_30">是否有效：</span>
+            <div class="float-left col-xs-5 col-sm-4 col-md-3 padding_clear" mc-code-select code="isFlag" ng-model="infoToView.paymentReason.queryConditions.validStatus"></div>
+        </div>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr >
+                <th>序号</th>
+                <th>收付原因代码</th>
+                <th>收付原因名称</th>
+                <th>外部代码</th>
+                <th>是否有效</th>
+                <th>创建日期</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="payment in infoToView.paymentReason.queryList">
+                <td>{{$index+1}}</td>
+                <td>{{payment.codeCode}}</td>
+                <td>{{payment.codeName}}</td>
+                <td>{{payment.transcodeCode}}</td>
+                <td>{{payment.validStatus|mcCode:'validStatus1'}}</td>
+                <td>{{payment.createDate|date:'yyyy-MM-dd'}}</td>
+                <td>
+                    <a ng-click="editPaymentReason('update',payment)">修改</a>
+                    <a ng-click="deletePublic(constants.TARGET.PAYMENTREASON,payment)">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-if="infoToView.paymentReason.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.paymentReason.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.paymentReason.pagination.totalItems>infoToView.paymentReason.pagination.pageSize"
+                ng-model="infoToView.paymentReason.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.paymentReason.pagination.totalItems"
+                page="infoToView.paymentReason.pagination.pageIndex"
+                items-per-page="infoToView.paymentReason.pagination.pageSize"
+                max-size="infoToView.paymentReason.pagination.maxSize"
+                previous-text="{{infoToView.paymentReason.pagination.previousText}}"
+                next-text="{{infoToView.paymentReason.pagination.nextText}}"
+                first-text="{{infoToView.paymentReason.pagination.firstText}}"
+                last-text="{{infoToView.paymentReason.pagination.lastText}}"
+                ng-click="queryPublic(constants.TARGET.PAYMENTREASON,'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <button class="btn btn-primary" ng-click="editPaymentReason('add')">新增</button>
+    </div>
+</div>

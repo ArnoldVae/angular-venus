@@ -1,0 +1,95 @@
+<!--账户信息修改轨迹查询-->
+<div class="section venus_hasFooter">
+        <div class="row list_query">
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <input placeholder="请输入支付单号" type="text"  class="form-control" ng-model="accountInfoTrajectory.accountTrajectory.visaserialNo">
+                    <span class="input-group-addon cursor_pointer" ng-click="searchTrajector()"><div  class="glyphicon glyphicon-search"></div></span>
+                </div>
+            </div>
+            <div ng-show="!accountInfoTrajectory.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="accountInfoTrajectory.moreFlag=!accountInfoTrajectory.moreFlag">高级查询</span></div>
+            <div ng-show="accountInfoTrajectory.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="accountInfoTrajectory.moreFlag=!accountInfoTrajectory.moreFlag ">普通查询</span></div>
+        </div>
+        <div class="mc_form" ng-if="accountInfoTrajectory.moreFlag">
+            <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">支付单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountInfoTrajectory.accountTrajectory.visaserialNo">
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">支付日期：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="accountInfoTrajectory.accountTrajectory.startChgDate" class="col-xs-5 date" id="date1" jedate format="YYYY-MM-DD hh:mm:ss">
+                    <span class="col-xs-2 text-center">至</span>
+                    <input type="text" ng-model="accountInfoTrajectory.accountTrajectory.endChgDate" class="col-xs-5 date" id="date2" jedate format="YYYY-MM-DD hh:mm:ss">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">收款人名称</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountInfoTrajectory.accountTrajectory.accName">
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">收款人账户：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="accountInfoTrajectory.accountTrajectory.accountNo">
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchTrajector()">查询</button>
+                <button class="btn btn-primary" ng-click="resetTrajector()">重置</button>
+            </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>支付单号</th>
+                    <th>收款人名称</th>
+                    <th>收款人开户行</th>
+                    <th>收款人账户</th>
+                    <th>金额</th>
+                    <th>最后一次修改时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in accountInfoTrajectory.accountTrajectoryList">
+                    <td>{{$index+1}}</td>
+                    <td><a href="" ng-click="detailedInfo(d)">{{d.payNo}}</a></td>
+                    <td>{{d.accName}}</td>
+                    <td>{{d.accbankName}}</td>
+                    <td>{{d.accountNo}}</td>
+                    <td>{{d.sumFee}}</td>
+                    <td>{{d.chgDate|mcSuperDate}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <div ng-if="accountInfoTrajectory.pagination.totalItems>0" class="row list_content_bottom">
+                <span class="text-left" align="bottom">共{{accountInfoTrajectory.pagination.totalItems}}条记录</span>
+                <pagination
+                        ng-if="accountInfoTrajectory.pagination.totalItems>accountInfoTrajectory.pagination.pageSize"
+                        ng-model="accountInfoTrajectory.pagination.pageIndex"
+                        class="accountInfoTrajectory.pagination-sm pull-right"
+                        total-items="accountInfoTrajectory.pagination.totalItems"
+                        page="accountInfoTrajectory.pagination.pageIndex"
+                        items-per-page="accountInfoTrajectory.pagination.pageSize"
+                        max-size="accountInfoTrajectory.pagination.maxSize"
+                        previous-text="上一页"
+                        next-text="下一页"
+                        first-text="首页"
+                        last-text="末页"
+                        class=""
+                        ng-click="searchReparations('page')"
+                        style="margin: 0 20px 20px 0;"
+                        boundary-links="true"
+                        on-select-page="onSelectPage(page)">
+                </pagination>
+        </div>
+</div>
+

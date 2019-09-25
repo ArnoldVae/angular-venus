@@ -1,0 +1,8 @@
+<ui-select ng-hide="ngDisabled" focus-on="{{model}}" style="text-align: left">
+    <ui-select-match ng-model="ngModel" allow-clear="true" style="width: 98%" placeholder="查询或选择...">{{$select.selected.codecode}}  {{$select.selected.codecname}}</ui-select-match>
+    <ui-select-choices repeat="code.codecode as code in codeList | propsFilter: {codecode: $select.search, codecname: $select.search}">
+        <span ng-bind="code.codecode"></span>
+        <span ng-bind="code.codecname"></span>
+    </ui-select-choices>
+</ui-select>
+<input ng-show="ngDisabled" type="text" class="form-control" ng-value="modalValue | mcCode:baseCode" readonly>

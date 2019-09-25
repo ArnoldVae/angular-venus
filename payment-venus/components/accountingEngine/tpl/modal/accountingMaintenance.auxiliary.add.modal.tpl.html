@@ -1,0 +1,17 @@
+<!--会计科目与专项维护-1科目维护-辅助核算-新增-->
+<div class="modal-content" style="width: 70%">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">辅助核算项</div>
+    </div>
+    <div class="modal-body exchangeInp" style="margin-bottom: -10px;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="d in infoToView.accountModol"><input type="checkbox" style="width: 15px;height: 15px" ng-model="d.checked"><span style="padding-left: 15px">{{d.articleName}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="saveChangeInfo()">保存</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

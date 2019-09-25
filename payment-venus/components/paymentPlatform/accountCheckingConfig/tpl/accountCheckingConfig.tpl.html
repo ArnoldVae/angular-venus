@@ -1,0 +1,70 @@
+<!--账户校验配置-->
+<div class="section venus_hasFooter">
+        <div class="row list_query">
+            <div class="form-group col-xs-12 col-sm-12 col-md-10">
+                <div class="col-xs-4 col-sm-4 col-md-1 pt_5">字段名称</div>
+                <div class="col-xs-4">
+                    <div class="col-xs-10 pl0 pr0">
+                        <div mc-code-select code="checkType" ng-model="accountConfig.accountCheckDto.fieldCode"></div>
+                    </div>
+                </div>
+                <div  class="col-xs-2 list_query_font"> <button class="btn btn-success" ng-click="queryAccountCheck()">查询</button></div>
+            </div>
+            <div class="float-right addBtn"><button class="btn btn-primary" ng-click="addConfig()">新增</button></div>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>字段名称</th>
+                    <th>创建时间</th>
+                    <th>创建人</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in accountConfig.accountCheckList">
+                    <td ng-switch="d.fieldCode">
+                        <span ng-switch-when="01">账户名称</span>
+                        <span ng-switch-when="02">手机号</span>
+                        <span ng-switch-when="03">银行名称</span>
+                        <span ng-switch-when="04">省_市</span>
+                        <span ng-switch-when="05">开户银行</span>
+                        <span ng-switch-when="06">联行号</span>
+                        <span ng-switch-when="07">证件号码</span>
+                        <span ng-switch-when="08">账号/卡号</span>
+                    </td>
+                    <td>{{d.inputDate|mcSuperDate}}</td>
+                    <td>{{d.operatorName}}</td>
+                    <td>
+                        <a href="" ng-click="lookMessage(d)"><i class="glyphicon glyphicon-eye-open color-oranage"></i>查看</a>
+                        <a href="" ng-click="changeMessage(d)"><i class="glyphicon glyphicon-pencil color-oranage"></i>修改</a>
+                        <a href="" ng-click="deleteAccountCheck(d)"><i class="glyphicon glyphicon-floppy-remove color-oranage"></i>删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <!--<div ng-if="accountConfig.pagination.totalItems>0" class="row list_content_bottom">-->
+                <!--<span class="text-left" align="bottom">共{{accountConfig.pagination.totalItems}}条记录</span>-->
+                <!--<pagination-->
+                        <!--ng-if="accountConfig.pagination.totalItems>accountConfig.pagination.pageSize"-->
+                        <!--ng-model="accountConfig.pagination.pageIndex"-->
+                        <!--class="accountConfig.pagination-sm pull-right"-->
+                        <!--total-items="accountConfig.pagination.totalItems"-->
+                        <!--page="accountConfig.pagination.pageIndex"-->
+                        <!--items-per-page="accountConfig.pagination.pageSize"-->
+                        <!--max-size="accountConfig.pagination.maxSize"-->
+                        <!--previous-text="上一页"-->
+                        <!--next-text="下一页"-->
+                        <!--first-text="首页"-->
+                        <!--last-text="末页"-->
+                        <!--class=""-->
+                        <!--ng-click="searchReparations('page')"-->
+                        <!--style="margin: 0 20px 20px 0;"-->
+                        <!--boundary-links="true"-->
+                        <!--on-select-page="onSelectPage(page)">-->
+                <!--</pagination>-->
+        <!--</div>-->
+</div>
+

@@ -1,0 +1,80 @@
+/*工作台样式*/
+.header_footer span{
+    font-size: 13px;
+    font-weight: 100;
+    margin: 4px;
+}
+.header_top span{
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.echart_content{
+    width: 92px;
+    height: 92px;
+    border: 2px solid #858B91;
+    border-radius: 50%;
+    margin-left: 27%;
+    position: relative;
+}
+.echart_content_img{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: -56px;
+    left: -56px;
+}
+
+.allocation .allocation_after {
+    display: none;
+}
+
+.allocation_tip{
+    position: absolute;
+    top: -2px;
+    right: 5px;
+    color: red;
+    font-size: 15px;
+}
+
+/*表格头部-无左右边距，头部标题居左*/
+.dashboard_th table thead tr th{
+    border-right: none;
+    border-left: none;
+}
+.dashboard_th table thead tr:first-child th:first-child{
+    text-align: left;
+}
+.table_icon span{
+    display: inline-block;
+    float:right;
+    margin-right: 20px;
+}
+
+/*工作台通知样式*/
+.qimo8{ overflow:hidden;}
+.qimo8 .qimo {width:1000000%; height:30px;}
+.qimo8 .qimo div{ float:left;}
+.qimo8 .qimo ul{float:left; overflow:hidden; zoom:1; }
+.qimo8 .qimo ul li{float:left; list-style:none;}
+.qimo8 li a{margin-right:10px;color:#444444;}
+
+/*响应式部分*/
+@media (max-width: 768px) {
+    /*col-xs-*/
+    .AllDaily_modal{
+        width: 80%;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    /*col-sm-*/
+    .AllDaily_modal{
+        width: 50%;
+    }
+}
+@media (min-width: 992px) {
+    /*col-md-*/
+    .AllDaily_modal{
+        width: 50%;
+    }
+}

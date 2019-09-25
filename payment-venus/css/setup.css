@@ -1,0 +1,258 @@
+/**{*/
+    /*padding:0;*/
+    /*margin:0;*/
+/*}*/
+/*th{*/
+    /*text-align: center;*/
+/*}*/
+/*tr{*/
+    /*background: #eeeeee;*/
+    /*text-align: center;*/
+/*}*/
+/*td{*/
+    /*background: #ffffff;*/
+    /*text-align: center;*/
+/*}*/
+
+.pl0{
+    padding-left: 0;
+}
+
+.ml16{
+    margin-left:16px;
+}
+
+.treeContainer-ol{
+    position: relative;
+    left: -20px;
+    /*padding: 0px;*/
+}
+/*银行机构维护树container*/
+.treeContainer{
+    border: 1px #ddd solid;
+    border-right:none;
+    top: -21px;
+    left: 16px;
+    height: 500px;
+    padding-top:16px;
+    padding-left: 0;
+}
+.treeContainer-add{
+    width: 102%;
+    height: 44px;
+    border: 1px solid #d8d5d5;
+    position: absolute;
+    left: -1px;
+    bottom: 0px;
+    padding-left: 80%;
+    padding-top: 8px;
+}
+.bankAccountMaintenanceContainer{
+    border: 1px #ddd solid;
+    top: -21px;
+    left: 16px;
+    height: 500px;
+    padding-top:16px;
+}
+
+.menuTap-left{
+    cursor:pointer;
+    padding: 0px;
+    top: -16px;
+    left: -1px;
+    width: 160px;
+    height: 100%;
+    background: rgb(245, 247, 247);
+    border: 1px #ddd solid;
+}
+.menuTap-left-font{
+    color: #1a1a1a;
+}
+.menuTap-left-font:hover{
+    background: #ababab !important;
+    color: white !important;
+}
+.actived {
+    background: grey !important;
+    color: white !important;
+}
+
+.noactive {
+    color: #1a1a1a;
+}
+.noactive:hover {
+    background: grey !important;
+    color: white !important;
+}
+.content-main{
+    position: absolute;
+    left:222px;
+    /*top:100px;*/
+    height: 100%;
+    /*border: 1px #ddd solid;*/
+}
+.AccountTap ul{
+    position: absolute;
+
+}
+.search-account-content {
+    overflow-x: hidden;
+    height: 100%;
+    width: 98%;
+}
+.payTypeAdd-result{
+    border: 1px solid #cccccc;
+    padding: 6px;
+    background: #eeeeee;
+}
+.payTypeAdd-div1{
+    border: 1px solid #cccccc;
+    width: 88px;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 28px;
+}
+
+.payTypeAdd-div2{
+    border: 1px solid #cccccc;
+    width: 885px;
+    margin-left: -1px;
+}
+.payTypeAdd-div3{
+    border: 1px solid #cccccc;
+    height: 28px;
+    width: 976px;
+ }
+
+.w1{
+    width: 200px;
+}
+.w2{
+    width: 156px;
+}
+.sceneView{
+    position: relative;
+    padding-top: 16px;
+    width: 100%;
+    border: 1px solid #cccccc;
+    border-bottom:none;
+}
+.l1{
+    width: 105px;
+}
+.sceneView-more{
+    position: relative;
+    left: 68%;
+}
+.md4{
+    position: relative;
+    padding: 16px;
+    width: 1040px;
+    border-radius: 6px;
+    background: #ffffff;
+    right: 24%;
+}
+.md5{
+    background: #ffffff;
+    width: 1300px;
+    border-radius: 6px;
+    position: absolute;
+    left: -52%;
+    padding:16px;
+}
+.s1{
+    margin: 5px 17px;
+}
+.department-content{
+    position: absolute;
+    border: 1px #bbbbbb solid;
+    height: 400px;
+    width: 80%;
+    top:11%;
+    left: 20%;
+    padding: 20px;
+}
+.department-btn{
+    position: relative;
+    margin-top: 20px;
+    left: 48%;
+    top: 16%;
+}
+.wid-droop{
+    width: 120px;
+}
+.input-w1{
+    width: 72px;
+}
+.radio-text {
+    margin-right: 84px;
+}
+/*修改table===========start*/
+.td-modify{
+    background: #00af2c;
+    padding-top: 16px;
+}
+.selet_input input{
+    width: 228px;
+}
+.td-modify-input{
+    /*height: 32px;*/
+    border-radius: 6px;
+    /*margin-top: 4px;*/
+}
+/*修改table===========end*/
+
+/*会计科目页面*/
+/*单选按钮*/
+
+
+/*个人权限配置checkbox*/
+.operatorCheckbox{
+    height: 15px;
+    width: 20px !important;
+    margin-left: 30px !important;
+}
+.border-operator{
+    border:1px solid #bbb;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.title-setting{
+    line-height: 33px;
+    font-size: 16px;
+}
+.border-postAuthority{
+    border:1px solid #bbb;
+}
+.settingAuthority{
+    width: 28%;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 10px;
+}
+.subject-main{
+    padding-top: 30px;
+    background: #FFffff;
+}
+
+.exs{
+    width: 200px;
+    padding: 0;
+    margin-left: 20px;
+}
+.footer_1{
+    width:10px;
+    height: 10px;
+    background-color: red;
+    float: left;
+    margin-left: 5px;
+}
+.footer_2{
+    width:10px;
+    height: 10px;
+    background-color: black;
+    float: left;
+    margin-left: 5px;
+}
+

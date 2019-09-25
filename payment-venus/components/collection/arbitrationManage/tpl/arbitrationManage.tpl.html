@@ -1,0 +1,133 @@
+<!--仲裁管理页面-->
+<!--查询部分-->
+<div class="row list_query margin-top-15">
+    <div class="col-md-5">
+        <div class="input-group">
+            <input placeholder="请输业务单号" type="text" class="form-control"
+                   ng-model="arbitrationManage.visaSerialNo">
+            <span class="input-group-addon cursor_pointer" ng-click="searchArbitrationManage()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+        </div>
+    </div>
+
+    <div ng-show="!moreFlag" class="col-md-1 list_query_font"><span ng-click="moreFlag=!moreFlag">高级查询</span></div>
+    <div ng-show="moreFlag" class="col-md-1 list_query_font"><span ng-click="moreFlag=!moreFlag ">普通查询</span></div>
+</div>
+
+<!--高级查询表单-->
+<div class="form_two" ng-if="moreFlag">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <span class="col-md-2 control-label">业务单号：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.comCode">
+            </div>
+            <span class="col-md-2 control-label">业务员代码：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.handler1Code">
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="col-md-2 control-label">认领机构：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.agentCode">
+            </div>
+            <span class="col-md-2 control-label">付款人：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.contractNo">
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="col-md-2 control-label">账户机构：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.businessNature">
+            </div>
+            <span class="col-md-2 control-label">银行账户：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.currency1">
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="col-md-2 control-label">银行流水号：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.currency1">
+            </div>
+            <span class="col-md-2 control-label">认领时间：</span>
+            <div class="col-md-4">
+                <input type="text" ng-model="arbitrationManage.policyNoStart" jedate id="date1" format="YYYY-MM-DD" name="date" class="half-input date">
+                <span>至</span>
+                <input type="text" ng-model="arbitrationManage.policyNoEnd" jedate id="date2" format="YYYY-MM-DD" name="date" class="half-input date">
+            </div>
+        </div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-primary" ng-click="searchArbitrationManage()">查询</button>
+            <button class="btn btn-success" ng-click="resetArbitrationManage()">重置</button>
+        </div>
+    </form>
+</div>
+
+<!--列表内容-->
+<div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>银行流水号</th>
+            <th>账户机构</th>
+            <th>银行账户</th>
+            <th>账户名称</th>
+            <th>付款人</th>
+            <th>付款人账户</th>
+            <th>到账时间</th>
+            <th>金额</th>
+            <th>币种</th>
+            <th>认领次数</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in arbitrationManageList">
+            <td>{{$index+1}}</td>
+            <td>{{d.policyNo}}</td>
+            <td>{{d.handler1Name}}</td>
+            <td>{{d.businessNature}}</td>
+            <td>{{d.agentName}}</td>
+            <td>{{d.coinsName}}</td>
+            <td>{{d.riskCode}}</td>
+            <td>{{d.startDate}}</td>
+            <td>{{d.planFee}}</td>
+            <td>{{d.currency1}}</td>
+            <td>{{d.payNo}}</td>
+            <td><a href="" ng-click="arbitrationProcess(d)">仲裁处理</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--表格底部-->
+<div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+    <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+    <pagination
+            ng-if="pagination.totalItems>pagination.pageSize"
+            ng-model="pagination.pageIndex"
+            class="pagination-sm pull-right"
+            total-items="pagination.totalItems"
+            page="pagination.pageIndex"
+            items-per-page="pagination.pageSize"
+            max-size="pagination.maxSize"
+            previous-text="上一页"
+            next-text="下一页"
+            first-text="首页"
+            last-text="末页"
+            class=""
+            ng-click="searchArbitrationManage()"
+            style="margin: 0 20px 20px 0;"
+            boundary-links="true"
+            on-select-page="onSelectPage(page)"></pagination>
+</div>
+
+<!--列表底部悬浮块-->
+<div class="row text-center list_footer">
+    <button class="btn btn-default">导出excel</button>
+</div>

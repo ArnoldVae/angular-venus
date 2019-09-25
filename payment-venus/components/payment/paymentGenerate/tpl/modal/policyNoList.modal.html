@@ -1,0 +1,76 @@
+<!--保单详细信息页面-->
+<div class="modal-content" style="width: 80%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">保/批单详细信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>业务类型</th>
+                    <th>业务单号</th>
+                    <th>保单号</th>
+                    <th>险种</th>
+                    <th>险类</th>
+                    <th>投保人代码</th>
+                    <th>投保人</th>
+                    <th>被保险人代码</th>
+                    <th>被保险人</th>
+                    <th>起保日期</th>
+                    <th>终保日期</th>
+                    <th>批单生效日期</th>
+                    <th>交费期数</th>
+                    <th>应收/付币种</th>
+                    <th>应收/付金额</th>
+                    <th>应收/付日期</th>
+                    <th>归属机构</th>
+                    <th>出单机构</th>
+                    <th>代理人</th>
+                    <th>业务员</th>
+                    <th>经办人</th>
+                    <th>核保/赔日期</th>
+                    <th>联共保人</th>
+                    <th>是否联共保</th>
+                    <th>应收/付汇率</th>
+                    <th>应收/付进帐金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in policyNoList">
+                    <td>{{d.certiType}}</td>
+                    <td>{{d.certiNo}}</td>
+                    <td>{{d.policyNo}}</td>
+                    <td>{{d.riskCode}}</td>
+                    <td>{{d.classCode}}</td>
+                    <td>{{d.appliCode}}</td>
+                    <td>{{d.appliName}}</td>
+                    <td>{{d.insuredCode}}</td>
+                    <td>{{d.insuredName}}</td>
+                    <td>{{d.startDate}}</td>
+                    <td>{{d.endDate}}</td>
+                    <td>{{d.validDate}}</td>
+                    <td>{{d.payNo}}</td>
+                    <td>{{d.currency1}}</td>
+                    <td>{{d.planFee|format}}</td>
+                    <td>{{d.planEndDate}}</td>
+                    <td>{{d.comCode}}</td>
+                    <td>{{d.makeCom}}</td>
+                    <td>{{d.agentName}}</td>
+                    <td>{{d.businessName}}</td>
+                    <td>{{d.businessName}}</td>
+                    <td>{{d.underWriteDate}}</td>
+                    <td>{{d.coinsName}}</td>
+                    <td>{{d.coinsFlag}}</td>
+                    <td>{{d.exchangeRate}}</td>
+                    <td>{{d.planFeeCNY}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

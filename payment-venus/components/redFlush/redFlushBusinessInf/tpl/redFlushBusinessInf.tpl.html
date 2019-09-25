@@ -1,0 +1,107 @@
+<!--红冲信息处理-->
+<div class="section venus_hasFooter">
+    <div class="mc_form">
+    <form class="form-horizontal">
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">收付类型：</label>
+            <div class="col-xs-7">
+                <div mc-code-select code="reverseTypeCerti" aria-disabled="true" aria-readonly="true" ng-model="redFlushInf.businessInfo.payType" class="col-xs-12 pl0 pr0">
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">核算单位：</label>
+            <div class="col-xs-7">
+                <select-list
+                        data='{"comCode":user.centerCode}'
+                        selectType="accountOrganization"
+                        ng-model="redFlushInf.businessInfo.centerCode"
+                        ng-value="redFlushInf.businessInfo.center"
+                        my-class="col-xs-12"
+                        ng-disabled="true">
+                </select-list>
+            </div>
+            <span class="color_red">*</span>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">收付凭证号：</label>
+            <div class="col-xs-7">
+                <input type="text" ng-model="redFlushInf.businessInfo.voucherNo"  class="col-xs-12"/>
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">实际收付号：</label>
+            <div class="col-xs-7">
+                <input type="text" ng-model="redFlushInf.businessInfo.realPayRefNo"  class="col-xs-12"/>
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">凭证日期：</label>
+            <div class="col-xs-7">
+                <input type="text" class="col-xs-5 date" ng-model="redFlushInf.businessInfo.voucherDateStart" id="date1" jedate format="YYYY-MM-DD">
+                <span class="col-xs-2 text-center">至</span>
+                <input type="text" class="col-xs-5 date" ng-model="redFlushInf.businessInfo.voucherDateEnd" id="date2" jedate format="YYYY-MM-DD">
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success btn-width"  ng-click="searchRedFlushInf()">查询</button>
+            <button class="btn btn-primary btn-width" ng-click="resetRedFlushInf()">重置</button>
+        </div>
+    </form>
+</div>
+    <div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>选择</th>
+            <th>收付类型</th>
+            <th>凭证号</th>
+            <th>凭证日期</th>
+            <th>凭证状态</th>
+            <th>送财务标识</th>
+            <th>收付员</th>
+            <th>收付单位</th>
+            <th>业务清单</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in redFlushInf.confirmList">
+            <td ng-class="d.changeClass"><input type="radio" ng-click="changeOne($index)" name="radio" value="a"></td>
+            <td ng-class="d.changeClass">{{d.payName}}</td>
+            <td ng-class="d.changeClass">{{d.voucherNo}}</td>
+            <td ng-class="d.changeClass">{{d.voucherDate}}</td>
+            <td ng-class="d.changeClass">{{d.vouStatus | mcCode:'VouStatus'}}</td>
+            <td ng-class="d.changeClass">{{d.transAccStatus | mcCode:'transAccStatus'}}</td>
+            <td ng-class="d.changeClass">{{d.payRefCode}}</td>
+            <td ng-class="d.changeClass">{{d.centerCode}}</td>
+            <td ng-class="d.changeClass"><a href="" ng-click="lookCertiInfo(d)"><i class="glyphicon glyphicon-eye-open color-oranage"></i>查看</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <div class="row list_content_bottom" ng-if="redFlushInf.pagination.totalItems>0">
+        <span class="text-left" align="bottom">共{{redFlushInf.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="redFlushInf.pagination.totalItems>redFlushInf.pagination.pageSize"
+                ng-model="redFlushInf.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="redFlushInf.pagination.totalItems"
+                page="redFlushInf.pagination.pageIndex"
+                items-per-page="redFlushInf.pagination.pageSize"
+                max-size="redFlushInf.pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchRedFlushInf('page')"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+    <div class="row list_footer" ng-if="redFlushInf.confirmList.length>0">
+        <button class="btn btn-success btn-width"  ng-click="confirmRedFlush()">凭证红冲</button>
+    </div>
+</div>

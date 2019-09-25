@@ -1,0 +1,12 @@
+<!--理赔进项发票模块-->
+<br>
+<div class="AccountTap" style="text-align: center;background:#fff">
+    <btn-group style="margin:16px auto; min-width: 400px;" btns="tapName" b-click="changeTap(index)"></btn-group>
+</div>
+<div class="section venus_hasFooter" style="margin-top: 0">
+    <!--理赔发票登记查询-->
+    <div ng-if="tapFlag=='1'" ng-include="'components/inputInvoice/settlementInvoice/tpl/settlementInvoice.feeInputInvoice.tpl.html'" ></div>
+    <!--理赔发票查询-->
+    <div ng-if="tapFlag=='2'" ng-include="'components/inputInvoice/settlementInvoice/tpl/settlementInvoice.feeInputInvoiceSearch.tpl.html'"></div>
+</div>
+

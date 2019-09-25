@@ -1,0 +1,128 @@
+/*日结样式*/
+.teller_daily{
+    margin: 15px 0 70px 0;
+    position: relative;
+}
+.teller_daily_left{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.teller_daily_right{
+    padding-left: 280px;
+}
+.rili{
+    padding-top: 1px;
+    width: 265px;
+    height: 100%;
+    background-color: #fff;
+}
+
+.create_daily{
+    width: 265px;
+    margin-top: 20px;
+}
+.create_daily_header_right{
+    color: #696464;
+    padding-top: 3px;
+}
+.create_daily_header_right a{
+    top: 2px;
+    left: 2px
+}
+.create_daily_body input{
+    height:32px;
+    margin-bottom: 10px;
+}
+.right_body_top{
+    color: white;
+    background-color: rgb(44,151,223);
+    width: 100%;
+    height: 66px;
+    padding-left: 25px;
+    padding-top: 15px;
+}
+.right_body_top_1{
+    width: 180px;
+    height: auto;
+    float: right;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    text-align: center;
+    margin-top: 25px;
+}
+.right_body_foot{
+    width: 100%;
+    background-color: #fff;
+    margin-top: 14px;
+}
+.foot_top_detail{
+    float: right;
+    margin-right: 16px;
+}
+.foot_top{
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    padding-left: 30px;
+    padding-top: 10px;
+}
+.foot_top button{
+    display: block;
+    float: right;
+    margin-right: 20px;
+}
+.foot_body{
+    width: 100%;
+    padding: 15px;
+    height: 500px;
+}
+.foot_body table{
+    margin-top: 15px;
+}
+.foot_body .btn-danger{
+    position: relative;
+    margin-right: 30px;
+    top: 50px;
+    float: right;
+}
+.date-error {
+    overflow: auto;
+    border: 1px crimson solid;
+    margin-top: 14px;
+    padding: 10px;
+    background: #eeb8b2;
+    width: 100%;
+}
+
+.date-error th,td{
+    white-space: nowrap;
+}
+.dailyError_modal{
+    width: 20%;
+}
+
+@media (max-width: 768px) {
+    /*col-xs-*/
+    /*屏幕小到一定程度，右侧内容移下来*/
+    .teller_daily_left{
+        position: inherit;
+    }
+    .teller_daily_right{
+        padding-left: 0;
+    }
+    .dailyError_modal{
+        width: 90%;
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    /*col-sm-*/
+    .dailyError_modal{
+        width: 55%;
+    }
+}
+@media (min-width: 992px) {
+    /*col-md-*/
+    .dailyError_modal{
+        width: 40%;
+    }
+}

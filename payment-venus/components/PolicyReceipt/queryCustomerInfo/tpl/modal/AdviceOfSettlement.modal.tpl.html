@@ -1,0 +1,71 @@
+<!--账户信息-->
+<div class="modal-content" style="width: 71%;padding: 0 24px;">
+    <div class="modal-header">
+        <button class="close" type="button" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">账户信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>无单预收流水号</th>
+                    <th>统一格式银行流水号</th>
+                    <th>凭证号</th>
+                    <th>客户名称</th>
+                    <th>机构代码</th>
+                    <th>业务员</th>
+                    <th>币种</th>
+                    <th>原始金额</th>
+                    <th>可用金额</th>
+                    <th>转无单预收日期</th>
+                    <th>无单预收来源</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="confirm in confirmList">
+                    <td>{{$index+1}}</td>
+                    <td>{{confirm.preBillNo}}</td>
+                    <td>{{confirm.unifySerialNum}}</td>
+                    <td>{{confirm.attribute1}}</td>
+                    <td>{{confirm.customName}}</td>
+                    <td>{{confirm.comCode}}</td>
+                    <td>{{confirm.handlerName}}</td>
+                    <td>{{confirm.currency}}</td>
+                    <td>{{confirm.prePayFee}}</td>
+                    <td>{{confirm.availableFee}}</td>
+                    <td>{{confirm.payRefDate | mcDate}}</td>
+                    <td>{{confirm.dataSource | mcCode:"noBillSouce"}}</td>
+                    <td>{{confirm.remark}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--表格底部-->
+        <div ng-if="pagination.totalItems>0" class="row list_content_bottom">
+            <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    ng-click="AdviceOfSettlementSearch('page')"
+                    class="pagination-small"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

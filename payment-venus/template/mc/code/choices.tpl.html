@@ -1,0 +1,9 @@
+<ul class="ui-select-choices ui-select-choices-content ui-select-dropdown dropdown-menu" role="listbox" ng-show="$select.items.length > 0">
+    <li class="ui-select-choices-group" id="ui-select-choices-{{ $select.generatedId }}">
+        <div class="divider" ng-show="$select.isGrouped && $index > 0"></div>
+        <div ng-show="$select.isGrouped" class="ui-select-choices-group-label dropdown-header" ng-bind="$group.name"></div>
+        <div id="ui-select-choices-row-{{ $select.generatedId }}-{{$index}}" ng-if="$select.open" class="ui-select-choices-row" ng-class="{active: $select.isActive(this), disabled: $select.isDisabled(this)}" role="option">
+            <span href="javascript:void(0)"  ng-class="{1: 'active1', 0: 'inactive'}[$index%2]" class="ui-select-choices-row-inner"></span>
+        </div>
+    </li>
+</ul>

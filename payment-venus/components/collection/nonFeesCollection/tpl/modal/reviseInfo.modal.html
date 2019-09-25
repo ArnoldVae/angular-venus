@@ -1,0 +1,97 @@
+<!--缴费通知单修改页面-->
+<div class="modal-content" style="width: 80%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">缴费通知单修改</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>缴费通知单号：</span>
+                <span class="venus_modal_tableSubName" ng-bind="revisePaymentNoticeCondition.transactionNo"></span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>业务单号</th>
+                    <th>业务类型</th>
+                    <th>期次</th>
+                    <th>费用类型</th>
+                    <th>险种代码</th>
+                    <th>投保人名称</th>
+                    <th>币别</th>
+                    <th>应收保费</th>
+                    <th>应收总金额</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in revisePaymentNoticeList track by $index">
+                    <td>{{$index+1}}</td>
+                    <td>{{d.certiNo}}</td>
+                    <td  ng-switch="a.certiType">
+                        <span ng-switch-when="T">投保单</span>
+                        <span ng-switch-when="R">保费</span>
+                        <span ng-switch-when="E">批单</span>
+                        <span ng-switch-when="C">案终赔款</span>
+                        <span ng-switch-when="Y">预付赔款</span>
+                        <span ng-switch-when="D">垫付赔款</span>
+                        <span ng-switch-when="Z">追偿款</span>
+                        <span ng-switch-when="V">增值税</span>
+                        <span ng-switch-when="S">手续费</span>
+                        <span ng-switch-when="X">车船税</span>
+                    </td>
+                    <td>{{d.planserialNo}}/{{d.payNo}}</td>
+                    <td>{{d.payRefreaSon}}</td>
+                    <td>{{d.riskCode}}</td>
+                    <td>{{d.appliName}}</td>
+                    <td>{{d.currenCY1}}</td>
+                    <td>{{d.premiumPlanFee|format}}</td>
+                    <td>{{d.planFee|format}}</td>
+                    <td><span ng-click="deleteInfo($index)" class="glyphicon glyphicon-minus-sign" style="color: #cb2028;"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a ng-click="addInfo()" class="glyphicon glyphicon-plus-sign"></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+            <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click=""
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-link" style="color: #cb2028">总金额{{revisePaymentNoticeList[0].currenCY1}}&nbsp;&nbsp;{{selectedPay | format}}</button>
+        <button class="btn btn-success" ng-click="saveInfo()">保存缴费通知单</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

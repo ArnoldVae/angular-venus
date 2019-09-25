@@ -1,0 +1,8 @@
+{
+  "title":"title",
+  "btn_en": "English",
+  "btn_zh": "汉语",
+  "obj":"insert a name:{{name}},it`s age:{{age}}",
+  "selectName": "name:{enName, select, first{ermao} second{sun} third{meet} other{figer}}",
+  "modalMessage":"This is English！"
+}

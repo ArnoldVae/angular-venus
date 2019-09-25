@@ -1,0 +1,145 @@
+<!--追偿款处理页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入计算书号" type="text" class="form-control" ng-model="recourseCondition.contractNo">
+                <span class="input-group-addon cursor_pointer" ng-click="searchList()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!moreFlag" class="col-xs-1 list_query_font"><span ng-click="moreFlag=!moreFlag">高级查询</span></div>
+        <div ng-show="moreFlag" class="col-xs-1 list_query_font"><span ng-click="moreFlag=!moreFlag ">普通查询</span></div>
+    </div>
+
+    <!--高级查询表单-->
+    <div class="form_two" ng-show="moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 control-label">
+                    <span>计算书号：</span>
+                    <span class="textarea-span">保单号：</span>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="recourseCondition.visaSerialNoStart">
+                    <input type="text" class="textarea-input" ng-model="recourseCondition.visaSerialNoEnd">
+                </div>
+                <span class="col-xs-2 control-label">计算书号清单：</span>
+                <div class="col-xs-4">
+                    <textarea  rows="3" class="form-control" ng-model="recourseCondition.visaSerialNoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">业务部门：</span>
+                <div class="col-xs-4">
+                    <select-list base-code="businessPart" ng-model="recourseCondition.comCode" ng-value="recourseCondition.businessPart">
+                    </select-list>
+                </div>
+                <span class="col-xs-2 control-label">业务员：</span>
+                <div class="col-xs-4">
+                    <select-list base-code="businessMan"
+                                 ng-model="recourseCondition.handler1Code"
+                                 ng-value="recourseCondition.businessMan">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">币种：</span>
+                <div class="col-xs-4">
+                    <select-list base-code="Currency"
+                                 ng-model="recourseCondition.currency2"
+                                 ng-value="recourseCondition.Currency">
+                    </select-list>
+                </div>
+                <span class="col-xs-2 control-label">险种：</span>
+                <div class="col-xs-4">
+                    <select-list base-code="RiskType"
+                                 ng-model="recourseCondition.riskType"
+                                 ng-value="recourseCondition.RiskType">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">投保人名称：</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="recourseCondition.appliName">
+                </div>
+                <span class="col-xs-2 control-label">被保人名称：</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="recourseCondition.insuredName">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">业务类型：</span>
+                <div class="col-xs-4">
+                    <div mc-code-select class="form_two_select" code="recourseType" ng-model="recourseCondition.policyCertiType"></div>
+                </div>
+
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary" ng-click="searchList()">查询</button>
+                <button class="btn btn-success" ng-click="resetForm()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表-->
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="allChecked" ng-change="checkedAll();changeSelectNumClass()"></th>
+                <th>保单号</th>
+                <th>业务类型</th>
+                <th>机构</th>
+                <th>银行名称</th>
+                <th>领款人名称</th>
+                <th>领款人账号</th>
+                <th>应付币种</th>
+                <th>应付金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in recourseList">
+                <td ng-class="d.changeClass"><input type="checkbox" ng-model="d.checked" ng-change="changeSelectNumClass();checkedOne()"></td>
+                <td ng-class="d.changeClass">{{d.visaSerialNo}}</td>
+                <td ng-class="d.changeClass">{{d.contractNo}}</td>
+                <td ng-class="d.changeClass">{{d.agentCode}}</td>
+                <td ng-class="d.changeClass">{{d.currency2}}</td>
+                <td ng-class="d.changeClass">{{d.planFee}}</td>
+                <td ng-class="d.changeClass">{{d.packDate}}</td>
+                <td ng-class="d.changeClass">{{d.packCode}}</td>
+                <td ng-class="d.changeClass">{{d.packCode1}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--表格底部-->
+    <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+        <span class="text-left" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right" total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchList()"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)"></pagination>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <button class="btn btn-default">导出excel</button>
+        <button class="btn btn-primary" ng-click="confirmRecourse()">确认</button>
+    </div>
+
+</div>

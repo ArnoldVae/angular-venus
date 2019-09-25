@@ -1,0 +1,7 @@
+<div>
+    <button style="background: white;height: 36px;" ng-repeat="item in myData" ng-style="item.btnStyle" ng-mousedown="onMousedown($index)">
+        <i ng-if="item.isCilck" class="glyphicon glyphicon-ok"
+           ng-style="item.okStyle"></i>
+        {{item.value}}
+    </button>
+</div>

@@ -1,0 +1,187 @@
+<!--蓝票开具申请-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入保/批单号" type="text" style="" class="form-control"
+                       ng-model="blueDataInvoice.blueInfoView.blueQuery.certiNoS">
+                <span class="input-group-addon cursor_pointer" ng-click="queryList('flag')">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!moreFlag" class="col-xs-1 list_query_font"><span ng-click="saveInputData()">高级查询</span></div>
+        <div ng-show="moreFlag" class="col-xs-1 list_query_font"><span ng-click="saveInputData()">普通查询</span></div>
+    </div>
+    <!--高级查询表单-->
+    <div class="form_three" ng-if="moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>保/批单号 从：</span>
+                    <span class="textarea-span">到：</span>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" style="display: block" ng-model="blueDataInvoice.blueInfoView.blueQuery.certiNoS">
+                    <input type="text" style="display: block" class="textarea-input" ng-model="blueDataInvoice.blueInfoView.blueQuery.certiNoE">
+                </div>
+                <div class="col-xs-2 control-label"><span>保/批单号列表：</span></div>
+                <div class="col-xs-4">
+                    <textarea   class="form-control" rows="3" ng-model="blueDataInvoice.blueInfoView.blueQuery.certiNoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>业务部门：</span></div>
+                <div class="col-xs-4">
+                    <select-list data='{"centerCode":centerCode,"comCode":comCode}'
+                                 selectType="salesDepartment"
+                                 ng-model="blueDataInvoice.blueInfoView.blueQuery.comCode"
+                                 ng-value="blueDataInvoice.blueInfoView.blueQuery.comName">
+                    </select-list><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-2 control-label"><span>业务员：</span></div>
+                <div class="col-xs-4">
+                    <select-list data='{"comCode":comCode,"checkComCode":blueDataInvoice.blueInfoView.blueQuery.comCode}'
+                                 selectType="operatorName"
+                                 ng-model="blueDataInvoice.blueInfoView.blueQuery.handler1Code"
+                                 ng-value="blueDataInvoice.blueInfoView.blueQuery.handler1Value">
+                    </select-list><span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>代理人/经纪人：</span></div>
+                <div class="col-xs-4">
+                    <select-list base-code="agentCode"
+                                 ng-model="blueDataInvoice.blueInfoView.blueQuery.agentCode"
+                                 ng-value="blueDataInvoice.blueInfoView.blueQuery.agentValue">
+                    </select-list>
+                </div>
+                <div class="col-xs-2 control-label"><span>车队合同号/预约协议号：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="blueDataInvoice.blueInfoView.blueQuery.contractNo">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>业务渠道：</span></div>
+                <div class="col-xs-4">
+                    <select-list base-code="businessNature"
+                                 ng-model="blueDataInvoice.blueInfoView.blueQuery.businessNature"
+                                 ng-value="blueDataInvoice.blueInfoView.blueQuery.businessValue">
+                    </select-list>
+                </div>
+                <div class="col-xs-2 control-label"><span>险种：</span></div>
+                <div class="col-xs-4">
+                    <select-list base-code="riskCode"
+                                 force-remote="true"
+                                 ng-model="blueDataInvoice.blueInfoView.blueQuery.riskCode"
+                                 ng-value="blueDataInvoice.blueInfoView.blueQuery.riskValue">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>被保险人名称：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="blueDataInvoice.blueInfoView.blueQuery.insuredName"><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-2 control-label"><span>投保人名称：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="blueDataInvoice.blueInfoView.blueQuery.appliName"><span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>农险补贴类型：</span></div>
+                <div class="col-xs-4">
+                        <div mc-code-select code="AgriType" ng-model="blueDataInvoice.blueInfoView.blueQuery.agriType" style="width: 240px"></div>
+                </div>
+                <div class="col-xs-2 control-label"><span>费用类型：</span></div>
+                <div class="col-xs-4">
+                        <div mc-code-select code="ChargeTypeInvoice" ng-model="blueDataInvoice.blueInfoView.blueQuery.chargeType"  style="width: 240px"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>核保日期起期：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="blueDataInvoice.blueInfoView.blueQuery.startInputDate"  class="date" id="date7" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+                <div class="col-xs-2 control-label"><span>核保日期止期：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="blueDataInvoice.blueInfoView.blueQuery.endInputDate"  class="date" id="date6" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>业务来源：</span></div>
+                <div class="col-xs-4">
+                        <div mc-code-select code="SystemSource" ng-model="blueDataInvoice.blueInfoView.blueQuery.systemSource"  style="width: 240px"></div>
+                </div>
+                <div class="col-xs-2 control-label"><span>费用性质：</span></div>
+                <div class="col-xs-4">
+                        <div mc-code-select code="DFFlag" ng-model="blueDataInvoice.blueInfoView.blueQuery.dFFlag"  style="width: 240px"></div>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary"  ng-click="queryList('flag')">查询</button>
+                <button class="btn btn-success" ng-click="resetList()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <span ng-if="blueDataInvoice.status.checkedClaimAll_disabled" class="color_red font_size_12">注：税率或投保人不同不能同时勾选</span>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" ng-change="selectedAll()"
+                           ng-model="blueDataInvoice.status.checkedAccountAll"
+                           ng-disabled="blueDataInvoice.status.checkedClaimAll_disabled">
+                </th>
+                <th>保/批单号</th>
+                <th>类型</th>
+                <th>核算单位</th>
+                <th>投保人</th>
+                <th>被保险人</th>
+                <th>共保人</th>
+                <th>税率</th>
+                <th>签单币别</th>
+                <th>签单金额</th>
+                <th>本位币金额</th>
+                <th>未开票金额</th>
+                <th>应缴车船税</th>
+                <th>往年补缴车船税</th>
+                <th>车船税滞纳金</th>
+                <th>费用性质</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pay in blueDataInvoice.blueInfoView.checkedBlueList"  ng-class="pay.selectedClass">
+                <td>
+                    <input type="checkbox" ng-change="checkedBoxChanged(pay)" ng-model="pay.checked"
+                           ng-disabled="!(pay.taxRate==blueDataInvoice.status.taxRate && pay.appliCode==blueDataInvoice.status.appliCode || blueDataInvoice.status.disabled)">
+                    <span ng-show="false">{{pay.check=$index}}</span>
+                </td>
+                <td>{{pay.certiNo}}</td>
+                <td>{{pay.payRefReasonCName}}</td>
+                <td>{{pay.centerCode}}</td>
+                <td>{{pay.appliName}}</td>
+                <td>{{pay.insuredName}}</td>
+                <td>{{pay.coinsName}}</td>
+                <td>{{pay.taxRate * 100+'%'}}</td>
+                <td>{{pay.currency1}}</td>
+                <td>{{pay.planFeeContainsTax |number:2}}</td>
+                <td>{{pay.planFeeCNYContainsTax |number:2}}</td>
+                <td>{{pay.notVisaFee |number:2}}</td>
+                <td>{{pay.planFee_R72 |number:2}}</td>
+                <td>{{pay.planFee_R73 |number:2}}</td>
+                <td>{{pay.planFee_R74 |number:2}}</td>
+                <td>{{pay.dfFlag}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row list_footer" ng-if="blueDataInvoice.selectedPay>0">
+        <button class="btn btn-primary" ng-click="blueInvoiceSubmit()">确认</button>
+        本次结算合计<span  style="color: #ad1b22;font-size: 16px;font-weight: bold">{{blueDataInvoice.selectedPay|number:2}}</span>元
+    </div>
+</div>

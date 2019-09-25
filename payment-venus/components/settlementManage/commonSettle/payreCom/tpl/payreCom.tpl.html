@@ -1,0 +1,162 @@
+<!--结算单查询-->
+<div class="section venus_hasFooter">
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单号" type="text" class="form-control"
+                       ng-model="infoToView.queryConditions.payrefnoLists">
+                <span class="input-group-addon cursor_pointer" ng-click="payreQuery()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</span></div>
+        <div ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</span></div>
+    </div>
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算单列表：</label>
+                <div class="col-xs-8">
+                    <textarea class="col-xs-12" class="form-control ng-pristine ng-valid" id="t1" cols="25" rows="3" ng-model="infoToView.queryConditions.payrefnoLists"></textarea>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">起始结算单单号：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.payrefnoStart">
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">终止结算单单号：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.payrefnoEnd">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">是否结算：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.payrefflag">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算单生成人：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.packagecode">
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                    <label class="col-xs-4">结算单归属部门：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.queryConditions.centercode">
+                    </div>
+                </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算单开始日期：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-12 date" max-date={{today}} ng-change="changeInputDate()" ng-model="infoToView.queryConditions.earlierMonth" id="date5" jedate format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算单终止日期:</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-12 date" ng-change="changeInputDate()" ng-model="infoToView.queryConditions.laterMonth" id="date6" jedate format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">应结算币种：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select class="col-xs-12 pl0 pr0" code="Currency" aria-disabled="true" aria-readonly="true" ng-model="infoToView.queryConditions.currency"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <label class="col-xs-4">结算单状态：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select class="col-xs-12 pl0 pr0" code="Itemstatus" aria-disabled="true" aria-readonly="true" ng-model="infoToView.queryConditions.itemstatus"></div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="payreQuery()">查询</button>
+                <button class="btn btn-primary" ng-click="resetPayre()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <!--<th><input type="checkbox" ng-change="selectedPayAll(infoToView.queryList,infoToView.checkAll);changePayClass()" ng-model="infoToView.checkAll"></th>-->
+                    <th>收付单号</th>
+                    <th>收付单类型</th>
+                    <th>收付单币种</th>
+                    <th>总金额</th>
+                    <th>生成日期</th>
+                    <th>生成人员</th>
+                    <th>生成单位</th>
+                    <!--<th>领取人账号</th>-->
+                    <!--<th>领取人名称</th>-->
+                    <th>帐户代码</th>
+                    <th>开户名称</th>
+                    <th>帐户性质</th>
+                    <th>开户行名称</th>
+                    <th>核算单位</th>
+                    <th>收款行地址（省）</th>
+                    <th>收款行地址（市）</th>
+                    <th>收款行地址（路）</th>
+                    <th>账户性质</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in infoToView.queryList" ng-class="{true:'venus_table_check',false:''}[p.checked]">
+                    <!--<td><input type="checkbox" ng-change="selectedPayOne();changePayClass()" ng-model="p.checked"></td>-->
+                    <td><a ng-click="payreDetail(p.payrefno)">{{p.payrefno}}</a></td>
+                    <td>{{p.payrefnotype}}</td>
+                    <td>{{p.currency}}</td>
+                    <td>{{p.billfee|number:2}}</td>
+                    <td>{{p.packagedate|mcDate}}</td>
+                    <td>{{p.packagecode}}</td>
+                    <td>{{p.packageunit}}</td>
+                    <td>{{p.accountcode}}</td>
+                    <td>{{p.accountname}}</td>
+                    <td>{{p.accounttype}}</td>
+                    <td>{{p.bankname}}</td>
+                    <td>{{p.centercode}}</td>
+                    <td>{{p.bankOfProvince}}</td>
+                    <td>{{p.bankOfCity}}</td>
+                    <td>{{p.attribute3}}</td>
+                    <td>{{p.accounttype}}</td>
+                    <td>
+                        <a ng-click="modifyPayre(p)"><i class="glyphicon glyphicon-pencil color-oranage"></i>修改</a>
+                        <a ng-show="p.billfee>0" ng-click="payrefNext(p)"><i class="glyphicon glyphicon-upload color-oranage"></i>结算</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div ng-if="pagination.totalItems>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                ng-click="payreQuery('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+</div>

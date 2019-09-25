@@ -1,0 +1,120 @@
+<!--代收代付撤销-->
+<div class="section venus_hasFooter">
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入缴费通知单号" type="text" class="form-control"
+                       ng-model="collectingRevocation.info.transactionNo">
+                <span class="input-group-addon cursor_pointer" ng-click="searchRevocation()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!collectingRevocation.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="collectingRevocation.status.moreFlag=!collectingRevocation.status.moreFlag">高级查询</span></div>
+        <div ng-show="collectingRevocation.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="collectingRevocation.status.moreFlag=!collectingRevocation.status.moreFlag">普通查询</span></div>
+    </div>
+    <div class="mc_form" ng-if="collectingRevocation.status.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4 control-label">缴费通知单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="collectingRevocation.info.transactionNo">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4 control-label">手续费结算单号：</label>
+                <div class="col-xs-7">
+                    <input class="col-xs-12" type="text" ng-model="collectingRevocation.info.visaSerialNo">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4 control-label">委托时间 从：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="collectingRevocation.info.entrustTimeFrom"  class="date col-xs-12" id="date7" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4 control-label">到：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="collectingRevocation.info.entrustTimeTo"  class="date col-xs-12" id="date8" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4 control-label">业务类型：</label>
+                <div class="col-xs-7">
+                    <label class="radio-inline" style="padding: 7px 0 0 20px">
+                        <input type="radio" name="inlineRadioOptions" style="height: 12px;"
+                               ng-model="collectingRevocation.info.certiType" value="01">保费
+                    </label>
+                    <label class="radio-inline" style="padding: 7px 0 0 20px">
+                        <input type="radio" name="inlineRadioOptions" style="height: 12px;"
+                               ng-model="collectingRevocation.info.certiType" value="02">手续费
+                    </label>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchRevocation()">查询</button>
+                <button class="btn btn-primary" ng-click="reset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>状态</th>
+                    <th>业务单号</th>
+                    <th>业务类型</th>
+                    <th>委托机构</th>
+                    <th>委托人员</th>
+                    <th>受托机构</th>
+                    <th>委托申请时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="ci in confirmList">
+                    <td>{{$index+1}}</td>
+                    <td>{{ci.entrustStatus}}</td>
+                    <td>{{ci.certiNo}}</td>
+                    <td>{{ci.certiType}}</td>
+                    <td>{{ci.entrustComCName}}</td>
+                    <td>{{ci.entrustOperator}}</td>
+                    <td>{{ci.entrustedComCName}}</td>
+                    <td>{{ci.entrustTime}}</td>
+                    <td>
+                        <a class="cursor_pointer" ng-click="deleteMessage(ci,$index)">撤销</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+    <!--表格底部-->
+    <div ng-if="collectingRevocation.pagination.totalItems>0" class="row list_content_bottom">
+        <span class="text-left" align="bottom">共{{collectingRevocation.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="collectingRevocation.pagination.totalItems>collectingRevocation.pagination.pageSize"
+                ng-model="collectingRevocation.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="collectingRevocation.pagination.totalItems"
+                page="collectingRevocation.pagination.pageIndex"
+                items-per-page="collectingRevocation.pagination.pageSize"
+                max-size="collectingRevocation.pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                ng-click="searchRevocation('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+</div>
+

@@ -1,0 +1,51 @@
+<!--手续费进项发票登记-->
+<div class="modal-content" style="width: 71%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">代收代付申请登记信息</div>
+    </div>
+    <div class="venus_table">
+        <div class="venus_modal_tableName">
+            <span>代收代付信息</span>
+        </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>委托单位</th>
+                    <th>委托人员</th>
+                    <th>受托单位</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{auditingCondition.entrustComCode+'--'}}{{auditingCondition.entrustComCName}}</td>
+                    <td ng-bind="auditingCondition.entrustOperator"></td>
+                    <td style="width:10%">
+                        <select-list style="min-width: 110px"
+                                     data='{"comCode":comCode}'
+                                     show-type="codeValue"
+                                     selectType="commissioned"
+                                     ng-model="auditingCondition.entrustedComCode"
+                                     ng-value="auditingCondition.entrustedComCName">
+                        </select-list>
+                    </td>
+                    <td style="width:15%"><input type="text" ng-model="auditingCondition.attribute2"></td>
+                    <td style="width:15%"><input type="text" ng-model="auditingCondition.attribute3" ></td>
+                </tr>
+                </tbody>
+            </table>
+        <div class="form-group" style="margin-top: 15px;">
+            <span class="col-md-2 pl0">委托说明：</span>
+            <div class="col-md-12 pl0 pr0">
+                <textarea  class="form-control" rows="3" ng-model="auditingCondition.entrustText"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="confirmAuditing()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

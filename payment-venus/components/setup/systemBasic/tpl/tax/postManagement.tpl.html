@@ -1,0 +1,73 @@
+<!--岗位管理-->
+<div class="mc_form" ng-if="infoToView.postMoreFlag">
+    <form class="form-horizontal">
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">岗位代码：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.postManage.queryConditions.gradeCode">
+
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">岗位名称：</label>
+            <div class="col-xs-7">
+                <input class="col-xs-12" type="text" ng-model="infoToView.postManage.queryConditions.gradeCName">
+            </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">有效标志：</label>
+            <div class="col-xs-7">
+                <mc-checkbox c-id="checkbox1" c-type="switch" c-true="0" c-false="1" c-model="infoToView.postManage.queryConditions.validStatus" style="margin-left: 0px" class="code_switch"></mc-checkbox>
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success" ng-click="findPublic(constants.FINDERCONFIG.TARGET.POSTMANAGE)">查询</button>
+            <button class="btn btn-primary" ng-click="resetPostManage()">重置</button>
+        </div>
+    </form>
+</div>
+<div class="venus_table">
+    <table class="table table-bordered ">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>岗位代码</th>
+            <th>岗位名称</th>
+            <th>岗位有效标志</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat=" d in infoToView.postManage.queryList">
+            <td>{{$index+1}}</td>
+            <td>{{d.gradeCode}}</td>
+            <td>{{d.gradeCName}}</td>
+            <td>{{d.validStatus|mcCode:'validStatus1'}}</td>
+            <td><a ng-click="postDetails(d)"><i class="glyphicon glyphicon-eye-open color-oranage"></i>岗位管理</a>
+                <a ng-click="deletePost(d.iD)"><i class="glyphicon glyphicon-floppy-remove color-oranage"></i>删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="infoToView.postManage.queryList.length>0"  class="row list_content_bottom" >
+    <span style="margin-left: 15px" align="bottom">共{{infoToView.postManage.pagination.totalItems}}条记录</span>
+    <pagination
+            ng-if="infoToView.postManage.pagination.totalItems>infoToView.postManage.pagination.pageSize"
+            ng-model="infoToView.postManage.pagination.pageIndex"
+            class="pagination-sm pull-right"
+            total-items="infoToView.postManage.pagination.totalItems"
+            page="infoToView.postManage.pagination.pageIndex"
+            items-per-page="infoToView.postManage.pagination.pageSize"
+            max-size="infoToView.postManage.pagination.maxSize"
+            previous-text="{{infoToView.postManage.pagination.previousText}}"
+            next-text="{{infoToView.postManage.pagination.nextText}}"
+            first-text="{{infoToView.postManage.pagination.firstText}}"
+            last-text="{{infoToView.postManage.pagination.lastText}}"
+            ng-click="findPublic(constants.FINDERCONFIG.TARGET.POSTMANAGE,'page')"
+            class="pagination-small"
+            boundary-links="true"
+            on-select-page="onSelectPage(page)">
+
+    </pagination>
+</div>

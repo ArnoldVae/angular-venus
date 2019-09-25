@@ -1,0 +1,218 @@
+<!--进项发票转出-->
+<div class="section venus_hasFooter">
+    <span style="padding-left: 15px">发票类型：</span>
+    <hr>
+    <div class="step">
+        <btn-group  btns="invoiceOut.tapHeader" b-click="changeTapA(index)" custom="true"></btn-group>
+    </div>
+    <hr>
+    <div ng-if="invoiceOut.change == 'B'">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">原发票代码：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="invoiceOut.invoiceOutQuery.invoiceCode">
+                        <span class="color_red">*</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="col-xs-4">原发票号码：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="invoiceOut.invoiceOutQuery.visaSerialNo">
+                        <span class="color_red">*</span>
+                    </div>
+                </div>
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success" ng-click="invoiceOutQuery('alert')">查询</button>
+                    <button class="btn btn-primary" ng-click="invoiceOutReset()">重置</button>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>红字发票代码</th>
+                    <th>红字发票号码</th>
+                    <th>原发票代码</th>
+                    <th>原发票号码</th>
+                    <th>开票日期</th>
+                    <th>票面金额（不含税）</th>
+                    <th>票面税额</th>
+                    <th>开票税率</th>
+                    <th>价税合计金额</th>
+                    <th>销方纳税人识别号</th>
+                    <th>购方纳税人识别号</th>
+                    <th>进项项目</th>
+                    <th>发票状态</th>
+                    <th>校验</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="invoice in invoiceOut.invoiceOutList.prpjInputInvoiceRegistMainDtoList">
+                    <td><input type="text" ng-model="invoice.reverseInvoiceCode"></td><!--红字发票代码-->
+                    <td><input type="text" ng-model="invoice.reverseVisaSerialNo"></td><!--红字发票号码-->
+                    <td>{{invoice.invoiceCode}}</td><!--原发票代码-->
+                    <td>{{invoice.visaSerialNo}}</td><!--原发票号码-->
+                    <td><input type="text" class="date" ng-model="invoice.printDate" id="date8" jedate format="YYYY-MM-DD"></td><!--开票日期-->
+                    <td>{{invoice.ntVisaFee |format}}</td><!--票面金额（不含税）-->
+                    <td>{{invoice.vATaxFee |format}}</td><!--票面税额-->
+                    <td>{{invoice.vATaxRate}}</td><!--开票税率-->
+                    <td>{{invoice.visaFee |format}}</td><!--价税合计金额-->
+                    <td>{{invoice.salePayerNo}}</td><!--销方纳税人识别号-->
+                    <td>{{invoice.taxPayerNo}}</td><!--购方纳税人识别号-->
+                    <td>{{invoice.inputProject}}</td><!--进项项目-->
+                    <td>{{invoice.visaStatusName}}</td><!--发票状态-->
+                    <td><a class="btn" ng-click="verify()">校验</a></td><!--校验-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>待转出进项发票业务信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>保/批单号</th>
+                    <th>费用类型</th>
+                    <th>险种</th>
+                    <th>税率</th>
+                    <th>投保人</th>
+                    <th>被保险人</th>
+                    <th>联/共保人代码</th>
+                    <th>联/共保人名称</th>
+                    <th>可抵扣含税金额</th>
+                    <th>可抵扣不含税金额</th>
+                    <th>可抵扣税额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="invoice in invoiceOut.invoiceOutList.prpjInputInvoiceRegistLoanDtoList">
+                    <td>{{invoice.certiNo}}</td><!--保/批单号-->
+                    <td>{{invoice.chargeTypeName}}</td><!--费用类型-->
+                    <td>{{invoice.riskCode}}</td><!--险种-->
+                    <td>{{invoice.taxRate}}</td><!--税率-->
+                    <td>{{invoice.appliName}}</td><!--投保人-->
+                    <td>{{invoice.insuredName}}</td><!--被保险人-->
+                    <td>{{invoice.coinsCode}}</td><!--联/共保人代码-->
+                    <td>{{invoice.coinsName}}</td><!--联/共保人名称-->
+                    <td>{{invoice.payRefFeeContainsTax |format}}</td><!--可转出含税金额-->
+                    <td>{{invoice.payRefFee |format}}</td><!--可转出不含税金额-->
+                    <td>{{invoice.payRefTaxFee |format}}</td><!--可转出税额-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--总条数-->
+        <div class="row list_content_bottom" ng-if="invoiceOut.invoiceOutList.prpjInputInvoiceRegistLoanDtoList.length >0">
+            <span class="text-left" align="bottom">共{{invoiceOut.invoiceOutList.prpjInputInvoiceRegistLoanDtoList.length}}条记录</span>
+        </div>
+    </div>
+    <div ng-if="invoiceOut.change == 'C'">
+        <div class="venus_table" style="height: 209px">
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>发票代码</th>
+                    <th>发票号码</th>
+                    <th>开票日期</th>
+                    <th>票面金额（不含税）</th>
+                    <th>票面税额</th>
+                    <th>开票税率</th>
+                    <th>价税合计金额</th>
+                    <th>销方纳税人识别号</th>
+                    <th>购方纳税人识别号</th>
+                    <th>进项项目</th>
+                    <th>校验</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="text" ng-model="invoiceOut.invoiceOutSome.invoiceCode"></td><!--发票代码-->
+                    <td><input type="text" ng-model="invoiceOut.invoiceOutSome.visaSerialNo"></td><!--发票号码-->
+                    <td><input type="text" class="date" ng-model="invoiceOut.invoiceOutSome.printDate" id="date7" jedate format="YYYY-MM-DD"></td><!--开票日期-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <input type="text" mc-format-switch transmit-type="text" ng-model="invoiceOut.invoiceOutSome.ntVisaFee">
+                        </div>
+                    </td><!--票面金额（不含税）-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <input type="text" mc-format-switch transmit-type="text" ng-model="invoiceOut.invoiceOutSome.vATaxFee">
+                        </div>
+                    </td><!--票面税额-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <div mc-code-select code="invoiceRate" ng-model="invoiceOut.invoiceOutSome.vATaxRate"></div>
+                        </div>
+                    </td><!--开票税率-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <input type="text" mc-format-switch transmit-type="text" ng-model="invoiceOut.invoiceOutSome.visaFee">
+                        </div>
+                    </td><!--价税合计金额-->
+                    <td><input type="text" ng-model="invoiceOut.invoiceOutSome.salePayerNo"></td><!--销方纳税人识别号-->
+                    <td><input type="text" ng-model="invoiceOut.invoiceOutSome.taxPayerNo"></td><!--购方纳税人识别号-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <div mc-code-select code="inputProject" ng-model="invoiceOut.invoiceOutSome.inputProject"></div>
+                        </div>
+                    </td><!--进项项目-->
+                    <td><a class="btn" ng-click="checkOut()">校验</a></td><!--校验-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>待登记进项发票业务信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>保/批单号</th>
+                    <th>费用类型</th>
+                    <th>险种</th>
+                    <th>税率</th>
+                    <th>投保人</th>
+                    <th>被保险人</th>
+                    <th>联/共保人代码</th>
+                    <th>联/共保人名称</th>
+                    <th>可转出含税金额</th>
+                    <th>可转出不含税金额</th>
+                    <th>可转出税额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="invoice in invoiceOut.invoiceOutSomeList">
+                    <td>{{invoice.certiNo}}</td><!--保/批单号-->
+                    <td>{{invoice.certiType}}</td><!--业务类型-->
+                    <td>{{invoice.riskCode}}</td><!--险种-->
+                    <td>{{invoice.taxRate}}</td><!--税率-->
+                    <td>{{invoice.appliName}}</td><!--投保人-->
+                    <td>{{invoice.insuredName}}</td><!--被保险人-->
+                    <td>{{invoice.coinsCode}}</td><!--联/共保人代码-->
+                    <td>{{invoice.coinsName}}</td><!--联/共保人名称-->
+                    <td>{{invoice.canDeductVisaFee |format}}</td><!--可抵扣含税金额-->
+                    <td>{{invoice.canDeductNtVisaFee |format}}</td><!--可抵扣不含税金额-->
+                    <td>{{invoice.canDeductTaxFee |format}}</td><!--可抵扣税额-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-primary" ng-click="invoiceOutAdd(invoiceOut.invoiceOutSomeList)">新增</button>
+        </div>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row list_footer" ng-if="invoiceOut.invoiceOutList.prpjInputInvoiceRegistLoanDtoList.length>0 && invoiceOut.change == 'B'||invoiceOut.invoiceOutList.prpjInputInvoiceRegistMainDtoList.length>0 && invoiceOut.change == 'B'">
+        <button class="btn btn-success" ng-click="invoiceOutConfirm()">确认</button>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row list_footer" ng-if="invoiceOut.invoiceOutSomeList.length>0 && invoiceOut.change == 'C'">
+        <button class="btn btn-success" ng-click="invoiceOutSomeConfirm()">确认</button>
+    </div>
+</div>

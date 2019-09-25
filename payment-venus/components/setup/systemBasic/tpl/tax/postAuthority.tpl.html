@@ -1,0 +1,32 @@
+<!-- 岗位权限设置-->
+<!--基本搜索条件区域-->
+<div class="row list_query">
+    <div class="input-group-sm col-sm-2">
+        <div mc-code-select code="postAuthorityFlag" ng-model="infoToView.postAuthorityFlag" ></div>
+    </div>
+    <div class="col-xs-5"  ng-if="infoToView.postAuthorityFlag== '1'">
+        <div class="input-group">
+            <input placeholder="请输入用户姓名" type="text" style="" class="form-control"
+                   ng-model="infoToView.permissions.queryConditions.userName">
+            <span class="input-group-addon cursor_pointer" ng-click="findPublic(constants.FINDERCONFIG.TARGET.PERMISSIONS)">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+        </div>
+    </div>
+    <div class="col-xs-5"  ng-if="infoToView.postAuthorityFlag== '2'">
+        <div class="input-group">
+            <input placeholder="请输入岗位名称" type="text" style="" class="form-control"
+                   ng-model="infoToView.postManage.queryConditions.gradeCName">
+            <span class="input-group-addon cursor_pointer" ng-click="findPublic(constants.FINDERCONFIG.TARGET.POSTMANAGE)">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+        </div>
+    </div>
+
+    <div ng-show="!infoToView.postMoreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.postMoreFlag=!infoToView.postMoreFlag;saveInputData()">高级查询</span></div>
+    <div ng-show="infoToView.postMoreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.postMoreFlag=!infoToView.postMoreFlag;saveInputData()">普通查询</span></div>
+</div>
+<!--权限管理-->
+<div ng-if="infoToView.postAuthorityFlag=='1'" ng-include="'components/setup/systemBasic/tpl/tax/privilegeManagement.tpl.html'"></div>
+<!--岗位管理-->
+<div ng-if="infoToView.postAuthorityFlag=='2'" ng-include="'components/setup/systemBasic/tpl/tax/postManagement.tpl.html'"></div>

@@ -1,0 +1,128 @@
+<!--送支付平台审核详细信息-->
+<div class="modal-content" style="width: 83%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h5 class="text-center">支付单信息</h5>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form">
+        <form class="form-horizontal">
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">支付单号：</label>
+            <div class="col-xs-8">
+                <span ng-bind="auditingCondition.visaSerialNo"></span>
+            </div>
+        </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">锁定状态：</label>
+            <div class="col-xs-8">
+                <span ng-bind="auditingCondition.inletTime"></span>
+            </div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">审批流名称：</label>
+            <div class="col-xs-8" ng-switch="auditingCondition.taskName">
+                <span ng-switch-when="0">送支付平台审核</span>
+            </div>
+        </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">审批状态：</label>
+            <div class="col-xs-8" ng-switch="auditingCondition.approveStatus">
+                <span ng-switch-when="0">已一级审核</span>
+                <span ng-switch-when="1">已二级审核</span>
+                <span ng-switch-when="2">已推送</span>
+                <span ng-switch-when="3">未审批</span>
+                <span ng-switch-when="z">支付信息待修改</span>
+            </div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">业务部门：</label>
+            <div class="col-xs-8">
+                <span ng-bind="auditingCondition.businessDepartment"></span>
+            </div>
+        </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4" >业务员：</label>
+            <div class="col-xs-8">
+                <span ng-bind="auditingCondition.businessMember"></span>
+            </div>
+        </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">应付币种：</label>
+                <div class="col-xs-8">
+                    <span ng-bind="auditingCondition.currencyPayable"></span>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">应付总金额：</label>
+                <div class="col-xs-8">
+                    <span ng-bind="auditingCondition.sendAggregateAmount"></span>
+                </div>
+            </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">流入时间：</label>
+            <div class="col-xs-8">
+                <span ng-bind="auditingCondition.inletTime"></span>
+            </div>
+        </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">流出时间：</label>
+            <div class="col-xs-8">
+                <span ng-bind="auditingCondition.effluxTime"></span>
+            </div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6" ng-if="approvalFirst">
+            <label class="col-xs-4">一级审批结论：</label>
+            <div class="col-xs-8" style="margin-top: 5px">
+                <input type="radio" name="firstFlag" checked ng-model="auditingCondition.approveConclusion" value="0"  ng-disabled="true">
+                <span style="margin-right:20px">同意</span>
+                <input type="radio" name="firstFlag"ng-model="auditingCondition.approveConclusion" value="1"  ng-disabled="true">
+                <span style="margin-right:20px">不同意</span>
+            </div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6"  ng-if="approvalFirst">
+            <label class="col-xs-4">一级审批意见：</label>
+            <div class="col-xs-8">
+                <textarea  cols="82" rows="5" ng-model="auditingCondition.approveSuggestion"  ng-disabled="true"></textarea>
+            </div>
+        </div>
+            <div class="form-group"></div>
+            <div class="venus_modal_tableName">
+                <span>审批信息</span>
+            </div>
+            <hr style="margin-bottom: 0">
+    <div class="form-group  col-xs-12 col-sm-12 col-md-12 preline">
+        <label class="col-xs-2" style="margin-top: 8px">{{conclusion}}</label>
+        <div class="col-xs-8 "  ng-if="approvalFirst">
+            <input type="radio" style="vertical-align:-10px" name="classFlag" checked ng-model="auditingCondition.approveConclusion" value="0">
+            <span style="margin-right:20px">同意</span>
+            <input type="radio" style="vertical-align:-10px"  name="classFlag" ng-model="auditingCondition.approveConclusion" value="1">
+            <span style="margin-right:20px">不同意</span>
+        </div>
+        <div class="col-xs-8"  ng-if="approvalFirst2">
+            <input type="radio" style="vertical-align:-10px" name="classFlag" checked ng-model="auditingCondition.reserve1" value="0" >
+            <span style="margin-right:20px">同意</span>
+            <input type="radio" style="vertical-align:-10px" name="classFlag"ng-model="auditingCondition.reserve1" value="1">
+            <span style="margin-right:20px">不同意</span>
+        </div>
+    </div>
+    <div class="form-group  col-xs-12 col-sm-12 col-md-12">
+        <label class="col-xs-2">{{opinion}}</label>
+        <div class="col-xs-8" ng-if="approvalFirst">
+            <textarea class="col-xs-10"  cols="82" rows="5" ng-model="auditingCondition.approveSuggestion"></textarea>
+        </div>
+        <div class="col-xs-8" ng-if="approvalFirst2">
+            <textarea class="col-xs-10"  cols="82" rows="5" ng-model="auditingCondition.reserve2"></textarea>
+        </div>
+    </div>
+        </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <button type="button" ng-class="{true:'btn btn-success',false:'btn btn-default'}[isLocking]" ng-disabled="locked" ng-click="lockingAuditing()">锁定</button>
+            <button type="button" ng-class="{true:'btn btn-success',false:'btn btn-default'}[isRelease]" ng-disabled="released" ng-click="releaseAuditing()">释放</button>
+            <button type="button" ng-class="{true:'btn btn-success',false:'btn btn-default'}[isRelease]" ng-disabled="released" ng-click="confirmAuditing()">审批</button>
+            <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

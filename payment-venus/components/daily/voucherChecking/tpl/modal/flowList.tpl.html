@@ -1,0 +1,69 @@
+<!--日结单信息-->
+<div class="modal-content" style="width: 1010px;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">日收付业务流水清单</div>
+    </div>
+    <div class="form_two">
+        <form class="form-horizontal">
+            <div class="form-group" style="padding:0 15px">
+                <span style="float:left">收付员：</span>
+                <div class="fl">
+                    李洛洛
+                </div>
+            </div>
+            <div class="form-group" style="padding:0 15px">
+                <span class="fl">币种：</span>
+                <div class="fl">CNY</div>
+            </div>
+            <div class="form-group" style="padding:0 15px">
+                <span class="fl">业务日期：</span>
+                <div class="fl">2017-10-30</div>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>临时凭证号</th>
+                <th>收付方式</th>
+                <th>业务类型</th>
+                <th>业务单据号</th>
+                <th>银行票据号</th>
+                <th>银行名称</th>
+                <th>银行账号</th>
+                <th>借（收）方发生金额</th>
+                <th>贷（收）放发生金额</th>
+                <th>收付单位</th>
+                <th>核算单位</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in paymentList2">
+                <td>{{d.serialNo}}</td>
+                <td>{{d.certificateNo}}</td>
+                <td>{{d.paytype}}</td>
+                <td>{{d.businessType}}</td>
+                <td>{{d.certiNo}}</td>
+                <td>{{d.payNoticeNo}}</td>
+                <td>{{d.bankName}}</td>
+                <td>{{d.accountNo}}</td>
+                <td>{{d.debitSum}}</td>
+                <td>{{d.creditSum}}</td>
+                <td>{{d.comCode}}</td>
+                <td>{{d.centerCode}}</td>
+                <td>{{d.quantity}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn  btn-width" ng-click="printTest2()">打印</button>
+        <button class="btn btn-success btn-width" ng-click="confirmAuditing()">日收付单</button>
+        <button class="btn btn-warning btn-width" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

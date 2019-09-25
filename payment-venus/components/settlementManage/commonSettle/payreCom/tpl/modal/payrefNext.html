@@ -1,0 +1,87 @@
+<div class="modal-content" style="width: 72%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">结算单送支付</div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>共保结算收付费信息</span>
+            <span class="venus_modal_tableSubName">（共有{{comMData.prpJpaymentBillList.length}}条信息）</span>
+        </div>
+
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>结算单号</th>
+                <th>应付币种</th>
+                <th>总金额</th>
+                <th>实付币种</th>
+                <th>实际总金额</th>
+                <th>生成日期</th>
+                <th>领款人账号</th>
+                <th>领款人名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in comMData.prpJpaymentBillList">
+                <td>{{$index+1}}</td>
+                <td>{{p.payrefno}}</td>
+                <td>{{p.currency}}</td>
+                <td>{{p.billfee|number:2}}</td>
+                <td>{{p.currency}}</td>
+                <td>{{p.billfee}}</td>
+                <td>{{p.packagedate}}</td>
+                <td>{{p.accountcode}}</td>
+                <td>{{p.accountname}}</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-body account-modal-submit venus_table" style="height: 200px">
+        <div class="venus_modal_tableName">
+            <span>收付信息</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>币种</th>
+                <th>收付方式</th>
+                <th style="width: 30%">银行账户/往来单位/转销信息</th>
+                <!--<th >银行流水</th>-->
+                <th>金额</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ref in bankData">
+                <td><span>{{ref.currenCy2}}</span></td>
+                <td style="width: 240px">
+                    <div class="input-group-sm " style="width: 240px">
+                        <div mc-code-select data="payWayList" ng-model="ref.payWay"  ng-change="changPayWay(ref.itemCode)"></div>
+                    </div>
+                </td>
+                <td style="width: 532px">
+                    <div class="input-group-sm "style="width: 532px">
+                        <div mc-code-select data="accuntNoList" ng-model="ref.accountNo" ></div>
+                    </div>
+                </td>
+                <!--<td><input type="text"></td>-->
+                <td><input type="text" ng-model="ref.billfee"
+                           mc-format-switch
+                           ng-disabled="(bankData.length-1)>$index"
+                           ng-blur="payInputChange(ref.billfee,$index)"></td>
+                <td>   <span class="glyphicon glyphicon-minus-sign"
+                             ng-click="delfee($index)"
+                             style="color: #cb2028"></span></td>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="payreOk()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+
+    </div>
+</div>

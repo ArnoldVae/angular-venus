@@ -1,0 +1,113 @@
+<!--收付方式设置-->
+<div class="section">
+    <div class="row list_query">
+        <div class="col-xs-12 col-sm-7 col-md-5 form-group">
+            <div class="input-group float-left margin-right-30 wb75">
+                <input placeholder="请输入收付方式代码" type="text" style="" class="form-control"
+                       ng-model="infoToView.paymentWay.queryConditions.payWayCode">
+                <span style="cursor:pointer;" class="input-group-addon" ng-click="queryPublic(constants.TARGET.PAYMENTWAY)"><div
+                        class="glyphicon glyphicon-search"></div></span>
+            </div>
+            <div ng-show="!infoToView.paymentWay.moreFlag" class="form-group list_query_font float-left"><span ng-click="infoToView.paymentWay.moreFlag=!infoToView.paymentWay.moreFlag">高级查询</span></div>
+            <div ng-show="infoToView.paymentWay.moreFlag" class="form-group list_query_font float-left"><span ng-click="infoToView.paymentWay.moreFlag=!infoToView.paymentWay.moreFlag">普通查询</span></div>
+        </div>
+    </div>
+    <div class="mc_form" ng-if="infoToView.paymentWay.moreFlag">
+    <form class="form-horizontal">
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4" >收付方式代码：</label>
+            <div class="col-xs-7">
+                <select-list base-code="payWay"
+                             displaytype="CODE"
+                             account-flag="true"
+                             ng-model="infoToView.paymentWay.queryConditions.payWayCode"
+                             ng-value="infoToView.paymentWay.queryConditions.payWayCName"
+                             my-class="col-xs-12">
+                </select-list>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4" >收付方式名称：</label>
+            <div class="col-xs-7">
+                <select-list base-code="payWay"
+                             account-flag="true"
+                             ng-model="infoToView.paymentWay.queryConditions.payWayCode"
+                             ng-value="infoToView.paymentWay.queryConditions.payWayCName"
+                             my-class="col-xs-12">
+                </select-list>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+            <label class="col-xs-4" >会计科目编码：</label>
+            <div class="col-xs-7">
+                <select-list base-code="accItem"
+                             displaytype="CODE"
+                             account-flag="true"
+                             ng-model="infoToView.paymentWay.queryConditions.titleCode"
+                             ng-value="titleName"
+                             my-class="col-xs-12">
+                </select-list>
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success" ng-click="queryPublic(constants.TARGET.PAYMENTWAY)">查询</button>
+            <button class="btn btn-primary" ng-click="resetPaymentWay()">重置</button>
+        </div>
+    </form>
+</div>
+    <div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>收付方式代码</th>
+            <th>收付方式名称</th>
+            <th>收付类型</th>
+            <th>会计科目编码</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat=" d in infoToView.paymentWay.queryList">
+            <td>{{$index+1}}</td>
+            <td>{{d.payWayCode}}</td>
+            <td>{{d.payWayCName}}</td>
+            <td>{{d.permitPayType}}</td>
+            <td>{{d.titleCode}}</td>
+            <td>
+                <a ng-click="deletePublic(constants.TARGET.PAYMENTWAY,d)">删除</a>
+                <a ng-click="revisePaymentWay(d)">修改</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+    <!--表格底部-->
+    <div ng-if="infoToView.paymentWay.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.paymentWay.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.paymentWay.pagination.totalItems>infoToView.paymentWay.pagination.pageSize"
+                ng-model="infoToView.paymentWay.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.paymentWay.pagination.totalItems"
+                page="infoToView.paymentWay.pagination.pageIndex"
+                items-per-page="infoToView.paymentWay.pagination.pageSize"
+                max-size="infoToView.paymentWay.pagination.maxSize"
+                previous-text="{{infoToView.paymentWay.pagination.previousText}}"
+                next-text="{{infoToView.paymentWay.pagination.nextText}}"
+                first-text="{{infoToView.paymentWay.pagination.firstText}}"
+                last-text="{{infoToView.paymentWay.pagination.lastText}}"
+                ng-click="queryPublic(constants.TARGET.PAYMENTWAY,'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <button class="btn btn-primary" ng-click="newPaymentWay()">新增</button>
+    </div>
+</div>

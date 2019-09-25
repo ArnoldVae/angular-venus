@@ -1,0 +1,177 @@
+<!--实收保费清单-->
+<div class="section">
+    <div class="row list_query">
+        <div class="col-xs-2 pt_5 text-right">机构：</div>
+        <div class="col-xs-3 pl_0">
+            <div mc-code-select code="orgType" ng-model="supplementCondition.organization"></div>
+        </div>
+        <div class="col-md-5">
+            <div class="input-group">
+                <input placeholder="请输入险种代码" type="text" class="form-control" ng-model="supplementCondition.riskCode">
+                <span class="input-group-addon cursor_pointer" ng-click="searchSupplementCondition()">
+                <div class="glyphicon glyphicon-search"></div>
+            </span>
+            </div>
+        </div>
+        <div ng-show="!moreFlag" class="col-xs-1 list_query_font"><span ng-click="moreFlag=!moreFlag">高级查询</span></div>
+        <div ng-show="moreFlag" class="col-xs-1 list_query_font"><span ng-click="moreFlag=!moreFlag ">普通查询</span></div>
+    </div>
+    <!--高级查询表单-->
+    <div class="form_two" ng-if="moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <span class="col-md-2 control-label">机构：</span>
+                <div class="col-md-4">
+                    <div mc-code-select code="orgType" ng-model="supplementCondition.organization"></div>
+                </div>
+                <span class="col-md-2 control-label">是否包含下级机构：</span>
+                <div class="col-md-4">
+                    <label for="section1">
+                        <input type="radio" id="section1" name="section" style="width: 50px" ng-click="chooseIncludeChildSection('1')" ng-checked="supplementCondition.includeChildSection==true">
+                        <span style="position: relative;bottom:10px">是</span>
+                    </label>
+                    <label for="section2">
+                        <input type="radio" id="section2" name="section" style="width: 50px"  ng-click="chooseIncludeChildSection('0')"  ng-checked="supplementCondition.includeChildSection==false">
+                        <span style="position: relative;bottom:10px">否</span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">险种代码：</span>
+                <div class="col-md-4">
+                    <input type="text" ng-model="supplementCondition.riskCode">
+                </div>
+                <span class="col-md-2 control-label">业务员：</span>
+                <div class="col-md-4">
+                    <input type="text" ng-model="supplementCondition.salesman">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-md-2 control-label">统计期间：</span>
+                <div class="col-md-4">
+                    <input type="text" ng-model="supplementCondition.statisticsDateStart" style="width: 45%" class="date" id="date1" jedate
+                           format="YYYY-MM-DD"/>至
+                    <input type="text" ng-model="supplementCondition.statisticsDateEnd" style="width: 45%" class="date" id="date2" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary" ng-click="searchSupplementCondition()">查询</button>
+                <button class="btn btn-success" ng-click="resetSupplementCondition()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table" style="overflow: auto" ng-if="actualReceivedPremiums.length">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>业务员/代码</th>
+                    <th>出单员</th>
+                    <th>险类</th>
+                    <th>险种</th>
+                    <th>保单号</th>
+                    <th>批单号</th>
+                    <th>车队协议号</th>
+                    <th>投保人</th>
+                    <th>被保险人</th>
+                    <th>业务来源（大类）</th>
+                    <th>业务来源</th>
+                    <th>团队类型</th>
+                    <th>代理人名称</th>
+                    <th>币种</th>
+                    <th>金额</th>
+                    <th>金额（折合人民币）</th>
+                    <th>凭证日期</th>
+                    <th>凭证号</th>
+                    <th>缴费方式</th>
+                    <th>缴费日期</th>
+                    <th>起保日期</th>
+                    <th>保额</th>
+                    <th>使用性质</th>
+                    <th>厂牌号</th>
+                    <th>车龄</th>
+                    <th>座位数</th>
+                    <th>吨位数</th>
+                    <th>险别</th>
+                    <th>新车购入价</th>
+                    <th>投保人邮编</th>
+                    <th>归属机构</th>
+                    <th>基准保费</th>
+                    <th>车辆种类</th>
+                    <th>手续费</th>
+                    <th>手续费比例</th>
+                    <th>销售支持费</th>
+                    <th>销售支持费比例</th>
+                    <th>绩效金额</th>
+                    <th>绩效比例</th>
+                    <th>实付手续费</th>
+                    <th>应付手续费</th>
+                    <th>上年无赔优待系数</th>
+                    <th>是否新车</th>
+                    <th>是否POS集中收款</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="actualReceivedPremium in actualReceivedPremiums">
+                    <td>{{actualReceivedPremium.salesman}}</td>
+                    <td>{{actualReceivedPremium.ticketClerk}}</td>
+                    <td>{{actualReceivedPremium.riskClass}}</td>
+                    <td>{{actualReceivedPremium.riskKind}}</td>
+                    <td>{{actualReceivedPremium.policyNo}}</td>
+                    <td>{{actualReceivedPremium.batchNo}}</td>
+                    <td>{{actualReceivedPremium.fleetAgreementNumber}}</td>
+                    <td>{{actualReceivedPremium.insure}}</td>
+                    <td>{{actualReceivedPremium.insured}}</td>
+                    <td>{{actualReceivedPremium.businessSourceBig}}</td>
+                    <td>{{actualReceivedPremium.businessSource}}</td>
+                    <td>{{actualReceivedPremium.teamType}}</td>
+                    <td>{{actualReceivedPremium.proxyManName}}</td>
+                    <td>{{actualReceivedPremium.currency}}</td>
+                    <td>{{actualReceivedPremium.amount}}</td>
+                    <td>{{actualReceivedPremium.currencyCny}}</td>
+                    <td>{{actualReceivedPremium.voucherDate}}</td>
+                    <td>{{actualReceivedPremium.voucherNo}}</td>
+                    <td>{{actualReceivedPremium.paymentWay}}</td>
+                    <td>{{actualReceivedPremium.paymentDate}}</td>
+                    <td>{{actualReceivedPremium.insurancePeriodStart}}</td>
+                    <td>{{actualReceivedPremium.insuranceAmount}}</td>
+                    <td>{{actualReceivedPremium.useNature}}</td>
+                    <td>{{actualReceivedPremium.brandModels}}</td>
+                    <td>{{actualReceivedPremium.vehicleAge}}</td>
+                    <td>{{actualReceivedPremium.seatNumber}}</td>
+                    <td>{{actualReceivedPremium.tonDigit}}</td>
+                    <td>{{actualReceivedPremium.riskType}}</td>
+                    <td>{{actualReceivedPremium.newVehicleBuyPrice}}</td>
+                    <td>{{actualReceivedPremium.insureZipCode}}</td>
+                    <td>{{actualReceivedPremium.ownershipInstitution}}</td>
+                    <td>{{actualReceivedPremium.basePremium}}</td>
+                    <td>{{actualReceivedPremium.vehicleKind}}</td>
+                    <td>{{actualReceivedPremium.serviceCharge}}</td>
+                    <td>{{actualReceivedPremium.serviceChargeInverse}}</td>
+                    <td>{{actualReceivedPremium.saleSupportCharge}}</td>
+                    <td>{{actualReceivedPremium.saleSupportChargeInverse}}</td>
+                    <td>{{actualReceivedPremium.performanceAmount}}</td>
+                    <td>{{actualReceivedPremium.performanceInverse}}</td>
+                    <td>{{actualReceivedPremium.actualServiceCharge}}</td>
+                    <td>{{actualReceivedPremium.payServiceCharge}}</td>
+                    <td>{{actualReceivedPremium.preferentialTreatmentCoefficient}}</td>
+                    <td>{{actualReceivedPremium.isNewVehicle}}</td>
+                    <td>{{actualReceivedPremium.isPOSFocusReceivables}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--表格底部-->
+    <div class="row list_content_bottom" ng-if="actualReceivedPremiums.length">
+        <span class="text-left" align="bottom">共{{actualReceivedPremiums.length}}条记录</span>
+        <pagination ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                    page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                    previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" class=""
+                    ng-click="searchSupplementCondition()" style="margin: 0 20px 20px 0;" boundary-links="true"
+                    on-select-page="onSelectPage(page)"></pagination>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer" ng-if="actualReceivedPremiums.length">
+        <button class="btn btn-primary">导出Excel</button>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<!--手续费进项发票模块-->
+<div class="AccountTap" style="text-align: center;background: #fff;margin-top: 16px">
+    <btn-group style="margin:16px auto; min-width: 400px;" btns="confirmation.tapName" b-click="changeTap(index)"></btn-group>
+</div>
+<div class="section venus_hasFooter" style="margin-top: 0">
+    <!--手续费发票登记查询-->
+    <div ng-if="confirmation.status.tapFlag=='1'" ng-include="'components/taskCollecting/collectingApplication/tpl/application.premium.tpl.html'" ></div>
+    <!--手续费发票查询-->
+    <div ng-if="confirmation.status.tapFlag=='2'" ng-include="'components/taskCollecting/collectingApplication/tpl/application.charge.tpl.html'"></div>
+</div>
+

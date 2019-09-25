@@ -1,0 +1,10 @@
+<!--仲裁管理页面-->
+<div class="section venus_hasFooter">
+    <div class="row list_query tc">
+        <btn-group btns="tapName" b-click="changeTap(index)"></btn-group>
+    </div>
+    <!--仲裁管理-->
+    <div ng-if="tapFlag=='1'" ng-include="'components/collection/arbitrationManage/tpl/arbitrationManage.tpl.html'" ></div>
+    <!--仲裁撤销-->
+    <div ng-if="tapFlag=='2'" ng-include="'components/collection/arbitrationManage/tpl/arbitrationRevocation.tpl.html'" ></div>
+</div>

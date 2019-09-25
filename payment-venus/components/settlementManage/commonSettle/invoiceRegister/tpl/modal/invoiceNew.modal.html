@@ -1,0 +1,108 @@
+<div class="modal-content" style="width: 71%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">发票新增</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table" style="height: 209px">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>发票代码</th>
+                    <th>发票号码</th>
+                    <th>开票日期</th>
+                    <th>票面金额（不含税）</th>
+                    <th>票面税额</th>
+                    <th>开票税率</th>
+                    <th>价税合计金额</th>
+                    <th>销方纳税人识别号</th>
+                    <th>购方纳税人识别号</th>
+                    <th>进项项目</th>
+                    <th>校验</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="text" ng-model="invoiceRegister.invoiceCode"></td><!--发票代码-->
+                    <td><input type="text" ng-model="invoiceRegister.visaSerialNo"></td><!--发票号码-->
+                    <td><input type="text" class="date" ng-model="invoiceRegister.printDate" id="date7" jedate format="YYYY-MM-DD"></td><!--开票日期-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <input type="text" mc-format-switch transmit-type="text" ng-model="invoiceRegister.ntVisaFee">
+                        </div>
+                    </td><!--票面金额（不含税）-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <input type="text" mc-format-switch transmit-type="text" ng-model="invoiceRegister.vATaxFee">
+                        </div>
+                    </td><!--票面税额-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <div mc-code-select code="invoiceRate" ng-model="invoiceRegister.vATaxRate"></div>
+                        </div>
+                    </td><!--开票税率-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <input type="text" mc-format-switch transmit-type="text" ng-model="invoiceRegister.visaFee">
+                        </div>
+                    </td><!--价税合计金额-->
+                    <td><input type="text" ng-model="invoiceRegister.salePayerNo"></td><!--销方纳税人识别号-->
+                    <td><input type="text" ng-model="invoiceRegister.taxPayerNo"></td><!--购方纳税人识别号-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <div mc-code-select code="inputProject" ng-model="invoiceRegister.inputProject"></div>
+                        </div>
+                    </td><!--进项项目-->
+                    <td><a class="btn" ng-click="checkOut()">校验</a></td><!--校验-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>待登记进项发票业务信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>保/批单号</th>
+                    <th>费用类型</th>
+                    <th>险种</th>
+                    <th>税率</th>
+                    <th>投保人</th>
+                    <th>被保险人</th>
+                    <th>联/共保人代码</th>
+                    <th>联/共保人名称</th>
+                    <th>可抵扣含税金额</th>
+                    <th>可抵扣不含税金额</th>
+                    <th>可抵扣税额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="invoice in invoiceRegisterList">
+                    <td>{{invoice.certiNo}}</td><!--保/批单号-->
+                    <td>{{invoice.chargeType}}</td><!--费用类型-->
+                    <td>{{invoice.riskCode}}</td><!--险种-->
+                    <td>{{invoice.taxRate}}</td><!--税率-->
+                    <td>{{invoice.appliName}}</td><!--投保人-->
+                    <td>{{invoice.insuredName}}</td><!--被保险人-->
+                    <td>{{invoice.coinsCode}}</td><!--联/共保人代码-->
+                    <td>{{invoice.coinsName}}</td><!--联/共保人名称-->
+                    <td>
+                        <div class="input-group-sm" style="width: 157px;text-align: left;">
+                            <input type="text" mc-format-switch transmit-type="text" ng-model="invoice.canDeductVisaFee">
+                        </div>
+                    </td><!--可抵扣含税金额-->
+                    <td>{{invoice.canDeductNtVisaFee |format}}</td><!--可抵扣不含税金额-->
+                    <td>{{invoice.canDeductTaxFee |format}}</td><!--可抵扣税额-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="unregInvoiceNew(invoiceRegisterList)">新增</button>
+        <button class="btn btn-success" ng-click="confirm()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

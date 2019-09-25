@@ -1,0 +1,161 @@
+<div class="row teller_daily venus_hasFooter" style="background-color: transparent">
+    <div class="teller_daily_left">
+        <div class="rili">
+            <mc-date d-data="data"
+                     d-day-click="onDayClick(data)"
+                     d-month-change="onMonthClick(date)"
+                     d-date-format-symbol=":"
+                     d-init-date="{{tellerDaily.initDate}}"
+                     d-is-set-date="isSetDate"
+                     d-re-set-date="dailyReset(data)"
+                     d-set-date="setNonWorkingDaySuccess(data)"></mc-date>
+        </div>
+        <div class="panel panel-default create_daily">
+            <div class="panel-heading">
+                <span>日结操作</span>
+                <span class="pull-right font_size_12 create_daily_header_right">系统将于21:00分自动日结<a class="glyphicon glyphicon-time"></a></span>
+            </div>
+
+            <!--任务类型筛选 鼠标滑上触发配置-->
+            <div class="panel-body allocation create_daily_body">
+                <div class="col-xs-12 padding_clear">
+                    <input type="text" ng-model="tellerDaily.endDayCondition.balanceDate" jedate id="audit1" format="YYYY-MM-DD" name="date" class="date col-xs-12">
+                    <button class="btn btn-success col-xs-12" ng-click="endDay()">立即日结</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="teller_daily_right">
+        <div class="right_body_top">
+            <span style="font-size: 17px">{{tellerDaily.currentDate|date:'yyyy-MM-dd'}}</span>
+            <div class="right_body_top_1">
+                <span style="font-size: 18px">{{tellerDaily.status | mcCode:'dailyPStatus'}}</span><br>
+            </div>
+        </div>
+        <div class="date-error" >
+            <h4>日结失败清单</h4>
+            <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>日结单号</th>
+                    <th>日结日期</th>
+                    <th>收付员</th>
+                    <th>核算机构</th>
+                    <th>币别</th>
+                    <th>日结状态</th>
+                    <th>失败原因</th>
+                    <th>日结操作时间</th>
+                    <th>查看错误详细信息</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in tellerDaily.dateErrorList">
+                    <td ng-class="d.changeClass">{{d.dailyAccount}}</td>
+                    <td ng-class="d.changeClass">{{d.balanceDate | mcDate}}</td>
+                    <td ng-class="d.changeClass">{{d.handlerCode}}</td>
+                    <td ng-class="d.changeClass">{{d.comCode}}</td>
+                    <td ng-class="d.changeClass">{{d.currency}}</td>
+                    <td ng-class="d.changeClass" ng-switch="d.status">
+                        <span ng-switch-when="4">日结失败</span>
+                    </td>
+                    <td ng-class="d.changeClass">{{d.errMsg}}</td>
+                    <td ng-class="d.changeClass">{{d.operateTime | mcSuperDate}}</td>
+                    <td ng-class="d.changeClass"><span ng-click="queryDailyErrorMsg(d.dailyAccount)" class="glyphicon glyphicon-exclamation-sign" style="color: red;cursor: pointer"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="right_body_foot">
+            <div class="foot_top">
+                <div class="col-xs-2 padding_clear control-label"><span class="light_height_30">币别：</span></div>
+                <div class="col-xs-5">
+                    <div mc-code-select code="Currency" ng-model="tellerDaily.findDailyCondition.currency"></div>
+                </div>
+                <button class="btn btn-success" ng-click="findDaily()">查询</button>
+            </div>
+        </div>
+        <div class="right_body_foot" style="padding: 10px;margin-top: 0">
+            <div class="venus_table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>收付方式</th>
+                        <th>业务类型</th>
+                        <th>账户</th>
+                        <th>借(收)方发生金额</th>
+                        <th>贷(收)方发生金额</th>
+                        <th>笔数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in tellerDaily.findDaily.dailyPaymentSumDtos">
+                        <td>{{d.payType | mcCode:'paywaycode'}}</td>
+                        <td>{{d.businessType | mcCode:'accPayType'}}</td>
+                        <td>{{d.account}}</td>
+                        <td>{{d.debitSum | number:2}}</td>
+                        <td>{{d.creditSum | number:2}}</td>
+                        <td>{{d.quantity}}</td>
+                    </tr>
+                    <tr>
+                        <td>合计：</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{tellerDaily.findDaily.debitSumAll | number:2}}</td>
+                        <td>{{tellerDaily.findDaily.creditSumAll | number:2}}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h5>补充资料：</h5>
+            <div class="venus_table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>临时凭证号</th>
+                        <th>业务类型</th>
+                        <th>业务方式</th>
+                        <th>业务单号</th>
+                        <th>账户名称</th>
+                        <th>借(收)方发生金额</th>
+                        <th>贷(收)方发生金额</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-left" colspan="8">红冲更正记录</td>
+                    </tr>
+                    <tr ng-repeat="d in tellerDaily.findDaily.supInfoList">
+                        <td>{{d.voucherNo}}</td>
+                        <td>{{d.payType | mcCode:'accPayType'}}</td>
+                        <td>{{d.payWay | mcCode:'payRefReason'}}</td>
+                        <td>{{d.certiNo}}</td>
+                        <td>{{d.account}}</td>
+                        <td>{{d.debitSum | number:2}}</td>
+                        <td>{{d.creditSum | number:2}}</td>
+                        <td>{{d.quantity}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>合计：</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{tellerDaily.findDaily.debitSupSumAll}}</td>
+                        <td>{{tellerDaily.findDaily.creditSupSumAll}}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row text-center list_footer">
+    <button class="btn btn-primary" ng-click="exportDaily()">导出</button>
+    <button class="btn btn-success" ng-click="lookFlow()">查看流水单</button>
+    <button class="btn btn-danger" ng-click="cancelDaily()">取消日结</button>
+</div>

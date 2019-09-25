@@ -1,0 +1,52 @@
+<div class="modal-content" style="width: 1080px;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">选中数据</div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>查询信息</span>
+            <span class="venus_modal_tableSubName">（共有{{infoToView.checkedConfirmList.length}}条信息）</span>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <!--<th><input type="checkbox" style="height: 13px;"  ng-change="selectedAll();selectedChangeClass()" ng-model="infoToView.checkStatus.checkedAccountAll"></th>-->
+                <th>缴费通知单号</th>
+                <th>核算单位</th>
+                <th>客户名称</th>
+                <th>操作日期</th>
+                <th>缴费状态</th>
+                <th>应收币别</th>
+                <th>应收金额</th>
+                <th>实收币别</th>
+                <th>兑换率</th>
+                <th>实收金额</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="confirm in infoToView.checkedConfirmList">
+                <!--<td ng-class="confirm.selectedClass"><input type="checkbox" style="height: 13px;" ng-change="selectedOne();selectedChangeClass()" ng-model="confirm.checked"></td>-->
+                <td>{{confirm.transactionNo}}</td>
+                <td>{{confirm.centerName}}</td>
+                <td>{{confirm.appliName}}</td>
+                <td>{{confirm.inputDate|mcDate}}</td>
+                <td>{{confirm.tranoStatus|mcCode:'CollectStatus'}}</td>
+                <td>{{confirm.currenCY}}</td>
+                <td>{{confirm.sumFee|format}}</td>
+                <td>{{confirm.currency2}}</td>
+                <td>{{confirm.exchangeRate}}</td>
+                <td>{{confirm.sumFeeCny|format}}</td>
+                <td><a ng-click="deleteSeList($index)">删除</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="selectedListSubmit()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+
+    </div>
+</div>

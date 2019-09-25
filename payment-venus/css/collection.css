@@ -1,0 +1,141 @@
+/*收款管理模块*/
+.collection-header-more{
+    padding:6px 14px 0 14px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #696969;
+    bottom: 24px;
+    border: 1px solid #00af2c;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    z-index: 100;
+
+    float: right;
+    margin-right: 160px;
+    margin-top: 6px;
+    background: #a8f5af;
+}
+.collection-header-condition{
+    position: relative;
+    top: -97px;
+    width: 100%;
+    height: 230px;
+    background: #bffdcc;
+    border: 1px solid #00af2c;
+    padding-top: 16px;
+    padding-left: 16px;
+}
+
+.collection-content{
+    margin-bottom: 16px;
+    margin-top: -2px;
+    position: relative;
+    top: -80px;
+    left: 16px;
+}
+.collection-content-result{
+    width: 100%;
+    position: relative;
+    top: -100px;
+}
+.collection-content-result-selected{
+    background-color: #a4fda5;
+}
+.collection-floor{
+    height: 80px;
+    position: relative;
+    margin-top: 100px;
+}
+.collection-floor h3{
+    float: right;
+    margin: 26px;
+}
+.collection-floor button{
+    float: right;
+    margin: 20px;
+}
+.input-margin-b1{
+    margin-bottom: 6px;
+}
+.input-margin-b1 input{
+    border-radius: 6px;
+    position: relative;
+    left: -12%;
+    height: 32px;
+}
+.input-margin-b1 span{
+    margin-right: 32px;
+}
+.modal-ok span{
+    font-size: 100px;
+    position: relative;
+    top: -12px;
+    color: #00af2c;
+}
+.modal-ok{
+    position: relative;
+    background: #ffffff;
+    height: 100px;
+    top: -36px;
+    width: 99px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.modal-ok-title{
+    padding-left: 84px;
+}
+.modal-ok-footer{
+    position: relative;
+}
+.account-modal-submit th{
+    white-space: nowrap;
+}
+.account-modal-submit td{
+
+}
+.account-modal-submit{
+    overflow-x: scroll;
+}
+.addBtn{
+    margin-right: 50px;
+}
+.addBtn button{
+    width: 100px;
+}
+.table-top-button{
+    padding-right: 30px;
+    position: relative;
+    margin-bottom: 50px;
+}
+.table-top-button button{
+    margin: 5px;
+}
+/*缴费登记弹======start*/
+.confirm-modal-content{
+    height: 200px;
+    padding: 30px;
+}
+.confirm-modal-button{
+    margin-left: 90px;
+    margin-bottom: 50px;
+}
+.confirm-modal-button button{
+    margin-left: 50px;
+}
+/*缴费登记弹窗========end*/
+.search-result{
+    overflow: auto;
+    position: relative;
+}
+.search-result table td{
+    white-space: nowrap;
+}
+.search-result th{
+    white-space: nowrap;
+}
+.type-input{
+    position: relative;
+    top: 38px;
+    right: 21%;
+    width: 1077px;
+}

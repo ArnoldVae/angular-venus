@@ -1,0 +1,111 @@
+<!--辅助核算项维护-->
+<div class="row section">
+    <div class="col-xs-2 left_tree" style="height: 500px">
+        <span class="font_size_20">辅助核算项目</span>
+        <a ng-click="newAccountItemTree()" class="glyphicon glyphicon-plus-sign add_tree"></a>
+        <script type="text/ng-template" id="nodes_renderer.html">
+            <div class=" tree-node-content">
+                <div class="row"  style="cursor:pointer;">
+                    <!--展开折叠图标-->
+                    <a style="font-size: 14px;color: grey;float: left" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)" >
+                        <span class="font_size_20 light_height_20" ng-if="collapsed">⊞</span>
+                        <span class="font_size_20 light_height_20" ng-if="!collapsed">⊟</span>
+                    </a>
+                    <!--获取详情-->
+                    <div ng-class="{'':node.nodes.length > 0,'fa fa-square-o ':node.nodes.length == null}">
+                        <!--标题-->
+                        <p ng-click="queryAccounting(node)" class="left_tree_title" ng-class="{'pl_16':node.nodes.length <= 0}" ng-style="{'color':node.checkClass || infoToView.status.checkAccountItemCode == node.articleCode ? '#32b522' : ''}">
+                            {{node.articleCode}}&nbsp;&nbsp;{{node.articleName}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <ol ui-tree-nodes="" ng-model="node.nodes"  class="treeContainer-ol"  ng-class="{hidden: collapsed}">
+                <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+                </li>
+            </ol>
+        </script>
+        <div class="row">
+            <div class="col-xs-12">
+                <div ui-tree data-drag-enabled="false" id="tree-root">
+                    <ol ui-tree-nodes ng-model="accountItemData">
+                        <li ng-repeat="node in accountItemData" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-10 right_content">
+        <div class="mc_form" multiple-form is-verification="checkout.isVerification" is-complete="checkout.isComplete" cue-way="layer" check-index="checkIndex">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">有效性：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="checkbox1" c-type="switch" c-true="0" c-false="1" c-model="infoToView.accountItem.validstatus" class="code_switch"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">设置时间：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="date col-xs-12"
+                               ng-model="infoToView.accountItem.createDate" id="date11" name="date" jedate format="YYYY-MM-DD" rule="require" err-text="请选择设置时间">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">专项代码：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.accountItem.articleCode" rule="require" err-text="请输入专项代码">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">专项名称：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.accountItem.articleName" rule="require" err-text="请输入专项名称">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">显示名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-12" ng-model="infoToView.accountItem.showName" rule="require" err-text="请输入显示名称">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">映射专项：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-12" ng-model="infoToView.accountItem.fbusTab" rule="require" err-text="请输入映射专项">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear"><span>映射业务<br>收付表专项</span>：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.accountItem.fbusTab" style="margin-top: 9px" rule="require" err-text="请输入映射业务、收付表专项">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear"><span>映射业务<br>凭证表专项</span>：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.accountItem.fvouTab" style="margin-top: 9px" rule="require" err-text="请输入映射业务、凭证表专项">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">增加时间：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="date col-xs-12"
+                               ng-model="infoToView.accountItem.startDate" id="date12" name="date" jedate format="YYYY-MM-DD" rule="require" err-text="请选择增加时间">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-3 padding_clear">终止时间：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="date col-xs-12"
+                               ng-model="infoToView.accountItem.endDate" id="date13" name="date" jedate format="YYYY-MM-DD" rule="require" err-text="请选择终止时间">
+                    </div>
+                </div>
+            </form>
+            <!--列表底部悬浮块-->
+            <div class="row text-center list_footer">
+                <button class="btn btn-success" ng-click="saveAccountAll()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>

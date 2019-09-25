@@ -1,0 +1,127 @@
+<div class="modal-content" style="width: 70%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">结缴单详情</div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>车船税结算单详情（结算单号：{{settleDetail.payrefno}}）</span>
+        </div>
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>保/批单号</th>
+                <th>代理人</th>
+                <th>纳税人</th>
+                <th>身份证号</th>
+                <th>车牌号</th>
+                <th>交强险明细</th>
+                <th>缴费起期</th>
+                <th>缴费止期</th>
+                <th>起保日期</th>
+                <th>当年应缴</th>
+                <th>往来补缴</th>
+                <th>滞纳金</th>
+                <th>应结算金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="c in settleDetail.prpJCSTaxSettleBillDtoList">
+                <td>{{c.certino}}</td>
+                <td>{{c.agentname}}</td>
+                <td>{{c.taxpayername}}</td>
+                <td>{{c.identifynumber}}</td>
+                <td>{{c.licenseno}}</td>
+                <td>{{c.carnaturecode}}</td>
+                <td>{{c.paystartdate|mcDate}}</td>
+                <td>{{c.payenddate|mcDate}}</td>
+                <td>{{c.startdate|mcDate}}</td>
+                <td>{{c.taxactual}}</td>
+                <td>{{c.previouspay}}</td>
+                <td>{{c.latefee}}</td>
+                <td>{{c.alltaxfee}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">收付状态：</label>
+                    <div class="col-xs-8">
+                        {{payrefNo.uploadstatus|mcCode:"Uploadstatus"}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">记录状态：</label>
+                    <div class="col-xs-8">
+                        {{settleDetail.prpJpaymentBillSettleDtoList[0].itemstatus}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">结算单生成人员：</label>
+                    <div class="col-xs-8">
+                        {{settleDetail.prpJpaymentBillSettleDtoList[0].packagecode}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">核算单位：</label>
+                    <div class="col-xs-8" >
+                        {{settleDetail.prpJpaymentBillSettleDtoList[0].centercode}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">生成日期：</label>
+                    <div class="col-xs-8">
+                        {{settleDetail.prpJpaymentBillSettleDtoList[0].payrefdate|mcDate}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">结算单币种：</label>
+                    <div class="col-xs-8" >
+                        {{settleDetail.prpJpaymentBillSettleDtoList[0].currency2|mcCode:'Currency'}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                    <label class="col-xs-4">总金额：</label>
+                    <div class="col-xs-8" >
+                        {{settleDetail.prpJpaymentBillSettleDtoList[0].realbillfee|format}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>结算单支付记录</span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>实付币种</th>
+                <th>汇率</th>
+                <th>实付总金额</th>
+                <th>实际收付号</th>
+                <th>收付员</th>
+                <th>收付单位</th>
+                <th>收付日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ref in settleDetail.prpJpaymentBillSettleDtoList">
+                <td>{{ref.currency2}}</td>
+                <td>{{ref.exchangerate}}</td>
+                <td>{{ref.realbillfee}}</td>
+                <td>{{ref.realpayrefno}}</td>
+                <td>{{ref.payrefcode}}</td>
+                <td>{{ref.packageunit}}</td>
+                <td>{{ref.payrefdate|mcDate}}</td>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

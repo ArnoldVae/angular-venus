@@ -1,0 +1,41 @@
+<!--操作人员详细信息页面-->
+<div class="modal-content" style="width: 64%;">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">人员详情</div>
+    </div>
+    <div class="modal-body exchangeInp" style="margin-bottom: -10px;">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">操作员代码：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        {{operatorInfCondition.userCode}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">操作员姓名：</label>
+                    <div class="col-xs-8">
+                        {{operatorInfCondition.userName}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">归属机构：</label>
+                    <div class="col-xs-8">
+                        {{operatorInfCondition.comCode}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">机构级别：</label>
+                    <div class="col-xs-8">
+                        {{operatorInfCondition.flag|mcCode:'ims_comLevel'}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

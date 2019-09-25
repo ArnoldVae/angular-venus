@@ -1,0 +1,31 @@
+<!--科目信息-->
+<div class="modal-content" style="width: 40%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h5 class="text-center">科目信息</h5>
+    </div>
+    <div class="modal-body" style="height: 320px">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="infoToView.model.checkAll" ng-change="checkAll()"></th>
+                    <th>科目编码</th>
+                    <th>科目名称</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in infoToView.itemList" ng-class="{true:'venus_table_check',false:''}[item.checked]">
+                    <td><input type="checkbox" ng-model="item.checked"></td>
+                    <td>{{item.itemCode}}</td>
+                    <td>{{item.itemName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="selectItemCode()">选择</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+<!--
+再保分出结算
+-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单号" type="text" class="form-control"
+                       ng-model="infoToView.queryConditions.settleNo1">
+                <span class="input-group-addon cursor_pointer" ng-click="reinData()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</span></div>
+        <div ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</span></div>
+    </div>
+
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">结算单号列表：</label>
+                <div class="col-xs-8">
+                    <textarea class="col-xs-10" name="" id="t1" cols="25" rows="4" ng-model="infoToView.queryConditions.settleNoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">起始结算单号：</label>
+                <div class="col-xs-8">
+                    <!--普通录入域class模版-->
+                    <input class="col-xs-10" type="text" ng-model="infoToView.queryConditions.settleNo1">
+
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">终止结算单号：</label>
+                <div class="col-xs-8">
+                    <input class="col-xs-10" type="text" ng-model="infoToView.queryConditions.settleNo2">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">再保接受人：</label>
+                <div class="col-xs-8" >
+                    <input class="col-xs-10" type="text" ng-model="infoToView.queryConditions.reinsCode">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">应付币种：</label>
+                <div class="col-xs-8">
+                    <select-list
+                            my-class="col-xs-10"
+                            base-code="Currency"
+                            ng-model="infoToView.queryConditions.currency"
+                            ng-value="infoToView.queryConditions.currencyName"
+                    >
+                    </select-list>
+                    <!--<input type="text" ng-model="infoToView.queryConditions.operatorName"><br><br>-->
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">结算单起始日期：</label>
+                <div class="col-xs-8" >
+                    <input type="text" class="date col-xs-10"  ng-model="infoToView.queryConditions.operateDateStart" id="date8" name="date" jedate format="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6 margin-bottom-18">
+                <label class="col-xs-4">结算单终止日期：</label>
+                <div class="col-xs-8" >
+                    <input type="text" class="col-xs-10 date" ng-model="infoToView.queryConditions.operateDateEnd" id="date9" name="date" jedate format="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="reinData()">查询</button>
+                <button class="btn btn-primary" ng-click="resetImport()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>结算单号</th>
+                    <th>再保险人</th>
+                    <th>结算币种</th>
+                    <th>结算金额</th>
+                    <th>结算单日期</th>
+                    <th>经办人</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="e in infoToView.queryList" ng-class="{true:'venus_table_check',false:''}[e.checked]">
+                    <td><a ng-click="reinDetail(e.settleNo)">{{e.settleNo}}</a></td>
+                    <td>{{e.reinsName}}</td>
+                    <td>{{e.currency2}}</td>
+                    <td>{{e.payRefFee|number:2}}</td>
+                    <td>{{e.settleDate|mcDate}}</td>
+                    <td>{{e.reinsName}}</td>
+                    <td><a ng-click="reinSubmit(e.settleNo)">再保结算</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div ng-if="pagination.totalItems>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                ng-click="reinData('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+
+        </pagination>
+    </div>
+</div>

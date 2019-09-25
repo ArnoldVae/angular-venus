@@ -1,0 +1,18 @@
+<div class="modal-content" style="width: 320px;position: relative;left: 100px;top: 100px; height: 360px;">
+    <form name="modalTest">
+        <input type="text"  ng-model="c" warn-text="input" required>
+        <input type="text"  ng-model="d" warn-text="input">
+        <div class="input-group-sm col-xs-6">
+            <select-list base-code="businessType"
+                         ng-model="d"
+                         ng-value="d"
+                         class="modalList"
+                         warn-text="双击域"
+                         select-value="{businessType:a.businessCode}"
+                         style="width: 300px" required>
+            </select-list>
+        </div>
+        <button ng-click="test1()">测试</button>
+    </form>
+
+</div>

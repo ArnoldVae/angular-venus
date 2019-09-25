@@ -1,0 +1,445 @@
+/*公共模版样式*/
+
+/**
+ * 有底部悬浮区块
+ */
+.venus_hasFooter{
+    margin-bottom: 70px;
+}
+
+/*公共表格头部样式*/
+.venus_modal_tableName span{
+    color: #6cb4bd;
+}
+/**
+ * 公共表格样式
+ */
+.venus_table {
+    padding: 15px 0;
+    overflow: auto;
+    min-height: 0%;
+}
+
+.venus_table table {
+    margin-bottom: 0;
+}
+
+.venus_table input[type="checkbox"]{
+    height: 13px;
+}
+
+.venus_table input[type="radio"] {
+    height: 13px;
+}
+
+.venus_table tr:nth-child(even) {
+    background-color: #F0F9FF;
+}
+
+.venus_table th, .venus_table td {
+    white-space: nowrap;
+}
+
+.venus_table th {
+    background: #F2F2F2;
+}
+
+.venus_table > .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.venus_table > .table-bordered th {
+    border-bottom-width: 0;
+}
+
+.venus_table_check {/*列表选中样式*/
+    background-color: rgba(255, 243, 19, 0.56) !important;
+}
+
+/**
+ * 公共表单样式
+ */
+
+.mc_form{
+    padding: 15px 0;
+}
+.mc_form label {
+    font-size: 14px;
+    text-align: right;
+    font-weight: 400;
+    padding: 0;
+}
+
+/*金额样式*/
+.form_two .half-input {
+    width: 157px;
+    display: inline;
+}
+.form_four{
+    margin-top: -15px;
+}
+
+
+/*搜索框样式*/
+.list_query {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.list_query_font {
+    color: #29ABE2;
+    line-height: 2.2;
+    cursor: pointer;
+}
+
+/*高级查询表单底部按钮*/
+.list_queryForm_btn {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.list_queryForm_btn button {
+    width: 118px;
+}
+
+/*列表内容底部样式（包含分页）*/
+.list_content_bottom {
+    padding: 0 15px;
+}
+
+.list_content_bottom span {
+    text-align: left;
+    color: #a0a0a0;
+    font-size: 12px;
+}
+
+/*footer_list出现动画 start*/
+@keyframes footerList
+{
+    from {
+        opacity:0;
+        bottom: -30px;
+    }
+    to {
+        opacity:1;
+        bottom: 0px;
+    }
+}
+
+@-webkit-keyframes footerList /* Safari and Chrome */
+{
+    from {
+        opacity:0;
+        bottom: -30px;
+    }
+    to {
+        opacity:1;
+        bottom: 0px;
+    }
+}
+/*footer_list出现动画 end*/
+
+/*列表底部悬浮块样式*/
+.list_footer {
+    position: fixed;
+    background: #fff;
+    width: 97%;
+    padding: 10px 30px;
+    bottom: 0;
+    left: 60px;
+    text-align: right;
+    border-top: 1px solid #ddd;
+    z-index: 9;
+    animation:footerList 0.5s;
+    -webkit-animation:footerList 0.5s; /* Safari and Chrome */
+}
+
+/*手势*/
+.cursor_pointer{
+    cursor:pointer;
+}
+
+/*margin*/
+/*浏览按钮样式*/
+/*导入按钮样式*/
+.bankfile{
+    position: absolute;
+    top:0;
+    width: 50px;
+    opacity: 0;
+}
+/*导入按钮样式*/
+.bankA{
+    background-color: #428bca;
+    color: #fff;
+    width: 55px;
+    height: 34px;
+    line-height: 34px;
+    cursor: pointer;
+    position: relative;
+    top: 12px;
+    overflow:hidden;
+    display: inline-block;
+    text-align: center;
+    border-radius: 4px;
+}
+/*边距*/
+.margin_clear{
+    margin:0;
+}
+.margin-bottom-100{
+    margin-bottom: 100px;
+}
+.margin-bottom-0{
+    margin-bottom: 0px;
+}
+.margin-top-10{
+    margin-top: 10px;
+}
+.margin-top-12{
+    margin-top: 12px;
+}
+.margin-top-15{
+    margin-top: 15px;
+}
+.margin-top-0{
+    margin-top: 0px;
+}
+.margin-top-50{
+    margin-top: 50px;
+}
+.margin-top-6{
+    margin-top: 6px;
+}
+.margin-right-16{
+    margin-right: 16px;
+}
+.margin-right-20{
+    margin-right: 20px;
+}
+.margin-right-30{
+    margin-right: 30px;
+}
+.margin-left-46{
+    margin-left: 46px;
+}
+.margin-left-50{
+    margin-left: 50px;
+}
+.margin-left-6{
+    margin-left: 6px;
+}
+.margin-left-5{
+    margin-left: 5px;
+}
+.margin-bottom-18{
+    margin-bottom: 18px;
+}
+.margin-left-0{
+    margin-left: 0;
+}
+.margin-right-0{
+    margin-right: 0;
+}
+
+.pl0{
+    padding-left: 0px;
+}
+.pr0{
+    padding-right: 0px;
+}
+.padding_clear{
+    padding: 0;
+}
+.pading-top-32{
+    padding-top: 32px;
+}
+.pading-top-2{
+    padding-top: 2px;
+}
+.padding_top_10{
+    padding-top: 10px;
+}
+.padding_top_12{
+    padding-top: 12px;
+}
+.padding_bottom_0{
+    padding-bottom: 0;
+}
+.padding_bottom_69{
+    padding-bottom: 69px;
+}
+.padding_right_0{
+    padding-right: 0;
+}
+.padding_left_3{
+    padding-left: 3px;
+}
+.padding_left_0{
+    padding-left: 0px;
+}
+.padding_left_12{
+    padding-left: 12px;
+}
+.padding_left_20{
+    padding-left: 20px;
+}
+.pt_10{
+    padding-top: 10px;
+}
+.pl_80{
+    padding-left: 80px;
+}
+.pl_122{
+    padding-left: 122px;
+}
+.pl_15{
+    padding-left: 15px;
+}
+.pl_16{
+    padding-left: 16px;
+}
+.pr_15{
+    padding-right: 15px;
+}
+.pr_0{
+    padding-right: 0px;
+}
+.pt_5{
+    padding-top: 5px;
+}
+.pl_0{
+    padding-left: 0;
+}
+
+/*宽度*/
+.w200{
+    width: 200px;
+}
+.w250{
+    width: 250px;
+}
+.w300{
+    width: 300px;
+}
+.wb45{
+    width: 45%;
+}
+.wb75{
+    width: 75%;
+}
+.w240{
+    width: 240px;
+}
+.min_w200{
+    min-width: 200px;
+}
+.w65{
+    width: 65px;
+}
+
+/*字体大小*/
+.font_size_10{
+    font-size: 10px;
+}
+.font_size_12{
+    font-size: 12px;
+}
+.font_size_14{
+    font-size: 14px;
+}
+.font_size_16{
+    font-size: 16px;
+}
+.font_size_20{
+    font-size: 20px;
+}
+
+/*字体颜色*/
+.color_white{
+    color:white!important;
+}
+.color_red{
+    color:red;
+    line-height: 30px;
+}
+.color_gray{
+    color:#C9C9C9;
+}
+.color_second_title{
+    color:#0071BC
+}
+.color-oranage{
+    color: orange;
+}
+
+/*背景颜色*/
+.background_white{
+    background-color: #fff;
+}
+.background_black{
+    background-color: #000;
+}
+.background_gray{
+    background-color: #E0E0E0;
+}
+.back-white{
+    background-color: #FFffff;
+}
+
+/*border*/
+.border_clear{
+    border:0
+}
+.border_gray{
+    border: 1px solid #BBB;
+}
+
+/*行高*/
+.light_height_20{
+    line-height: 20px;
+}
+.light_height_52{
+    line-height: 52px;
+}
+.light_height_25{
+    line-height: 25px;
+}
+.light_height_30{
+    line-height: 30px;
+}
+.light_height_8{
+    line-height: 8px;
+}
+
+/*float*/
+.float-right{
+    float: right;
+}
+.float-left{
+    float: left;
+}
+
+/*阴影*/
+.drop-shadow {
+    box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+/*右部新增按钮*/
+.addBtn{
+    margin-right: 50px;
+}
+.addBtn button{
+    width: 100px;
+}
+/*凭证模板下载样式*/
+.collectscene_file_item{
+    position: absolute;
+    top: 0;
+    width: 55px;
+    opacity: 0;
+    right: 0;
+    height: 34px;
+}

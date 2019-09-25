@@ -1,0 +1,59 @@
+<!--岗位配置-->
+<div class="modal-content" style="width: 64%">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">岗位配置</div>
+    </div>
+    <div class="modal-body exchangeInp" style="margin-bottom: -10px;">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">用户代码：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-10" type="text" ng-model="priManModalDto.userCode" disabled>
+
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">用户姓名：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-10" type="text" ng-model="priManModalDto.userName" disabled>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3"><span>岗位列表：</span></div>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered venus-table">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>岗位代码</th>
+                    <th>岗位中文名称</th>
+                    <th>有效标志</th>
+                    <th ng-hide="showFlag=='0'">是否属于此岗位</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat=" d in priManModalDto.saaGradeList">
+                    <td>{{$index+1}}</td>
+                    <td>{{d.gradeCode}}</td>
+                    <td>{{d.gradeCName}}</td>
+                    <td>{{d.validStatus|mcCode:'validStatus1'}}</td>
+                    <td ng-hide="showFlag=='0'"><input type="checkbox" ng-model="d.checked"  ng-change="itemSelected($index)" class="table-input-height"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer" style="height: 50px">
+        <div style="margin-right: 15px;margin-top: -12px; ">
+            <button ng-hide="showFlag=='0'" class="btn btn-success" ng-click="savePostConfigData()">保存</button>
+            <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+        </div>
+    </div>
+</div>

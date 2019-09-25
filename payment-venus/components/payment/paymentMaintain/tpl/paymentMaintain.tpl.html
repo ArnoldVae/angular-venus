@@ -1,0 +1,126 @@
+<!--税率维护页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入归属机构" type="text" class="form-control" ng-model="paymentMaintain.taxRateDto.comCode">
+                <span class="input-group-addon cursor_pointer" ng-click="searchTaxRate()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!--表单部分-->
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">机构：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="paymentMaintain.taxRateCondition.comCode" readonly>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">城市建设维护税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.constructionTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">房产税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.housesTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">土地使用税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.landTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">个人所得税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.peopleTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">车船使用税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.carShipTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">企业所得税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.companyTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">防洪税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.preventFloodTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">印花税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.stampTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">教育附加税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.educationTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">交强险救助基金税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.ddasuccorTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">地方教育附加税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.localEducationTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">其他税税率(价调基金)(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.otherTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">增值税起征点：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.addedTaxTHRESHOLD">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">增值税税率(%)：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" mc-input-cut transmit-type="number" ng-model="paymentMaintain.taxRateCondition.addedTaxRate">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                 <label class="col-xs-4">启用日期：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="paymentMaintain.taxRateCondition.validDate" jedate id="date" format="YYYY-MM-DD" class="date col-xs-12" ng-change="checkDate()">
+                </div>
+            </div>
+            <div class="form-group color_red pl_45">
+                <div class="col-xs-12 pl_80">说明：1.税率请输入百分比的整数，如果房产税为5%，请在房产税税率栏填写5</div>
+                <div class="col-xs-12 pl_122">2.税率以新增的方式存入数据库，为以前的税金计算提供基础税率</div>
+                <div class="col-xs-12 pl_122">3.请确认好税率后，再进行保存，按启用日期为单位，一天不能录入两次税率</div>
+            </div>
+        </form>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer">
+        <button class="btn btn-success" ng-click="preservationTaxRate()">保存</button>
+        <button class="btn btn-primary"  ng-click="resetTaxRate()">重置</button>
+    </div>
+</div>

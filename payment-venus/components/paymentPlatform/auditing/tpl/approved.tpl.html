@@ -1,0 +1,167 @@
+<!--已审批记录查询-->
+<div class="row list_query margin-top-15">
+    <div class="col-xs-5">
+        <div class="input-group">
+            <input placeholder="请输入支付单号" type="text"  class="form-control" ng-model="auditing.approvedCondition.visaSerialNo">
+            <span  class="input-group-addon cursor_pointer" ng-click="searchApproved()"><div  class="glyphicon glyphicon-search"></div></span>
+        </div>
+    </div>
+    <div ng-show="!auditing.status.moreFlagNew" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="auditing.status.moreFlagNew=!auditing.status.moreFlagNew">高级查询</span></div>
+    <div ng-show="auditing.status.moreFlagNew" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="auditing.status.moreFlagNew=!auditing.status.moreFlagNew ">普通查询</span></div>
+</div>
+<div class="mc_form" ng-if="auditing.status.moreFlagNew">
+    <form class="form-horizontal">
+    <div class="form-group col-xs-12 col-sm-12 col-md-6">
+        <!--<div class="col-xs-2 control-label"><span>审批状态：</span></div>-->
+        <!--<div class="col-xs-4">-->
+                <!--<div mc-code-select code="send_approveStatus" ng-model="auditing.approvedCondition.annulus" class="form_two_select"></div>-->
+        <!--</div>-->
+        <label class="col-xs-4">支付单号：</label>
+        <div class="col-xs-7">
+            <input type="text" class="col-xs-12" ng-model="auditing.approvedCondition.visaSerialNo">
+        </div>
+    </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+        <label class="col-xs-4">业务类型：</label>
+        <div class="col-xs-7">
+            <div class="col-xs-12 pl0 pr0">
+                <div mc-code-select code="send_businessType" ng-model="auditing.approvedCondition.businessType"></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6">
+        <label class="col-xs-4">业务部门：</label>
+        <div class="col-xs-7">
+            <select-list selectType="salesDepartment" my-class="col-xs-12"
+                         data='{"comCode":comCode,"centerCode":centerCode}'
+                         ng-model="auditing.approvedCondition.businessDepartment"
+                         ng-value="auditing.approvedCondition.businessPart"
+                         wait-change="clearOperatorApproved()">
+            </select-list>
+        </div>
+    </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+        <label class="col-xs-4">业务员：</label>
+        <div class="col-xs-7">
+            <select-list  selectType="operatorName" my-class="col-xs-12"
+                          data='{"comCode":comCode,"checkComCode":auditing.approvedCondition.businessDepartment}'
+                         ng-model="auditing.approvedCondition.businessMember"
+                         ng-value="auditing.approvedCondition.businessMan">
+            </select-list>
+        </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6">
+        <label class="col-xs-4">提交时间：</label>
+        <div class="col-xs-7">
+            <input type="text" ng-model="auditing.approvedCondition.earlierMonth" jedate id="audit1" format="YYYY-MM-DD" name="date" class="col-xs-5 date">
+            <span class="col-xs-2 text-center"> 至</span>
+            <input type="text" ng-model="auditing.approvedCondition.laterMonth" jedate id="audit2" format="YYYY-MM-DD" name="date" class="col-xs-5 date">
+        </div>
+    </div>
+        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+        <label class="col-xs-4">支付状态：</label>
+        <div class="col-xs-7">
+            <div class="col-xs-12 pl0 pr0">
+                <div mc-code-select code="sendEnd_approveStatus" ng-model="auditing.approvedCondition.sendPayFlag"></div>
+            </div>
+        </div>
+    </div>
+        <div class="form-group"></div>
+    <div class="form-group list_queryForm_btn">
+        <button class="btn btn-success"  ng-click="searchApproved()">查询</button>
+        <button class="btn btn-primary"  ng-click="resetApproved()">重置</button>
+    </div>
+    </form>
+</div>
+<div class="venus_table">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <!--<th><input type="checkbox" ng-model="auditing.approvedCondition.checkedAll" ng-change="checkedAll();selectedChangeClass()"></th>-->
+            <!--<th>管控环节</th>-->
+            <th>支付单号</th>
+            <th>申请人</th>
+            <th>审批流名称</th>
+            <!--<th>审批状态</th>-->
+            <!--<th>当前节点</th>-->
+            <!--<th>一级审批结论</th>-->
+            <!--<th>二级审批结论</th>-->
+            <th>审核结案</th>
+            <th>应付币种</th>
+            <th>应付总金额</th>
+            <th>支付标志</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in auditing.approvedList" ng-class="{true: 'venus_table_check', false: ''}[d.checked]">
+            <!--<td><input type="checkbox" ng-model="d.checked" ng-change="checkedOne();selectedChangeClass()"></td>-->
+            <!--<td ng-switch="d.annulus">-->
+                <!--<span ng-switch-when="0">一级审批-->
+                <!--<span ng-switch-when="1">二级审批</span>-->
+                <!--<span ng-switch-when="2">已推送</span>-->
+                <!--<span ng-switch-when="3">未审批</span>-->
+            <!--</td>-->
+            <td>{{d.visaSerialNo}}</td>
+            <td>{{d.operateName}}</td>
+            <td ng-switch="d.taskName">
+                <span ng-switch-when="0">送支付平台审核</span>
+            </td>
+            <!--<td ng-switch="d.approveStatus">-->
+                <!--<span ng-switch-when="0">已一级审核</span>-->
+                <!--<span ng-switch-when="1">已二级审核</span>-->
+                <!--<span ng-switch-when="2">已推送</span>-->
+                <!--<span ng-switch-when="3">未审批</span>-->
+                <!--<span ng-switch-when="z">支付信息待修改</span>-->
+            <!--</td>-->
+            <!--<td>{{d.currentNode}}</td>-->
+            <!--<td ng-switch="d.approveConclusion">-->
+                <!--<span ng-switch-when="0">同意</span>-->
+                <!--<span ng-switch-when="1">不同意</span>-->
+            <!--</td>-->
+            <td ng-switch="d.reserve1">
+                <span ng-switch-when="0">同意</span>
+                <span ng-switch-when="1">不同意</span>
+            </td>
+            <td>{{d.currencyPayable}}</td>
+            <td>{{d.sendAggregateAmount|format}}</td>
+            <td ng-switch="d.sendPayFlag">
+                <span ng-switch-when="2">退票</span>
+                <span ng-switch-when="9">支付成功</span>
+                <span ng-switch-when="z">未支付</span>
+                <span ng-switch-when="n">支付失败</span>
+            </td>
+            <td>
+                <a ng-click="lookMoreApprovedDto(d)"><i class="glyphicon glyphicon-eye-open color-oranage"></i>详细信息</a>
+                <!--<a ng-click="simulationSuccess(d)" ng-show="d.simulationShow"><i class="glyphicon glyphicon-pencil color-oranage"></i>支付成功</a>-->
+                <!--<a ng-click="simulationFail(d)" ng-show="d.simulationShow"><i class="glyphicon glyphicon-floppy-remove color-oranage"></i>退票</a>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <div class="row list_content_bottom" ng-if="auditing.paginationA.totalItems>0">
+        <span class="text-left" align="bottom">共{{auditing.paginationA.totalItems}}条记录</span>
+        <pagination
+                ng-if="auditing.paginationA.totalItems>auditing.paginationA.pageSize"
+                ng-model="auditing.paginationA.pageIndex"
+                class="auditing.pagination-sm pull-right"
+                total-items="auditing.paginationA.totalItems"
+                page="auditing.paginationA.pageIndex"
+                items-per-page="auditing.paginationA.pageSize"
+                max-size="auditing.paginationA.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchApproved('page')"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+<!--列表底部悬浮块-->
+<!--<div class="row list_footer">-->
+    <!--<button class="btn btn-primary" ng-click="submitApprovedDto()">推送</button>-->
+<!--</div>-->

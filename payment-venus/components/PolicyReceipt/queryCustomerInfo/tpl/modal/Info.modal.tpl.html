@@ -1,0 +1,251 @@
+<!--保单收付详情信息-->
+<div class="modal-content" style="width: 71%;padding: 0 24px;">
+    <div class="modal-header">
+        <button class="close" type="button" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">保单收付详情信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>保单号：{{policyNo}}</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th colspan="4">基础信息</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>险种</td>
+                    <td>{{Detail.riskName|mcCode:'riskCode'}}</td>
+                    <td>出单机构</td>
+                    <td>{{Detail.makeName|mcCode:'loginComCode'}}</td>
+                </tr>
+                <tr>
+                    <td>投保人</td>
+                    <td>{{Detail.appliName}}</td>
+                    <td>被保人</td>
+                    <td>{{Detail.insuredName}}</td>
+                </tr>
+                <tr>
+                    <td>保险期间</td>
+                    <td>{{Detail.startDate | mcDate}}至{{Detail.endDate | mcDate}}</td>
+                    <td>核保日期</td>
+                    <td>{{Detail.underWriteDate | mcDate}}</td>
+                </tr> <tr>
+                    <td>计划缴费期数</td>
+                    <td>{{Detail.payNo}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>渠道</td>
+                    <td>{{Detail.businessNature}}</td>
+                    <td>代理人</td>
+                    <td>{{Detail.agentName}}</td>
+                </tr>
+                <tr>
+                    <td>车队合同号/预约协议号</td>
+                    <td>{{Detail.contractNo}}</td>
+                    <td>立案号</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>原始保单保费</td>
+                    <td>{{Detail.planFee}}</td>
+                    <td>批改总额</td>
+                    <td>
+                        <span ng-repeat="MapInfoDto in Detail.endorFundList">
+                            <span>{{MapInfoDto.key|mcCode:'Currency'}}</span>
+                            <span>{{MapInfoDto.value |format}}</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>赔款总额</td>
+                    <td>
+                        <span ng-repeat="MapInfoDto in Detail.lossFundList">
+                            <span>{{MapInfoDto.key|mcCode:'Currency'}}</span>
+                            <span>{{MapInfoDto.value |format}}</span>
+                        </span>
+                    </td>
+                    <td>手续费总额</td>
+                    <td>
+                        <span ng-repeat="MapInfoDto in Detail.commFundList">
+                            <span>{{MapInfoDto.key}}</span>
+                            <span>{{MapInfoDto.value |format}}</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>代扣车船税总额</td>
+                    <td>
+                        <span ng-repeat="MapInfoDto in Detail.csTaxFundList">
+                            <span>{{MapInfoDto.key}}</span>
+                            <span>{{MapInfoDto.value |format}}</span>
+                        </span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>共保标志</td>
+                    <td>{{Detail.coinsFlag|mcCode:'coinsFlagType'}}</td>
+                    <td>我方份额</td>
+                    <td>{{Detail.usRate}}</td>
+                </tr>
+                <tr ng-repeat="coinsInfo in Detail.coinsInfoList">
+                    <td>共保人</td>
+                    <td>{{coinsInfo.coinsName}}</td>
+                    <td>共保总份额</td>
+                    <td>{{coinsInfo.coinsRate}}</td>
+                </tr>
+                <tr>
+                    <td>业务员</td>
+                    <td>{{Detail.handler1Name}}</td>
+                    <td>业务部门</td>
+                    <td>{{Detail.comName|mcCode:'loginComCode'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>保费收款记录</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>业务号码</th>
+                    <th>缴费期数</th>
+                    <th>费用类型</th>
+                    <th>收付币种</th>
+                    <th>收付金额</th>
+                    <th>收付凭证号</th>
+                    <th>收付日期</th>
+                    <th>收付员</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="PrpJpolicyPaymentDto in Detail.prpjpolicypaymentList track by $index">
+                    <td>{{PrpJpolicyPaymentDto.certiNo}}</td>
+                    <td>1/1</td>
+                    <td>{{PrpJpolicyPaymentDto.payRefReason | mcCode:"payRefReason"}}</td>
+                    <td>{{PrpJpolicyPaymentDto.currency2|mcCode:'Currency'}}</td>
+                    <td>{{PrpJpolicyPaymentDto.payRefFee|format}}</td>
+                    <td><a  ng-click="voucherList(PrpJpolicyPaymentDto.voucherNo)">{{PrpJpolicyPaymentDto.voucherNo}}</a></td>
+                    <td>{{PrpJpolicyPaymentDto.payRefDate | mcDate}}</td>
+                    <td>{{PrpJpolicyPaymentDto.payRefCode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>赔款支付记录</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>赔款计算书号</th>
+                    <th>费用类型</th>
+                    <th>支付币种</th>
+                    <th>支付金额</th>
+                    <th>支付凭证号</th>
+                    <th>支付时间</th>
+                    <th>支付对象</th>
+                    <th>收付员</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="PrpJlossPaymentDto in Detail.payLossList track by $index">
+                    <td>{{PrpJlossPaymentDto.compensateNo}}</td>
+                    <td>{{PrpJlossPaymentDto.payRefReason | mcCode:"payRefReason"}}</td>
+                    <td>{{PrpJlossPaymentDto.currency2|mcCode:'Currency'}}</td>
+                    <td>{{PrpJlossPaymentDto.payRefFee|format}}</td>
+                    <td><a href="" ng-click="voucherList(PrpJlossPaymentDto.voucherNo)">{{PrpJlossPaymentDto.voucherNo}}</a></td>
+                    <td>{{PrpJlossPaymentDto.payRefDate| mcDate}}</td>
+                    <td>{{PrpJlossPaymentDto.payObjectName}}</td>
+                    <td>{{PrpJlossPaymentDto.payRefCode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>手续费支付记录</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>业务号码</th>
+                    <th>缴费期数</th>
+                    <th>支付对象</th>
+                    <th>结算单金额</th>
+                    <th>结算单号</th>
+                    <th>支付币种</th>
+                    <th>支付金额</th>
+                    <th>支付凭证号</th>
+                    <th>支付时间</th>
+                    <th>收付员</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="CommBillDto in Detail.prpJCommPaymentDtoList track by $index">
+                    <td>{{CommBillDto.certiNo}}</td>
+                    <td>{{CommBillDto.planSerialNo}}/{{CommBillDto.payNo}}</td>
+                    <td>{{CommBillDto.payObjectName}}</td>
+                    <td>{{CommBillDto.planFee|format}}</td>
+                    <td>{{CommBillDto.payRefNo}}</td>
+                    <td>{{CommBillDto.currency2|mcCode:'Currency'}}</td>
+                    <td>{{CommBillDto.payRefFee}}</td>
+                    <td><a href="" ng-click="voucherList(CommBillDto.voucherNo)">{{CommBillDto.voucherNo}}</a></td>
+                    <td>{{CommBillDto.payRefDate| mcDate}}</td>
+                    <td>{{CommBillDto.payRefCode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table">
+            <div class="venus_modal_tableName">
+                <span>保费发票开立记录</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>业务号码</th>
+                    <th>发票类型</th>
+                    <th>发票代码</th>
+                    <th>发票号码</th>
+                    <th>开票方式</th>
+                    <th>开票时间</th>
+                    <th>开票币种</th>
+                    <th>开票金额</th>
+                    <th>发票状态</th>
+                    <th>开票人</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="Invoice in Detail.prpJInvoiceMainDtoList track by $index">
+                    <td>{{Invoice.certiNo}}</td>
+                    <td>{{Invoice.invoiceType|mcCode:'invoiceType'}}</td>
+                    <td>
+                        <span ng-if="Invoice.visaSerialNo">1300000</span>
+                    </td>
+                    <td>{{Invoice.visaSerialNo}}</td>
+                    <td>{{Invoice.printType|mcCode:'printType'}}</td>
+                    <td>{{Invoice.printDate | mcDate}}</td>
+                    <td>{{Invoice.currency|mcCode:'Currency'}}</td>
+                    <td>{{Invoice.visaFee|format}}</td>
+                    <td>{{Invoice.visaStatus}}</td>
+                    <td>{{Invoice.printerCode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

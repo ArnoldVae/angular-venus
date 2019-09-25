@@ -1,0 +1,54 @@
+<!--批量缴费-缴费-->
+<div class="modal-content" style="width: 980px;padding:0 24px">
+    <div class="modal-header">
+        <!--<div class="col-md-10" style="margin-left: 45%">生成结算单确认</div><div style="margin-left: 93%;margin-top: -15px;cursor:pointer;" class="glyphicon glyphicon-remove col-md-2" ng-click="cancel()"></div>-->
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">缴费</div>
+    </div>
+    <div class="modal-body" >
+        <div class="text-left">
+            <span>交易信息</span>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>缴费通知单</th>
+                        <th>核算单位</th>
+                        <th>操作人名称</th>
+                        <th>操作人日期</th>
+                        <th>币别</th>
+                        <th>总金额</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in paymentList">
+                    <td>{{d.premiumNote}}</td>
+                    <td>{{d.accountUnit}}</td>
+                    <td>{{d.operatorName}}</td>
+                    <td>{{d.operateDate}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.amount}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-left">
+            <span>缴费信息</span>
+        </div>
+        <div class="row margin_clear background_gray border_gray payment-operate-tab-btn">
+            <div class="col-xs-6">
+                <div class="col-xs-3">转账</div>
+                <div class="col-xs-3">收银台</div>
+                <div class="col-xs-3">现金</div>
+                <div class="col-xs-3 active">无单预收</div>
+            </div>
+        </div>
+        <div class="fa-border" style="height:100px;">
+            无单预收
+        </div>
+    </div>
+    <div class="modal-footer text-right">
+        <button class="btn btn-primary" ng-click="cancel()">下一步</button>
+    </div>
+</div>

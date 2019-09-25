@@ -1,0 +1,9 @@
+<div>
+    <div ng-class="$editor.currentIndex === $index?'btn btn-primary':'btn btn-default'"
+            style="margin-left: 10px;"
+            ng-repeat="state in $editor.states"
+            ng-click="$editor.labelChange($index,state.stateName)">
+        {{state.myName}}
+        <i class="glyphicon glyphicon-remove" style="color: red;font-size: 5px;" ng-click="$editor.labelDelete($index)"></i>
+    </div>
+</div>

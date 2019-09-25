@@ -1,0 +1,158 @@
+<!--纳税人信息采集-->
+<div class="section" style="margin-top: 0">
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group" >
+                <input placeholder="请输入保/批单号" type="text" style="" class="form-control" ng-model="invoiceQueryInfo.infos.invoiceQuery.certiNo">
+                <span  class="input-group-addon cursor_pointer" ng-click="invoiceInfoQuery('flag')">
+                    <div  class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <button ng-show="!moreFlag" type="button" class="btn btn-link" ng-click="saveInputData()">高级查询</button>
+            <button  ng-show="moreFlag" type="button" class="btn btn-link" ng-click="saveInputData()">普通查询</button>
+        </div>
+    </div>
+    <div class="form_two" ng-if="moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <span class="col-xs-2 control-label">发票代码</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="invoiceQueryInfo.infos.invoiceQuery.invoiceCode">
+                    <span class="color_red">*</span>
+                </div>
+                <span class="col-xs-2 control-label">开票申请人</span>
+                <div class="col-xs-4">
+                    <select-list data='{"comCode":comCode,"checkComCode":centerCode}'
+                                 selectType="operatorName"
+                                 ng-model="invoiceQueryInfo.infos.invoiceQuery.printApplyCode"
+                                 ng-value="invoiceQueryInfo.infos.invoiceQuery.printApplyName">
+                    </select-list>
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">起始发票号码</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="invoiceQueryInfo.infos.invoiceQuery.startvisaSerialNo">
+                    <span class="color_red">*</span>
+                </div>
+                <span class="col-xs-2 control-label">终止发票号码</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="invoiceQueryInfo.infos.invoiceQuery.endvisaSerialNo">
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">保/批单号</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="invoiceQueryInfo.infos.invoiceQuery.certiNo">
+                    <span class="color_red">*</span>
+                </div>
+                <span class="col-xs-2 control-label"></span>
+                <div class="col-xs-4">
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">发票状态
+                </span>
+                <div>
+                    <span>
+                        <input type="checkbox"
+                               ng-change="checkedAll()"
+                               ng-model="state.checkAll"
+                               style="width: 15px; margin-left:10px; height: 15px;" />全部
+                    </span>
+                    <span  ng-repeat="detail in checkDetail" style=" vertical-align: center;">
+                        <input type="checkbox"
+                               style="width: 15px; margin-left:10px; height: 15px;"
+                               value="detail.key"
+                               ng-change="changeCheckAll(detail.checkCode)"
+                               ng-model="detail.checkCode">
+                        {{detail.value}}
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-2 control-label">开票申请起期</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="invoiceQueryInfo.infos.invoiceQuery.applyDateStart"  class="date" id="date8" jedate
+                           format="YYYY-MM-DD"/>
+                    <span class="color_red">*</span>
+                </div>
+                <span class="col-xs-2 control-label">开票申请止期</span>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="invoiceQueryInfo.infos.invoiceQuery.applyDateEnd"  class="date" id="date9" jedate
+                           format="YYYY-MM-DD"/>
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary btn-width"  ng-click="invoiceInfoQuery('flag')">查询</button>
+                <button class="btn btn-success btn-width" ng-click="resetInvoiceIfo()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table" ng-if="invoiceQueryInfo.infos.invoiceQueryLists.length>0 && invoiceInfoFlag">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>交易流水号</th>
+                <th>发票类型</th>
+                <th>发票代码</th>
+                <th>发票号码</th>
+                <th>发票状态</th>
+                <th>作废原因</th>
+                <th>开票金额</th>
+                <th>税额</th>
+                <th>开票申请人</th>
+                <th>开票申请机构代码</th>
+                <th>开票申请机构名称</th>
+                <th>保批单明细</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="invoiceQueryList in invoiceQueryInfo.infos.invoiceQueryLists"  ng-class="invoiceQueryList.selectedClass">
+                <td>{{invoiceQueryList.batchNo}}</td>
+                <td>{{invoiceQueryList.invoiceType}}</td>
+                <td>{{invoiceQueryList.invoiceCode}}</td>
+                <td>{{invoiceQueryList.visaSerialNo}}</td>
+                <td>{{invoiceQueryList.visaStatus}}</td>
+                <td>{{invoiceQueryList.invoiceDropReason}}</td>
+                <td>{{invoiceQueryList.visaFee |number:2}}</td>
+                <td>{{invoiceQueryList.vataxFee |number:2}}</td>
+                <td>{{invoiceQueryList.printApplyCode}}</td>
+                <td>{{invoiceQueryList.printApplyComCode}}</td>
+                <td>{{invoiceQueryList.printApplyComCName}}</td>
+                <td><button ng-disabled="true">明细</button></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--分页-->
+        <div ng-if="invoiceQueryInfo.infos.invoiceQueryLists.length>0"  class="row list_content_bottom" >
+            <span style="margin-left: 15px" align="bottom">共{{pagination.totalItems}}{{invoiceQueryInfo.infos.invoiceQueryLists.length}}条记录</span>
+            <pagination
+                    ng-if="pagination.totalItems>pagination.pageSize"
+                    ng-model="pagination.pageIndex"
+                    class="pagination-sm pull-right"
+                    total-items="pagination.totalItems"
+                    page="pagination.pageIndex"
+                    items-per-page="pagination.pageSize"
+                    max-size="pagination.maxSize"
+                    previous-text="{{pagination.previousText}}"
+                    next-text="{{pagination.nextText}}"
+                    first-text="{{pagination.firstText}}"
+                    last-text="{{pagination.lastText}}"
+                    ng-click="commonListQuery('page')"
+                    class="pagination-small"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+        <div class="row list_queryForm_btn">
+            <button class="btn btn-success btn-width" ng-click="exportExcal()" ng-disabled="true">导出Excal</button>
+            <button class="btn btn-warning btn-width"  ng-click="invoiceCancel()">返回</button>
+        </div>
+    </div>
+</div>

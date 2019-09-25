@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+</head>
+<link rel="stylesheet" href="../../../../../css/bootstrap.3.1.1.css">
+<link rel="stylesheet" href="../../../../../css/printInfo.css">
+<script src="../../../../../lib/require/require.js" data-main="printTest.ctrl"></script>
+<style>
+    .printing .noPrint{
+        dispdlay:none;
+    }
+    .venus_table tr:nth-child(even) {
+        background-color: #F0F9FF;
+    }
+    table td{
+        text-align: left;
+        height: 18px;
+        line-height: 18px!important;
+    }
+</style>
+<body class="printing">
+<div id="ng-app1" ng-controller="PrintCtrl" class="bgfff p0-100">
+    <div style="width: 90%;margin: 0 auto">
+    <h5 class="text-center">实付佣金结算汇总表</h5>
+    <div class="venus_table">
+        <div class="venus_modal_tableName">
+            <span>结算单批次号：</span>
+            <span class="venus_modal_tableSubName" ng-bind="printData.contractNo"></span>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>中介名称</th>
+                <th>中介账户名称</th>
+                <th>开户行</th>
+                <th>账号</th>
+                <th>联系电话</th>
+                <th>身份证号码/组织机构代码证</th>
+                <th>应付佣金(元)</th>
+                <th>代扣代缴个人所得税(元)</th>
+                <th>代扣代缴增值税(元)</th>
+                <th>代扣代缴城建税(元)</th>
+                <th>教育附加费及其他(元)</th>
+                <th>实付佣金(元)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in printData.bankList">
+                <td>{{$index+1}}</td>
+                <td>{{d.agentName}}</td>
+                <td>{{d.accountName}}</td>
+                <td>{{d.bankName}}</td>
+                <td>{{d.accountCode}}</td>
+                <td>{{d.phone}}</td>
+                <td>{{d.idtenfityComcode}}</td>
+                <td>{{d.planFee}}</td>
+                <td>{{d.peopleTax}}</td>
+                <td>{{d.businessTax}}</td>
+                <td>{{d.constructionTax}}</td>
+                <td>{{d.educationTax}}</td>
+                <td>{{d.taxDisFee}}</td>
+            </tr>
+            <tr>
+                <td colspan="7" class="text-right">合计：</td>
+                <td>{{printData.planFeeNum}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>合计：</td>
+                <td>{{printData.taxDisFeeNum}}</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-left">分、支公司业务部制表人：</td>
+                <td colspan="7" class="text-left">财务部复核人：</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-left">分、支公司业务部负责人：</td>
+                <td colspan="7" class="text-left">财务部负责人：</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-left">总经理签字：</td>
+                <td colspan="7"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+    <div id="printImg" class="config_button">
+        <button ng-click="printTest()">打印</button>
+        <button onclick="window.close()">关闭</button>
+    </div>
+</div>
+</body>
+</html>

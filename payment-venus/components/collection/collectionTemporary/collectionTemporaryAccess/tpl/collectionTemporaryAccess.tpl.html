@@ -1,0 +1,10 @@
+<div class="AccountTap" style="text-align: center;background: #fff;margin-top: 15px">
+    <btn-group style="margin:16px auto; min-width: 400px;" btns="infoToView.tapName" b-click="changeTap(index)"></btn-group>
+</div>
+<div class="section" style="margin-top: 0">
+    <!--转无单预收-->
+    <div ng-if="infoToView.tapFlag=='1'" ng-include="'components/collection/collectionTemporary/collectionTemporaryAccess/tpl/collectionTemporarySure.html'" ></div>
+    <!--退无单预收-->
+    <div ng-if="infoToView.tapFlag=='2'" ng-include="'components/collection/collectionTemporary/collectionTemporaryAccess/tpl/collectionTemporaryRetreat.html'"></div>
+</div>
+

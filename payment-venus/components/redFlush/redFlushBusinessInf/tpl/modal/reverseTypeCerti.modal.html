@@ -1,0 +1,237 @@
+<!--业务红冲信息弹窗-->
+<div class="modal-content" style="width: 80%;padding: 0 24px;">
+    <!--header-->
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">业务红冲信息</div>
+    </div>
+    <!--body-->
+    <div class="modal-body">
+        <!--收保费-->
+        <div class="venus_table" ng-if="confirmRedFlushInf.strPayType=='RP01'">
+            <div class="venus_modal_tableName">
+                <span>业务信息</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>业务号</th>
+                    <th>险种</th>
+                    <th>费用类型</th>
+                    <th>投保人</th>
+                    <th>被保险人</th>
+                    <th>代理人</th>
+                    <th>业务员</th>
+                    <th>交费期数</th>
+                    <th>应收付金额</th>
+                    <th>实收付汇率</th>
+                    <th>实收付金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in confirmRedFlushInf.prpJpolicyPaymentList">
+                    <td>{{d.certiNo}}</td>
+                    <td>{{d.riskCode}}</td>
+                    <td>{{d.payRefReason}}</td>
+                    <td>{{d.appliName}}</td>
+                    <td>{{d.insuredName}}</td>
+                    <td>{{d.agentName}}</td>
+                    <td>{{d.handler1Name}}</td>
+                    <td>{{d.planSerialNo}}/{{d.payNo}}</td>
+                    <td>{{d.currency1}}--{{d.planFee|format}}</td>
+                    <td>{{d.exchangeRate}}</td>
+                    <td>{{d.currency2}}--{{d.payRefFee|format}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--付赔款-->
+        <div class="venus_table" ng-if="confirmRedFlushInf.strPayType=='PP01'">
+            <div class="venus_modal_tableName">
+                <span>业务信息</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>业务号</th>
+                    <th>险种</th>
+                    <th>费用类型</th>
+                    <th>投保人</th>
+                    <th>被保险人</th>
+                    <th>代理人</th>
+                    <th>业务员</th>
+                    <th>交费期数</th>
+                    <th>应收付金额</th>
+                    <th>实收付汇率</th>
+                    <th>实收付金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in confirmRedFlushInf.prpJlossPaymentList">
+                    <td>{{d.compensateNo}}</td>
+                    <td>{{d.riskCode}}</td>
+                    <td>{{d.payRefReason}}</td>
+                    <td>{{d.appliName}}</td>
+                    <td>{{d.insuredName}}</td>
+                    <td>{{d.agentName}}</td>
+                    <td>{{d.handler1Name}}</td>
+                    <td>{{d.planSerialNo}}/{{d.payNo}}</td>
+                    <td>{{d.currency1}}--{{d.planFee|format}}</td>
+                    <td>{{d.exchangeRate}}</td>
+                    <td>{{d.currency2}}--{{d.payRefFee|format}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--付手续费-->
+        <div class="venus_table" ng-if="confirmRedFlushInf.strPayType=='SP01'">
+            <div class="venus_modal_tableName">
+                <span>业务信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>手续费结算单号</th>
+                    <th>支付对象</th>
+                    <th>支付币种</th>
+                    <th>汇率</th>
+                    <th>支付总金额</th>
+                    <th>代扣个人所得税</th>
+                    <th>代扣增值税</th>
+                    <th>代扣城建税</th>
+                    <th>代扣教育费附加</th>
+                    <th>代扣地方教育费附加</th>
+                    <th>代扣地方性税费</th>
+                    <th>实付净金额</th>
+                    <th>结算单日期</th>
+                    <th>生成人员</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in confirmRedFlushInf.prpjpaymentbillsettleList">
+                    <td>{{d.payrefno}}</td>
+                    <td>{{d.payobjectname}}</td>
+                    <td>{{d.currency2}}</td>
+                    <td>{{d.exchangerate}}</td>
+                    <td>{{d.realbillfee|format}}</td>
+                    <td>{{d.realpersontaxfee}}</td>
+                    <td>{{d.salestaxfee}}</td>
+                    <td>{{d.contaxfee}}</td>
+                    <td>{{d.edutaxfee}}</td>
+                    <td>{{d.edulocaltaxfee}}</td>
+                    <td>{{d.realloctaxfee}}</td>
+                    <td>{{d.realbillnetfee|format}}</td>
+                    <td>{{d.packagedate}}</td>
+                    <td>{{d.packagecode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--车船税-->
+        <div class="venus_table" ng-if="confirmRedFlushInf.strPayType=='TP01'">
+            <div class="venus_modal_tableName">
+                <span>业务信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>车船税结算单号</th>
+                    <th>结算单币种</th>
+                    <th>结算单金额</th>
+                    <th>支付币种</th>
+                    <th>汇率</th>
+                    <th>实付总金额</th>
+                    <th>结算单日期</th>
+                    <th>生成人员</th>
+                    <th>收付日期</th>
+                    <th>收付员</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in confirmRedFlushInf.prpjpaymentbillsettleList">
+                    <td>{{d.payrefno}}</td>
+                    <td>{{d.currency}}</td>
+                    <td>{{d.billfee|format}}</td>
+                    <td>{{d.currency2}}</td>
+                    <td>{{d.exchangerate}}</td>
+                    <td>{{d.realbillfee|format}}</td>
+                    <td>{{d.packagedate|mcDate}}</td>
+                    <td>{{d.packagecode}}</td>
+                    <td>{{d.payrefdate|mcDate}}</td>
+                    <td>{{d.payrefcode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--无单预收-->
+        <div class="venus_table" ng-if="confirmRedFlushInf.strPayType=='ZP01'">
+            <div class="venus_modal_tableName">
+                <span>业务信息</span>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>统一格式银行流水号</th>
+                    <th>客户类型</th>
+                    <th>客户名称</th>
+                    <th>业务员名称</th>
+                    <th>无单预收类型</th>
+                    <th>结算币种</th>
+                    <th>结算汇率</th>
+                    <th>结算金额</th>
+                    <th>操作人员名称</th>
+                    <th>收付原因</th>
+                    <th>凭证号</th>
+                    <th>凭证日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in confirmRedFlushInf.prpJNoBillFeeDetailDtoList">
+                    <td>{{d.unifySerialNum}}</td>
+                    <td>{{d.customType}}</td>
+                    <td>{{d.customName}}</td>
+                    <td>{{d.handlerName}}</td>
+                    <td>{{d.prePayType}}</td>
+                    <td>{{d.currency2}}</td>
+                    <td>{{d.exchangeRate}}</td>
+                    <td>{{d.realPayRefFee|format}}</td>
+                    <td>{{d.operateName}}</td>
+                    <td>{{d.payRefReason}}</td>
+                    <td>{{d.voucherNo}}</td>
+                    <td>{{d.voucherDate}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="venus_table" style="height:300px">
+            <div class="venus_modal_tableName">
+                <span>原结算信息</span>
+            </div>
+            <table class="table table-bordered" >
+                <thead>
+                <tr>
+                    <th>收付币种</th>
+                    <th>收付方式</th>
+                    <th>银行账号</th>
+                    <th>实收/付金额</th>
+                    <th>银行结算单号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in confirmRedFlushInf.prpJpaymentDetailList">
+                    <td>{{d.currency2}}</td>
+                    <td>{{d.attribute1}}</td>
+                    <td>{{d.accountNo}}</td>
+                    <td>{{d.payRefFee|format}}</td>
+                    <td>{{d.checkNo}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--footer-->
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="redFlushConfirm()">红冲确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

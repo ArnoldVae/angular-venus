@@ -1,0 +1,120 @@
+<!--数据源信息配置-->
+<div class="section venus_hasFooter">
+    <div class="float-right addBtn" ng-click="dataConfigNew()">
+        <button class="btn btn-primary">新增</button>
+    </div>
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入配置条件值" type="text" class="form-control"
+                       ng-model="dataConfig.info.routingCondition">
+                <span class="input-group-addon cursor_pointer" ng-click="dataConfigSearch()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!dataConfig.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="dataConfig.moreFlag=!dataConfig.moreFlag">高级查询</span></div>
+        <div ng-show="dataConfig.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="dataConfig.moreFlag=!dataConfig.moreFlag ">普通查询</span></div>
+    </div>
+    <div class="mc_form" ng-if="dataConfig.moreFlag">
+        <form class="form-horizontal">
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">配置方式类型：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="configMold" class="col-xs-10 pl0 pr0"
+                         ng-model="dataConfig.info.routingType"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">配置结果值：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="configResult" class="col-xs-10 pl0 pr0"
+                         ng-model="dataConfig.info.routingVal"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">配置条件值：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="dataConfig.info.routingCondition">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">有效标示：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="validIdentification" class="col-xs-10 pl0 pr0"
+                         ng-model="dataConfig.info.valid"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">优先级：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="dataConfig.info.routingLevel">
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="dataConfigSearch()">查询</button>
+                <button class="btn btn-primary" ng-click="reset()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="venus_table" ng-class="{padding_bottom_69:dataConfig.editId}">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>配置方式类型</th>
+                <th>配置条件值</th>
+                <th>配置结果值</th>
+                <th>优先级</th>
+                <th>有效标识</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="data in dataConfig.dataConfigList">
+                <td ng-if="!(dataConfig.editId==data.id)">{{data.routingType |mcCode:'configMold'}}</td>
+                <td ng-if="dataConfig.editId == data.id">
+                    <div mc-code-select code="configMold" style="width: 135px;margin-left: 10px"
+                         ng-model="data.routingType"></div>
+                </td><!--配置方式类型-->
+                <td ng-if="!(dataConfig.editId==data.id)">{{data.routingCondition}}</td>
+                <td ng-if="dataConfig.editId == data.id">
+                    <input type="text" ng-model="data.routingCondition" style="width: 600px">
+                </td><!--配置条件值-->
+                <td ng-if="!(dataConfig.editId==data.id)">{{data.routingVal |mcCode:'configResult'}}</td>
+                <td ng-if="dataConfig.editId == data.id">
+                    <div mc-code-select code="configResult" style="width: 135px;margin-left: 10px;"
+                         ng-model="data.routingVal"></div>
+                </td><!--配置结果值-->
+                <td ng-if="!(dataConfig.editId==data.id)">{{data.routingLevel}}</td>
+                <td ng-if="dataConfig.editId == data.id"><input type="text" ng-model="data.routingLevel"
+                                                                style="width: 135px;"></td><!--优先级-->
+                <td ng-if="!(dataConfig.editId==data.id)">{{data.valid |mcCode:'validIdentification'}}</td>
+                <td ng-if="dataConfig.editId == data.id">
+                    <div style="width: 135px;margin-left: 10px" mc-code-select code="validIdentification"
+                         ng-model="data.valid"></div>
+                </td><!--有效标识-->
+                <td ng-if="!(dataConfig.editId==data.id)">
+                    <a href="" ng-click="dataConfigRemove(data)"><i
+                            class="glyphicon glyphicon-floppy-remove color-oranage"></i>删除</a>
+                    <a href="" ng-click="edit(data.id)"><i class="glyphicon glyphicon-pencil color-oranage"></i>修改</a>
+                </td>
+                <td ng-if="dataConfig.editId == data.id">
+                    <a href="" ng-click="dataConfigModify(data)"><i
+                            class="glyphicon glyphicon-floppy-saved color-oranage"></i>保存</a><!--修改保存-->
+                    <a href="" ng-click="goBack()"><i class="glyphicon glyphicon-chevron-left color-oranage"></i>返回</a>
+                    <!--返回-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--总条数-->
+    <div class="row list_content_bottom" ng-if="dataConfig.dataConfigList.length >0">
+        <span class="text-left" align="bottom">共{{dataConfig.dataConfigList.length}}条记录</span>
+    </div>
+</div>

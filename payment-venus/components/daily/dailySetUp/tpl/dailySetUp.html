@@ -1,0 +1,151 @@
+<!--审核查询-->
+<div class="section venus_hasFooter">
+    <div class="row list_query">
+        <!--<div class="col-md-4">-->
+            <!--<button ng-show="!moreFlag" type="button" class="btn btn-link" ng-click="moreFlag=!moreFlag">高级查询</button>-->
+            <!--<button  ng-show="moreFlag" type="button" class="btn btn-link" ng-click="moreFlag=!moreFlag">普通查询</button>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+            <!--<button ng-show="!addFlag" class="btn btn-primary btn-width" ng-click="addFlag=!addFlag">新增</button>-->
+            <!--<button ng-show="addFlag" class="btn btn-success btn-width" ng-click="addFlag=!addFlag">返回</button>-->
+        <!--</div>-->
+    </div>
+    <div class="mc_form" ng-if="!infoToView.addFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">设置类型：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select  code="autoDPType"  ng-model="infoToView.dailyQuery.unitType"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构代码：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select code="loginComCode" show-code = "true"  ng-model="infoToView.dailyQuery.comcode" ng-value="infoToView.dailyQuery.csomcod">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">收付员：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" data='{"comCode":comCode,"checkComCode":infoToView.dailyQuery.comcode}' selectType="operatorName" ng-model="infoToView.dailyQuery.unitcode" ng-value="infoToView.dailyQuery.cso1mcode"  >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">有效标志：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select  code="validStatus1"  ng-model="infoToView.dailyQuery.validStatus"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success btn-width"  ng-click="searchQuery()">查询</button>
+                <button class="btn btn-primary btn-width" ng-click="resetchQuery()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="mc_form" ng-if="infoToView.addFlag">
+        <form class="form-horizontal">
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">设置类型：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select  code="autoDPType"  ng-model="infoToView.newdailyQuery.webUserCode"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构/核算单位：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select code="loginComCode" show-code = "true"  ng-model="infoToView.newdailyQuery.comCode" ng-value="infoToView.newdailyQuery.webComCode">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">收付员：</label>
+                <div class="col-xs-7">
+                    <select-list my-class="col-xs-12" data='{"comCode":comCode,"checkComCode":infoToView.newdailyQuery.comCode}' selectType="operatorName" ng-model="infoToView.newdailyQuery.webCenterComCode" ng-value="infoToView.newdailyQuery.webCenterffComCode"  >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">日结时间：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="infoToView.newdailyQuery.claimBatchNo"  class="date col-xs-12" id="date54" jedate
+                           format="hh:mm:ss"/>
+                </div>
+            </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">是否有效：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select  code="validStatus1"  ng-model="infoToView.newdailyQuery.serialNo"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success btn-width"  ng-click="setUpSave()">保存</button>
+                <button class="btn btn-primary btn-width" ng-click="newresetchQuery()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div ng-if="!infoToView.addFlag">
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <!--<th><input type="checkbox" ng-model="infoToView.checkStatus.checkedAccountAll" ng-change="checkedReparationsAll(infoToView.checkStatus.checkedAccountAll,confirmList);selectedChangeClass()"></th>-->
+                <th>设置类型</th>
+                <th>业务/核算单位</th>
+                <th>收付员</th>
+                <th>日结时间</th>
+                <th>操作员</th>
+                <th>操作时间</th>
+                <th>有效状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in infoToView.confirmList" ng-class="d.selectedClass">
+                <!--<td ng-class="d.selectedClass"><input type="checkbox" ng-model="d.checked" ng-change="checkedReparationsOne();selectedChangeClass()" style="height: 15px"></td>-->
+                <td ng-class="d.selectedClass">{{d.unitType | mcCode:"autoDPType"}}</td>
+                <td ng-class="d.selectedClass">{{d.comCode}}</td>
+                <td ng-class="d.selectedClass">{{d.unitCode}}</td>
+                <td ng-class="d.selectedClass">{{d.dailyCloseTime |mcSmallDate}}</td>
+                <td ng-class="d.selectedClass">system</td>
+                <td ng-class="d.selectedClass">{{d.inputDate | mcDate}}</td>
+                <td ng-class="d.selectedClass">{{d.validStatus | mcCode:"validStatus1"}}</td>
+                <td ng-class="d.selectedClass"><a class="cursor_pointer" ng-click="nowPlase(d.dsId)">立即执行</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <!--<div class="row text-center" style="padding: 25px 0" ng-show="buttonFlag">-->
+            <!--<button class="btn btn-primary btn-width" ng-click="settlementConfirmation()">删除</button>-->
+            <!--<button class="btn btn-success btn-width" ng-click="settlementConfirmation()">返回</button>-->
+        <!--</div>-->
+    </div>
+    <div class="row list_content_bottom">
+        <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+            <span class="text-left" align="bottom">共查到{{pagination.totalItems}}条记录</span>
+        </div>
+        <pagination ng-if="pagination.totalItems>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                    page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                    previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                    ng-click="searchQuery('page')" style="margin: 0 20px 20px 0;" boundary-links="true"
+                    on-select-page="onSelectPage(page)"></pagination>
+    </div>
+</div>
+</div>
+<div class="row list_footer">
+    <button ng-show="!infoToView.addFlag" class="btn btn-primary btn-width" ng-click="infoToView.addFlag=!infoToView.addFlag">新增</button>
+    <button ng-show="infoToView.addFlag" class="btn btn-warning btn-width" ng-click="infoToView.addFlag=!infoToView.addFlag">返回</button>
+</div>

@@ -1,0 +1,200 @@
+<!--
+红票开票申请
+-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入保/批单号" type="text" style="" class="form-control"
+                       ng-model="redDataInvoice.query.certiNoS">
+                <span class="input-group-addon cursor_pointer" ng-click="queryList()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!redDataInvoice.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="redDataInvoice.status.moreFlag=!redDataInvoice.status.moreFlag;">高级查询</span></div>
+        <div ng-show="redDataInvoice.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span
+                ng-click="redDataInvoice.status.moreFlag=!redDataInvoice.status.moreFlag ">普通查询</span></div>
+    </div>
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="redDataInvoice.status.moreFlag">
+        <form class="form-horizontal">
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">保/批单号 从：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="redDataInvoice.query.certiNoS">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">到：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="redDataInvoice.query.certiNoE">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">保/批单号列表：</label>
+                <div class="col-xs-8">
+                    <textarea class="col-xs-10" cols="25" rows="3"
+                              ng-model="redDataInvoice.query.certiNoList"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-8">
+                    <select-list data='{"centerCode":centerCode,"comCode":comCode}'
+                                 my-class="col-xs-10"
+                                 selectType="salesDepartment"
+                                 ng-model="redDataInvoice.query.comCode"
+                                 ng-value="redDataInvoice.query.comCode1">
+                    </select-list>
+                    <span class="color_red">*</span></div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">业务员：</label>
+                <div class="col-xs-8">
+                    <select-list data='{"comCode":comCode,"checkComCode":redDataInvoice.query.comCode}'
+                                 selectType="operatorName"
+                                 my-class="col-xs-10"
+                                 ng-model="redDataInvoice.query.handler1Code"
+                                 ng-value="redDataInvoice.query.handler1Code1">
+                    </select-list>
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">代理人/经纪人：</label>
+                <div class="col-xs-8">
+                    <select-list base-code="agentCode"
+                                 my-class="col-xs-10"
+                                 ng-model="redDataInvoice.query.agentCode"
+                                 ng-value="redDataInvoice.query.agentCode1">
+                    </select-list>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">车队合同号/预约协议号：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="redDataInvoice.query.contractNo">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">业务渠道：</label>
+                <div class="col-xs-8">
+                    <select-list base-code="businessNature"
+                                 my-class="col-xs-10"
+                                 ng-model="redDataInvoice.query.businessNature"
+                                 ng-value="redDataInvoice.query.businessNature1">
+                    </select-list>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">险种：</label>
+                <div class="col-xs-8">
+                    <select-list base-code="riskCode"
+                                 force-remote="true"
+                                 my-class="col-xs-10"
+                                 ng-model="redDataInvoice.query.riskCode"
+                                 ng-value="redDataInvoice.query.riskCode1">
+                    </select-list>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">被保险人名称：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="redDataInvoice.query.insuredName">
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">投保人名称：</label>
+                <div class="col-xs-8">
+                    <input type="text" class="col-xs-10" ng-model="redDataInvoice.query.appliName">
+                    <span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">农险补贴类型：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="AgriType" ng-model="redDataInvoice.query.agriType"
+                         class="col-xs-10 pl0 pr0"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 form-group">
+                <label class="col-xs-4">费用类型：</label>
+                <div class="col-xs-8">
+                    <div mc-code-select code="ChargeTypeInvoice" ng-model="redDataInvoice.query.chargeType"
+                         class="col-xs-10 pl0 pr0"></div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="queryList()">查询</button>
+                <button class="btn btn-primary" ng-click="resetList()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+        <span class="font_size_12 color_red"
+              ng-if="redDataInvoice.status.checkedClaimAll_disabled">注：税率或投保人不同不能同时勾选</span>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-change="selectedAll()"
+                           ng-model="redDataInvoice.status.checkedAccountAll"
+                           ng-disabled="redDataInvoice.status.checkedClaimAll_disabled"></th>
+                <th>批单号</th>
+                <th>类型</th>
+                <th>投保人</th>
+                <th>被保险人</th>
+                <th>共保人</th>
+                <th>税率</th>
+                <th>签单币别</th>
+                <th>签单金额</th>
+                <th>本位币金额</th>
+                <th>未开票金额</th>
+                <th>应缴车船税</th>
+                <th>往年补缴车船税</th>
+                <th>车船税滞纳金</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="pay in redDataInvoice.getPayList"
+                ng-class="{true: 'venus_table_check', false: ''}[pay.checked]">
+                <td>
+                    <input type="checkbox" ng-change="selectedOne();checkedBoxChanged(pay)" ng-model="pay.checked"
+                           ng-disabled="!(pay.taxRate==redDataInvoice.status.taxRate && pay.appliName==redDataInvoice.status.appliName || redDataInvoice.status.disabled)">
+                    <span ng-show="false">{{pay.check=$index}}</span>
+                </td>
+                <td>{{pay.certiNo}}</td>
+                <td>{{pay.payRefReasonCName}}</td>
+                <td>{{pay.appliName}}</td>
+                <td>{{pay.insuredName}}</td>
+                <td>{{pay.coinsName}}</td>
+                <td>{{pay.taxRate * 100+'%'}}</td>
+                <td>{{pay.currency1}}</td>
+                <td>{{pay.planFeeContainsTax |format}}</td>
+                <td>{{pay.planFeeCNYContainsTax |format}}</td>
+                <td>{{pay.notVisaFee |format}}</td>
+                <td>{{pay.planFee_R72 |format}}</td>
+                <td>{{pay.planFee_R73 |format}}</td>
+                <td>{{pay.planFee_R74 |format}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--总条数-->
+    <div class="row list_content_bottom" ng-if="redDataInvoice.getPayList.length >0">
+        <span class="text-left" align="bottom">共{{redDataInvoice.getPayList.length}}条记录</span>
+    </div>
+    <!--列表底部悬浮块-->
+    <div class="row list_footer" ng-if="redDataInvoice.selectedPay!=0">
+        <button class="btn btn-link" ng-click="redInvoiceSubmit()" style="color: #cb2028">
+            本次结算合计{{redDataInvoice.selectedPay|format}}元
+        </button>
+        <button class="btn btn-success" ng-click="redInvoiceSubmit()">确认</button>
+        <!--本次结算合计<span  style="color: #ad1b22;font-size: 16px;font-weight: bold">{{redDataInvoice.selectedPay|format}}</span>元-->
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<!--业务信息-->
+<div class="modal-content" style="width: 71%;padding:0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h5 class="text-center">业务信息</h5>
+    </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>业务类型</th>
+                <th>业务号</th>
+                <th>费用类型</th>
+                <th>被保险人</th>
+                <th>原币币别</th>
+                <th>原币金额</th>
+                <th>本位币金额（CNY）</th>
+                <th>核算单位</th>
+                <th>业务部门</th>
+                <th>起保日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in businessInfoList">
+                <td>{{d.certiType}}</td>
+                <td>{{d.policyNo}}</td>
+                <td>{{d.payRefReason}}</td>
+                <td>{{d.insuredName}}</td>
+                <td>{{d.currency1|mcCode:'Currency'}}</td>
+                <td>{{d.planFee|format}}</td>
+                <td>{{d.planFee|format}}</td>
+                <td>{{d.centerCode}}</td>
+                <td>{{d.comCode |mcCode:"loginComCode"}}</td>
+                <td>{{d.startDate|mcDate}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

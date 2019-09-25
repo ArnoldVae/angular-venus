@@ -1,0 +1,22 @@
+/*会计引擎样式*/
+
+/*树样式*/
+.add_tree{
+    position: absolute;
+    right: 15px;
+    font-size: 22px;
+    top: 0px;
+}
+.left_tree{
+    border-right: 1px solid #e6ebef;
+    width: 25%;
+    overflow-y: scroll;
+}
+
+.left_tree_title{
+    width: 450px;
+}
+
+.right_content{
+    width: 75%;
+}

@@ -1,0 +1,46 @@
+<!--应收保费挂帐-->
+<div class="section venus_hasFooter" style="margin-bottom: 0px">
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">送财务日期：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-required="true" ng-model="Receivables.yearMonth"  class="col-xs-12 date" id="date6" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">收付类型：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select  class="col-xs-12 pl0 pr0" code="Q_PAYTYPE_FIN" ng-model="Receivables.businessType">
+                    </div>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="settlementClass()">确认</button>
+                <button class="btn btn-primary" ng-click="reset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <!--<div class="venus_table">-->
+        <!--<table class="table table-bordered">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th>凭证号</th>-->
+                <!--<th>实际收付号</th>-->
+                <!--<th>核算单位</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr ng-repeat="g in gzList">-->
+                <!--<td><a ng-click="showGZDetail(g.voucherNo)">{{g.voucherNo}}</a></td>-->
+                <!--<td>{{g.realPayRefNo}}</td>-->
+                <!--<td>{{g.centerCode}}</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+    <!--<div class="row list_content_bottom" ng-if="gzList.length >0">-->
+        <!--<span style="margin-left: 15px" align="bottom">共{{gzList.length}}条记录</span>-->
+    <!--</div>-->
+</div>

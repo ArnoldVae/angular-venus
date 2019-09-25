@@ -1,0 +1,43 @@
+<div class="modal-content" style="width: 1200px;padding: 0 24px;">
+    <div class="venus_table">
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th rowspan="2">凭证号</th>
+                <th rowspan="2">分录号</th>
+                <th rowspan="2">会计科目</th>
+                <th rowspan="2">银行账户</th>
+                <th rowspan="2">币别</th>
+                <th colspan="2">借方</th>
+                <th colspan="2">贷方</th>
+                <th rowspan="2">凭证摘要</th>
+            </tr>
+            <tr>
+                <th rowspan="1">原币金额</th>
+                <th rowspan="1">本位币金额</th>
+                <th rowspan="1">原币金额</th>
+                <th rowspan="1">本位币金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="Voucher in VoucherList track by $index">
+                <td>{{Voucher.voucherNo}}</td>
+                <td>{{Voucher.sufFixNo }}</td>
+                <td>{{Voucher.itemCode}}</td>
+                <td>{{Voucher.f18}}</td>
+                <td>{{Voucher.currency}}</td>
+                <td>{{Voucher.debitSource}}</td>
+                <td>{{Voucher.debitDest}}</td>
+                <td>{{Voucher.creditSource}}</td>
+                <td>{{Voucher.creditDest}}</td>
+                <td>{{Voucher.remark}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <!--<button class="btn btn-success" ng-if="vouStatus=='1'||!vouStatus||vouStatus==''" ng-click="Reviews()">凭证复核</button>-->
+        <button class="btn btn-success" ng-if="vouStatus=='1'||!vouStatus||vouStatus==''" ng-click="Cancel(VoucherList);cancel()">凭证取消</button>
+        <button class="btn btn-success" ng-click="cancel()">关闭</button>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<!--账户校验配置新增-->
+<div class="modal-content" style="width: 83%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">校验规则详细信息</div>
+    </div>
+    <div class="row list_query" style="padding-top: 15px;">
+        <div class="col-xs-2 pt_5 text-right">字段名称</div>
+        <div class="col-xs-3 pl_0">
+            <div mc-code-select code="checkType"
+                 ng-model="accountCheckDto.fieldCode"
+                ng-change="changeRule()"></div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>校验规则</th>
+                    <th>是否拥有</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="accountConfig in accountConfigs">
+                    <td class="col-xs-1">{{accountConfig.codeCName}}</td>
+                    <td class="col-xs-2">
+                        <input type="checkbox"  ng-true-value="1" ng-false-value="0" ng-if="accountConfig.flag == 1" ng-model="accountConfig.checkRules" />
+                        <input type="text" ng-if="accountConfig.flag == 2" ng-model="accountConfig.checkRules" />
+                        <span style="position: absolute; line-height: 30px;">{{accountConfig.commonFlag}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="saveAccountCheck()">保存</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+

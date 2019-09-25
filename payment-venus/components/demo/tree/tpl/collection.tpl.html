@@ -1,0 +1,115 @@
+<div class="row title-bar">
+    <span>收款确认</span>
+</div>
+<div class="section">
+    <h3>收款确认</h3>
+
+    mcInsurerTypeahead
+    <!--<div mc-insurer-typeahead=""></div>-->
+    <input mc-insurer-typeahead type="text" class="form-control" ng-model="digest.basic.inReinsName" />
+    <ui-select ng-model="digest.businessType"
+               ng-disabled = "false"
+               search-enabled = "true"
+               reset-search-input = "true"
+               focus-on = "event:focus-on"
+               spinner-enabled = "true"
+               refresh="refreshCodes($select.search)"
+               refresh-delay="200"
+               tabindex="3"
+               style="width: 600px;"
+               title="Choose an address">
+        <ui-select-match placeholder="输入业务类型...">{{$select.selected.code}} | {{$select.selected.value}}</ui-select-match>
+        <ui-select-choices repeat="code.code as code in BTs track by $index">
+            <span ng-bind-html="code.code | highlight: $select.search"></span>
+            <span ng-bind-html="code.value | highlight: $select.search"></span>
+        </ui-select-choices>
+    </ui-select>
+
+    <div class="container">
+        <div class="row">
+
+            <!--uitree开始-->
+            <div class="subjectTree col-md-5">
+                <script type="text/ng-template" id="nodes_renderer.html">
+                    <div class=" tree-node-content">
+                        <!--<input type="checkbox" class="radioclass" ng-model="node.checked" ng-change="changeNode(node,$parentNodesScope,$parentNodeScope)">-->
+                        <!--<a class="" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span-->
+                        <!--class="glyphicon"-->
+                        <!--ng-class="{'glyphicon-chevron-right1': collapsed,'glyphicon-chevron-down1': !collapsed}"></span></a>-->
+
+                        <!--展开折叠图标-->
+                        <div class="row ">
+
+                            <a class="col-md-1" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)"><span
+                                    class="glyphicon"
+                                    ng-class="{'glyphicon glyphicon-folder-close': collapsed,'glyphicon glyphicon-folder-open': !collapsed}"></span></a>
+                            <span class=" subjectBgc" ng-class="{'col-md-3':node.nodes.length > 0,'col-md-3 text-center':node.nodes.length <= 0}" ng-click="showData(this)">
+                                    {{node.title}}
+                                </span>
+                            <a class="addSubject col-md-1 glyphicon glyphicon-plus" ng-click="newSubItem(this,node,$parentNodesScope,$parentNodeScope)"></a>
+                        </div>
+                        <!--<a class="pull-right btn btn-dan-->
+                        <!--ger btn-xs" data-nodrag ng-click="remove(this)"><span-->
+                        <!--class="glyphicon glyphicon-remove"></span></a>-->
+                        <!--<a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this,node,$parentNodesScope,$parentNodeScope)" style="margin-right: 8px;"><span-->
+                        <!--class="glyphicon glyphicon-plus"></span></a>-->
+                    </div>
+                    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+                        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+                        </li>
+                    </ol>
+
+                </script>
+
+                <!--<div class="row">-->
+                    <!--<div class="col-sm-12">-->
+                        <!--<button ng-click="expandAll()">展开</button>-->
+                        <!--<button ng-click="collapseAll()">关闭</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div ui-tree data-drag-enabled="false" id="tree-root">
+                            <ol ui-tree-nodes ng-model="data">
+                                <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                            </ol>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <a class="addSubject col-md-1 glyphicon glyphicon-plus" ng-click="newSubItem(this,node,$parentNodesScope,$parentNodeScope)"></a>
+
+                <!-----------------uitree结束------------------->
+
+            </div>
+
+            <div class="col-md-7 content-border">
+                <div class="row ">
+                    <span class="col-md-3 text-center">科目：</span>
+                    <input class="col-md-6 " type="text" ng-model="subject.title" ng-value="subject.title">
+                </div>
+                <div class="row ">
+                    <span class="col-md-3 text-center">科目代码：</span>
+                    <input class="col-md-6 " type="text" ng-model="subject.id" ng-value="subject.id">
+                    <!--<div class="col-xs-3">-->
+                    <!--<div class="form-group">-->
+                    <!--<input type="text" value="" placeholder="Inactive" class="form-control" />-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>

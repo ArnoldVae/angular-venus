@@ -1,0 +1,43 @@
+<div class="modal-content" style="width: 1200px;padding: 0 24px;">
+    <div class="venus_table">
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th rowspan="2">凭证号</th>
+                <th rowspan="2">分录号</th>
+                <th rowspan="2">会计科目</th>
+                <th rowspan="2">银行账户</th>
+                <th rowspan="2">币别</th>
+                <th colspan="2">借方</th>
+                <th colspan="2">贷方</th>
+                <th rowspan="2">凭证摘要</th>
+            </tr>
+            <tr>
+                <th rowspan="1">原币金额</th>
+                <th rowspan="1">本位币金额</th>
+                <th rowspan="1">原币金额</th>
+                <th rowspan="1">本位币金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="credential in credentials track by $index">
+                <td>{{credential.voucherNo}}</td>
+                <td>{{credential.sufFixNo}}</td>
+                <td>{{credential.itemCode}}</td>
+                <td>{{credential.f18}}</td>
+                <td>{{credential.currency}}</td>
+                <td>{{credential.debitSource}}</td>
+                <td>{{credential.debitDest}}</td>
+                <td>{{credential.creditSource}}</td>
+                <td>{{credential.creditDest}}</td>
+                <td>{{credential.remark}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <!--<button class="btn btn-success" ng-click="Submit()">凭证复核</button>-->
+        <button class="btn btn-success" ng-click="Cancel()">凭证取消</button>
+        <button class="btn btn-success" ng-click="cancel()">关闭</button>
+    </div>
+</div>

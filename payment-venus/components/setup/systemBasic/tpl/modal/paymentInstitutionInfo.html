@@ -1,0 +1,56 @@
+<!--收付机构详细信息页面-->
+<div class="modal-content" style="width: 64%;">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">机构详情</div>
+    </div>
+
+    <div class="modal-body " style="margin-bottom: -10px;">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">机构代码：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        {{paymentInfCondition.comCode}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">机构名称：</label>
+                    <div class="col-xs-8">
+                        {{paymentInfCondition.comCName}}
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">机构级别：</label>
+                    <div class="col-xs-8">
+                        {{paymentInfCondition.upperComCode|mcCode:'ims_comLevel'}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-body ">
+        <table class="table table-bordered venus_table">
+            <thead>
+            <tr>
+                <th>用户代码(登录账号)</th>
+                <th>机构代码</th>
+                <th>用户名称</th>
+                <th>用户所属机构名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in paymentInfCondition.utiiUserCompanyList">
+                <td>{{p.userCode}}</td>
+                <td>{{p.comCode}}</td>
+                <td>{{p.userName}}</td>
+                <td>{{p.comName}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

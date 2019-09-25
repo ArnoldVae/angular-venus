@@ -1,0 +1,117 @@
+<!--银行流水查询-->
+<div class="section venus_hasFooter">
+        <div     class="mc_form">
+            <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">账户归属机构：</label>
+                <div class="col-xs-7">
+                    <select-list wait-change="myFunc()" base-code="bankFlowType" my-class="col-xs-12"
+                                 ng-model="bankStatementSearch.serialCondition.comCode"
+                                 ng-value="bankStatementSearch.serialCondition.businessValue"
+                                 selectType="accountOrganization"
+                                 data="{comCode:comCode,newComCode:supplementCondition.comCode}"
+                                 style="width: 300px">
+                    </select-list>
+                </div>
+                <span class="color_red">*</span>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">导入目标银行账号：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select data="bankTypeCNY" ng-model="bankStatementSearch.serialCondition.impTargetBankAccount"></div>
+                    </div>
+                </div>
+
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">上传日期：</label>
+                <div class="col-xs-7">
+                    <input type="text"  ng-model="bankStatementSearch.serialCondition.impDate" class="date col-xs-12" id="date1" jedate format="YYYY-MM-DD hh:mm:ss">
+                </div>
+            </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">至：</label>
+                    <div class="col-xs-7">
+                        <input type="text"  ng-model="bankStatementSearch.serialCondition.impDateEnd" class="date col-xs-12" id="date2" jedate format="YYYY-MM-DD hh:mm:ss">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">文件名称：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text"  ng-model="bankStatementSearch.serialCondition.impFileName">
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <!--<div class="form-group">-->
+                    <!--<div class="col-xs-2 control-label"><span>处理状态：</span></div>-->
+                    <!--<div class="col-xs-4">-->
+                        <!--<div mc-code-select code="bankSerialFlag" ng-model="bankStatementSearch.serialCondition.processStatus" class="form_two_select"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success" ng-click="searchSerial()">查询</button>
+                    <button class="btn btn-primary" ng-click="resetSerial()">重置</button>
+                </div>
+            </form>
+        </div>
+    <div class="venus_table">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <!--<th><input type="checkbox" ng-change="selectedPayListAll();changePayListClass()" ng-model="infoToView.checkStatus.checkedPayListAll"></th>-->
+                <th>序号</th>
+                <th>导入文件编号</th>
+                <th>文件名称</th>
+                <!--<th>错误文件名称</th>-->
+                <th>账户归属机构</th>
+                <th>导入目标银行账号</th>
+                <th>上传日期</th>
+                <th>处理状态</th>
+                <!--<th>导入处理结果</th>-->
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat=" d in bankStatementSearch.serialList">
+                <td>{{$index+1}}</td>
+                <td>{{d.impFileNum}}</td>
+                <td><a class="cursor_pointer" ng-click="voucherDetailed(d)">{{d.impFileName}}</a></td>
+                <!--<td>{{d.}}</td>-->
+                <td>{{d.comCode}}</td>
+                <td>{{d.impTargetBankAccount}}</td>
+                <td>{{d.impDate|mcSuperDate}}</td>
+                <td ng-switch="d.processStatus">
+                    <span ng-switch-when="0">未处理</span>
+                    <span ng-switch-when="1">已处理</span>
+                </td>
+                <!--<td>{{d.}}</td>-->
+                <td><a ng-click="deleteSerial(d)">删除</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="row list_content_bottom" ng-if="bankStatementSearch.pagination.totalItems>0">
+            <span class="text-left" align="bottom">共{{bankStatementSearch.pagination.totalItems}}条记录</span>
+            <pagination
+                    ng-if="bankStatementSearch.pagination.totalItems>bankStatementSearch.pagination.pageSize"
+                    ng-model="bankStatementSearch.pagination.pageIndex"
+                    class="bankStatementSearch.pagination-sm pull-right"
+                    total-items="bankStatementSearch.pagination.totalItems"
+                    page="bankStatementSearch.pagination.pageIndex"
+                    items-per-page="bankStatementSearch.pagination.pageSize"
+                    max-size="bankStatementSearch.pagination.maxSize"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="末页"
+                    class=""
+                    ng-click="searchSerial('page')"
+                    style="margin: 0 20px 20px 0;"
+                    boundary-links="true"
+                    on-select-page="onSelectPage(page)">
+            </pagination>
+        </div>
+</div>
+
+

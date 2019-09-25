@@ -1,0 +1,99 @@
+<!--收付机构设置-->
+<div>
+    <!--高级查询表单-->
+    <div class="mc_form">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构代码：</label>
+                <div class="col-xs-7">
+                    <!--普通录入域class模版-->
+                    <select-list
+                            data='{"centerCode":centerCode,"comCode":comCode}'
+                            selectType="salesDepartment"
+                            displaytype="CODE"
+                            ng-model="infoToView.paymentInstitutions.queryConditions.comCode"
+                            ng-value="infoToView.paymentInstitutions.queryConditions.comCName"
+                            my-class="col-xs-12"
+                    >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构名称：</label>
+                <div class="col-xs-7">
+                    <select-list
+                            my-class="col-xs-12"
+                            data='{"centerCode":centerCode,"comCode":comCode}'
+                            selectType="salesDepartment"
+                            ng-model="infoToView.paymentInstitutions.queryConditions.comCode"
+                            ng-value="infoToView.paymentInstitutions.queryConditions.comCName"
+                    >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">机构级别：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select code="ims_comLevel" ng-model="infoToView.paymentInstitutions.queryConditions.comLevel"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success"  ng-click="findPublic(constants.FINDERCONFIG.TARGET.PAYMENTINSTITUTIONS)">查询</button>
+                <button class="btn btn-primary"  ng-click="paymentInstitutionReset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>机构代码</th>
+                    <th>机构名称</th>
+                    <th>机构级别</th>
+                    <th>是否为核算单位</th>
+                    <th>成立日期</th>
+                    <th>查看</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat=" d in infoToView.paymentInstitutions.queryList">
+                    <td>{{$index+1}}</td>
+                    <td>{{d.comCode}}</td>
+                    <td>{{d.comCName}}</td>
+                    <td>{{d.comLevel|mcCode:'ims_comLevel'}}</td>
+                    <td ng-switch="{{d.flag}}">
+                        <span ng-switch-when="0">否</span>
+                        <span ng-switch-when="1">是</span>
+                    </td>
+                    <td>{{d.createDate}}</td>
+                    <td><a href="" ng-click="lookPaymentInf(d)">详细信息</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    <div ng-if="infoToView.paymentInstitutions.queryList.length>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{infoToView.paymentInstitutions.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="infoToView.paymentInstitutions.pagination.totalItems>infoToView.paymentInstitutions.pagination.pageSize"
+                ng-model="infoToView.paymentInstitutions.pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="infoToView.paymentInstitutions.pagination.totalItems"
+                page="infoToView.paymentInstitutions.pagination.pageIndex"
+                items-per-page="infoToView.paymentInstitutions.pagination.pageSize"
+                max-size="infoToView.paymentInstitutions.pagination.maxSize"
+                previous-text="{{infoToView.paymentInstitutions.pagination.previousText}}"
+                next-text="{{infoToView.paymentInstitutions.pagination.nextText}}"
+                first-text="{{infoToView.paymentInstitutions.pagination.firstText}}"
+                last-text="{{infoToView.paymentInstitutions.pagination.lastText}}"
+                ng-click="findPublic(constants.FINDERCONFIG.TARGET.PAYMENTINSTITUTIONS,'page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+
+        </pagination>
+    </div>
+</div>

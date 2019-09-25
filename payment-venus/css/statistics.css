@@ -1,0 +1,84 @@
+/*综合查询模块*/
+/*查询统计模块*/
+.statistics-header-container{
+    border:1px solid #a61baf;
+    background-color: #decdfd;
+    width: 100%;
+}
+
+.statistics-header-left{
+    width: 150px;
+    height: 150px;
+    background-color: #a338af;
+    padding-top: 24px;
+}
+.statistics-header-more{
+    float: right;
+    margin-right: 160px;
+    margin-top: 6px;
+    border: 1px solid #00af2c;
+    border-radius: 4px;
+    background: #bf3ef5;
+}
+.statistics-header-condition{
+    position: relative;
+    top: -100px;
+    width: 100%;
+    height: 200px;
+    background: #d0b0fd;
+    border: 1px solid #9b53af;
+    padding-top: 16px;
+    padding-left: 16px;
+}
+.statistics-header-container-btn{
+    margin-top: 20px;
+}
+.statistics-header-container-btn button{
+    background: #ffffff;
+}
+.statistics-content{
+    margin-bottom: 16px;
+    margin-top: -2px;
+    position: relative;
+    top: -80px;
+    left: 16px;
+}
+.statistics-content-result{
+    width: 100%;
+    background: #d2aefd;
+    position: relative;
+    top: -100px;
+}
+.statistics-content-result-selected{
+    background-color: #d2aefd;
+}
+.staTable td{
+    white-space : nowrap;
+}
+.staTable th{
+    white-space : nowrap;
+}
+.staTable{
+    overflow: hidden;
+}
+/*应收保费查询*/
+.premiumtable_footer{
+    width: inherit;
+    height: auto;
+    line-height: 30px;
+    background-color: #eee;
+    padding-left: 948px;
+}
+.preline{
+    margin-top: 15px;
+}
+.prespan1{
+    text-align: right;
+    color: #9f9f9f;
+}
+.prespan2{
+    padding-left: 65px;
+}
+.prespan3{
+    padding-left: 48px;
+}

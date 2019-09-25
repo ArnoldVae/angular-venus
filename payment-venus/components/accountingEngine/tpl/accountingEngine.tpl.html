@@ -1,0 +1,36 @@
+<!--会计引擎模块框架-->
+<div class="section venus_hasFooter" ng-style="{'margin-bottom':infoToView.accountingTab.index=='1' && infoToView.accountingEngineTab.index=='1' ? '15px':'70px'}">
+    <div class="text-center">
+        <btn-group style="margin:16px auto; margin-top: -3px; min-width: 400px;" btns="infoToView.accountingEngineTab" b-click="changeAccountingEngineTab(index)"></btn-group>
+    </div>
+
+    <div class="">
+        <!--会计科目设置（1科目维护2辅助核算项）-->
+        <div ng-if="infoToView.accountingEngineTab.index=='1'">
+            <hr>
+            <div class="step">
+                <btn-group btns="infoToView.accountingTab" b-click="changeAccountingTab(index)" custom="true"></btn-group>
+            </div>
+            <hr>
+            <div ng-if="infoToView.accountingTab.index=='1'" ng-include="'components/accountingEngine/tpl/accountingMaintenance.tpl.html'"></div>
+            <div ng-if="infoToView.accountingTab.index=='2'" ng-include="'components/accountingEngine/tpl/accountingAuxiliary.tpl.html'"></div>
+        </div>
+        <!--收付信息设置（1收付类型2收付原因3收付方式）-->
+        <div ng-if="infoToView.accountingEngineTab.index=='2'">
+            <hr>
+            <div class="step">
+                <btn-group btns="infoToView.paymentTab" b-click="changePaymentTab(index)" custom="true"></btn-group>
+            </div>
+            <hr>
+            <div ng-if="infoToView.paymentTab.index=='1'" ng-include="'components/accountingEngine/tpl/paymentType.tpl.html'"></div>
+            <div ng-if="infoToView.paymentTab.index=='2'" ng-include="'components/accountingEngine/tpl/paymentWay.tpl.html'"></div>
+            <div ng-if="infoToView.paymentTab.index=='3'" ng-include="'components/accountingEngine/tpl/paymentReason.tpl.html'"></div>
+
+        </div>
+        <!--凭证模设置（收付场景）-->
+        <div ng-if="infoToView.accountingEngineTab.index=='3'">
+            <div ng-include="'components/accountingEngine/tpl/voucherTemplate.tpl.html'"></div>
+        </div>
+    </div>
+</div>
+

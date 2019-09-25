@@ -1,0 +1,78 @@
+<!--联共保确定弹窗-->
+<div class="modal-content" style="width: 72%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">结算单修改</div>
+    </div>
+    <div class="modal-body">
+        <div class="venus_modal_tableName">
+            <span>共保方银行账户信息</span>
+        </div>
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款单位编号：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        <input type="text" ng-model="payref.attribute1" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款行地址（省）：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="payref.bankOfProvince" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款单位名称：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        <input type="text" ng-model="payref.attribute2" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款行地址（市）：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="payref.bankOfCity" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款账户账号：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="payref.accountcode" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款行地址（路）：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="payref.bankothdetailRod" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款账户名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="payref.accountname" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">账户类型：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="Accounttype" ng-model="payref.accounttype" class="col-xs-12 padding_clear"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收款银行名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="payref.bankitemname" class="col-xs-12">
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="payrefModeifySubmit()">确认</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+
+    </div>
+</div>

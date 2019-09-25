@@ -1,0 +1,11 @@
+<div class="ui-select-container ui-select-bootstrap dropdown" ng-class="{open: $select.open}">
+    <div mc-code-select-match class="ui-select-match">
+        <span ng-if="$select.showCode">{{ $select.selected.code }}{{ $select.selected.value }}</span>
+        <span ng-if="!$select.showCode">{{ $select.selected.value }}</span>
+    </div>
+    <input style="height: 30px;" type="text" autocomplete="off" tabindex="-1" aria-expanded="true" aria-label="{{ $select.baseTitle }}" aria-owns="ui-select-choices-{{ $select.generatedId }}" aria-activedescendant="ui-select-choices-row-{{ $select.generatedId }}-{{ $select.activeIndex }}" class="form-control ui-select-search" placeholder="{{$select.placeholder}}" ng-model="$select.search" ng-show="$select.searchEnabled && $select.open">
+    <div  style="text-align: left;" mc-code-select-choices repeat="code.code as code in $select.codes | propsFilter: {code: $select.search, value: $select.search}"  class="ui-select-choices" ng-if="$select.open">
+        <span ng-if="$select.showCode" ng-bind="code.code"></span>
+        <span ng-bind="code.value"></span>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="modal-content" style="width: 1080px;padding: 0 24px;">
+    <div class="modal-header" style="min-height: 20px;padding: 0">
+        <h5 class="text-center">代扣代缴增值税报表</h5>
+    </div>
+    <div class="venus_table">
+        <div class="venus_modal_tableName">
+            <span>代扣代缴编码</span>
+            <span class="venus_modal_tableSubName">{{Statement[0].withHoldNo}}</span>
+        </div>
+        <div class="venus_modal_tableName">
+            <span>代扣代缴对象</span>
+            <span class="venus_modal_tableSubName">{{Statement[0].freinsName}}</span>
+        </div>
+        <div class="venus_modal_tableName">
+            <span>打印日期</span>
+            <span class="venus_modal_tableSubName">{{today}}</span>
+        </div>
+        <table class="table table-bordered" >
+            <thead>
+                <tr>
+                    <th>机构名称</th>
+                    <th>结算单号</th>
+                    <th>费用类型</th>
+                    <th>原币币种</th>
+                    <th>费用金额(原位币)</th>
+                    <th>汇率</th>
+                    <th>费用金额(本位币)</th>
+                    <th>代扣增值税</th>
+                    <th>代扣城建税</th>
+                    <th>代扣教育费附加税</th>
+                    <th>代扣地方教育费附加税</th>
+                    <th>代扣附加税合计</th>
+                    <th>代扣总税费合计</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="claim in Statement track by $index">
+                    <td>{{claim.comCname}}</td>
+                    <td>{{claim.settleNo }}</td>
+                    <td>{{claim.chargeType|mcCode:'ChargeType'}}</td>
+                    <td>{{claim.currency1}}</td>
+                    <td>{{claim.planFee}}</td>
+                    <td>{{claim.exchangeRate1}}</td>
+                    <td>{{claim.planFeeCNY}}</td>
+                    <td>{{claim.vaTaxFeeCNY}}</td>
+                    <td>{{claim.vaTaxFeeCNYFJCJ}}</td>
+                    <td>{{claim.vaTaxFeeCNYFJJY}}</td>
+                    <td>{{claim.vaTaxFeeCNYFJDFJY}}</td>
+                    <td>{{claim.vaTaxFeeCNYFJ}}</td>
+                    <td>{{claim.vaTaxFeeCNY+claim.vaTaxFeeCNYFJ|number:2}}</td>
+                </tr>
+                <tr ng-repeat="claim in Statement track by $index">
+                    <td>对应结算单全国总金额:</td>
+                    <td>{{claim.settleNo}}</td>
+                    <td>{{claim.chargeType|mcCode:'ChargeType'}}</td>
+                    <td><span ng-hide="claim.isMulticurrency=='0'">{{claim.currency1}}</span></td>
+                    <td><span ng-hide="claim.isMulticurrency=='0'">{{claim.sumPlanFee}}</span></td>
+                    <td><span ng-hide="claim.isMulticurrency=='0'">{{claim.exchangeRate1}}</span></td>
+                    <td>{{claim.sumPlanFeeCNY}}</td>
+                    <td>{{claim.sumVaTaxFeeCNY}}</td>
+                    <td>{{claim.sumVaTaxFeeFJCJ}}</td>
+                    <td>{{claim.sumVaTaxFeeFJJY}}</td>
+                    <td>{{claim.sumVaTaxFeeFJDFJY}}</td>
+                    <td>{{claim.sumVaTaxFeeFJ}}</td>
+                    <td>{{claim.sumVaTaxFeeAndFJ}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer text-center">
+        <button class="btn btn-success" ng-click="printSubmit(Statement);">打印</button>
+        <button class="btn btn-success" ng-click="export(Statement)">导出excel</button>
+        <button class="btn btn-success" ng-click="cancel()">关闭</button>
+    </div>
+</div>

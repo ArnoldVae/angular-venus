@@ -1,0 +1,10 @@
+<div class="AccountTap" style="text-align: center;background: #fff;margin-top: 15px">
+    <btn-group style="margin:16px auto; min-width: 400px;" btns="infoToView.tapName" b-click="changeTap(index)"></btn-group>
+</div>
+<div class="section" style="margin-top: 0">
+    <!--确认类-->
+    <div ng-if="infoToView.tapFlag=='1'" ng-include="'components/OperationManagement/sendFinancialMenu/tpl/sendFinancialMenu1.html'" ></div>
+    <!--结算类-->
+    <div ng-if="infoToView.tapFlag=='2'" ng-include="'components/OperationManagement/sendFinancialMenu/tpl/sendFinancialMenu2.html'"></div>
+</div>
+

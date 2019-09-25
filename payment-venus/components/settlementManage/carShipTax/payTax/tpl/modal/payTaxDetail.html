@@ -1,0 +1,65 @@
+<div class="modal-content" style="width: 70%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">结缴单详情</div>
+    </div>
+    <div class="modal-body account-modal-submit venus_table">
+        <div class="venus_modal_tableName">
+            <span>车船税结算单详情（结缴单号：{{taxDetail.payrefno}}）</span>
+        </div>
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>归属核算机构</th>
+                <th>收付单生成人代码</th>
+                <th>收付单生成单位代码</th>
+                <th>结算币种（收付单币种）</th>
+                <th>收付单总金额</th>
+                <th>有效标识</th>
+                <th>收付状态</th>
+                <th>结算时间</th>
+                <th>业务单号（保单或批单号）</th>
+                <th>保单起保日期</th>
+                <th>车牌号码（船舶代码）</th>
+                <th>纳税人名称</th>
+                <th>纳税人身份证号码</th>
+                <th>缴费起期</th>
+                <th>缴费止期</th>
+                <th>交强险车辆九大类明细</th>
+                <th>当年应缴</th>
+                <th>往来补缴</th>
+                <th>滞纳金</th>
+                <th>应结金额（应结算车船税总额）</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="c in taxDetail.prpJCSTaxSettleBillDtoList">
+                <td>{{c.centercode}}</td>
+                <td>{{c.packagecode}}</td>
+                <td>{{c.packageunit}}</td>
+                <td>{{c.currency|mcCode:'Currency'}}</td>
+                <td>{{c.billfee| number : 2}}</td>
+                <td>{{c.flag|mcCode:"payTaxFlag"}}</td>
+                <td>{{c.uploadstatus|mcCode:"Uploadstatus"}}</td>
+                <td>{{c.inputdate|mcDate}}</td>
+                <td>{{c.certino}}</td>
+                <td>{{c.startdate|mcDate}}</td>
+                <td>{{c.licenseno}}</td>
+                <td>{{c.taxpayername}}</td>
+                <td>{{c.identifynumber}}</td>
+                <td>{{c.paystartdate|mcDate}}</td>
+                <td>{{c.payenddate|mcDate}}</td>
+                <td>{{c.carnaturecode}}</td>
+                <td>{{c.taxactual|format}}</td>
+                <td>{{c.previouspay|format}}</td>
+                <td>{{c.latefee|format}}</td>
+                <td>{{c.alltaxfee|format}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

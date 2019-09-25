@@ -1,0 +1,110 @@
+<!--收付方式设置修改-->
+<div class="modal-content" style="width: 70%">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">收付方式修改</div>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收付方式代码：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="payWay"
+                                     account-flag="true"
+                                     displaytype="CODE"
+                                     ng-model="revisePaymentCondition.payWayCode"
+                                     ng-value="revisePaymentCondition.payWayCName" ng-disabled="true" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收付方式名称：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="payWay"
+                                     account-flag="true"
+                                     ng-disabled="true"
+                                     ng-model="revisePaymentCondition.payWayCode"
+                                     ng-value="revisePaymentCondition.payWayCName" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">适用收付类型：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="payType"
+                                     account-flag="true"
+                                     displaytype="CODE"
+                                     ng-model="revisePaymentCondition.permitPayType"
+                                     ng-disabled="true"
+                                     ng-value="" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收付方式属性：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="revisePaymentCondition.payWayType" maxlength="1">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">会计科目编码：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="accItem"
+                                     displaytype="CODE"
+                                     account-flag="true"
+                                     ng-model="revisePaymentCondition.titleCode"
+                                     ng-value="revisePaymentCondition.titleName" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">会计科目名称：</label>
+                    <div class="col-xs-8">
+                        <select-list base-code="accItem"
+                                     account-flag="true"
+                                     ng-model="revisePaymentCondition.titleCode"
+                                     ng-value="revisePaymentCondition.titleName" my-class="col-xs-12">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">适用核算单位：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="revisePaymentCondition.permitCenterCode">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">借贷标识：</label>
+                    <div class="col-xs-8" style="height: 28px">
+                        <input name="dcind" type="radio" value="0" ng-model="revisePaymentCondition.dcind" style="height: 12px"/><span class="radio-text">贷</span>
+                        <input name="dcind" type="radio" value="1" ng-model="revisePaymentCondition.dcind" style="height: 12px"/><span>借</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否关联科目：</label>
+                    <div class="col-xs-8" style="height: 28px">
+                        <mc-checkbox c-id="checkbox313" c-type="switch" c-true="0" c-false="1" c-model="revisePaymentCondition.titleRelation" ng-click="test(a)" class="code_switch"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">有效：</label>
+                    <div class="col-xs-8" style="height: 28px">
+                        <mc-checkbox c-id="checkbox312" c-type="switch" c-true="0" c-false="1" c-model="revisePaymentCondition.validStatus" ng-click="test(a)" class="code_switch"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否进行正负的借贷方转换：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="checkbox311" c-type="switch" c-true="0" c-false="1" c-model="revisePaymentCondition.signTransFlag" ng-click="test(a)" class="code_switch"></mc-checkbox>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="saveRevisePayment()">保存</button>
+        <button class="btn btn-primary" ng-click="resetRevisePayment()">重置</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<!--保费报表统计-->
+<div class="section venus_hasFooter">
+    <div class="AccountTap" style="text-align: center;">
+        <btn-group style="margin:10px auto; " btns="tapName" b-click="changeTap(index)"></btn-group>
+    </div>
+    <div class="search-account-content">
+        <hr style="width: 92%">
+        <!-- TODO:对应页面添加好，直接写，需求文档那个为 账龄查询2.2-->
+        <div ng-if="tapFlag=='1'" ng-include="'components/statistics/premiumStatements/tpl/statistics.premiumStatements.actualReceivedPremium.tpl.html'"></div>
+        <div ng-if="tapFlag=='2'" ng-include="'components/statistics/premiumStatements/tpl/statistics.premiumStatements.predictReceivedPremium.tpl.html'"></div>
+        <div ng-if="tapFlag=='3'" ng-include="'components/statistics/premiumStatements/tpl/statistics.premiumStatements.premiumIncomeDetail.tpl.html'"></div>
+    </div>
+</div>
+

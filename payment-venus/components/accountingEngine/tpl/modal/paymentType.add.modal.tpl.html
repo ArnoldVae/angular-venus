@@ -1,0 +1,98 @@
+<div class="modal-content" style="width: 70%">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">收付类型</div>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">挂账凭证：</label>
+                    <div class="col-xs-8">
+                        <input type="radio" name="classFlag" ng-model="infoToView.payTypeData.fundDCFlag" value="1" style="height: 12px"><span class="radio-text">是</span>
+                        <input type="radio" name="classFlag"  value="0" ng-model="infoToView.payTypeData.fundDCFlag" style="height: 12px"><span>否</span>
+                    </div>
+                </div>
+                <div class="form-group margin-bottom-0"></div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">允许红冲：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="101" c-type="switch" c-true="0" c-false="1" class="code_switch" c-model="infoToView.payTypeData.redFlag"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">有效：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="102" c-type="switch" c-true="0" c-false="1" class="code_switch" c-model="infoToView.payTypeData.validStatus"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收付类型代码：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.payTypeData.payType" ng-disabled="target=='update'">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">收付类型名称：</label>
+                    <div class="col-xs-8">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.payTypeData.payName">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">现金流代码：</label>
+                    <div class="col-xs-8">
+                        <select-list my-class="col-xs-12" base-code="cashflowCode"
+                                     displaytype="CODE"
+                                     ng-model="infoToView.payTypeData.cashFlowCode"
+                                     ng-value="infoToView.payTypeData.cashFlowName">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">现金流名称：</label>
+                    <div class="col-xs-8">
+                        <select-list my-class="col-xs-12" base-code="cashflowCode"
+                                     ng-model="infoToView.payTypeData.cashFlowCode"
+                                     ng-value="infoToView.payTypeData.cashFlowName">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">属性：</label>
+                </div>
+                <div class="form-group margin-bottom-0"></div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否代收性质：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="relation1" c-type="switch" c-true="N" c-false="Y" class="code_switch" c-model="infoToView.payTypeData.relation1"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否跨币别：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="relation2" c-type="switch" c-true="N" c-false="Y" class="code_switch" c-model="infoToView.payTypeData.relation2"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否再保：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="relation3" c-type="switch" c-true="N" c-false="Y" class="code_switch" c-model="infoToView.payTypeData.relation3"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">是否结转：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="relation4" c-type="switch" c-true="N" c-false="Y" class="code_switch" c-model="infoToView.payTypeData.relation4"></mc-checkbox>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="toSave()">保存</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
+
+
+

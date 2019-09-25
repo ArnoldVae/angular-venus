@@ -1,0 +1,190 @@
+<!--银行代发模板导出页面-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单批次号" type="text" class="form-control" ng-model="bankTemplatesExport.reparationsCondition.contractNo">
+                <span class="input-group-addon cursor_pointer" ng-click="searchList()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="!bankTemplatesExport.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="bankTemplatesExport.moreFlag=!bankTemplatesExport.moreFlag">高级查询</span></div>
+        <div ng-show="bankTemplatesExport.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="bankTemplatesExport.moreFlag=!bankTemplatesExport.moreFlag ">普通查询</span></div>
+    </div>
+
+    <div class="mc_form" ng-show="bankTemplatesExport.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">结算单批次号：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="bankTemplatesExport.reparationsCondition.contractNo">
+                </div>
+                <span class="color_red">*</span>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">结算标志：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true" mc-code-select code="settlementSign" ng-model="bankTemplatesExport.reparationsCondition.payFlag"></div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="salesDepartment"
+                                 data='{"comCode":comCode,"centerCode":centerCode}'
+                                 ng-model="bankTemplatesExport.reparationsCondition.comCode"
+                                 ng-value="bankTemplatesExport.reparationsCondition.businessPart"
+                                 wait-change="clearOperator()"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务员：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="operatorName"
+                                 data='{"comCode":comCode,"checkComCode":bankTemplatesExport.reparationsCondition.comCode}'
+                                 ng-model="bankTemplatesExport.reparationsCondition.handler1Code"
+                                 ng-value="bankTemplatesExport.reparationsCondition.businessMan"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">代理人/经纪人：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="queryAgent"
+                                 data="{centerCode:centerCode}"
+                                 ng-model="bankTemplatesExport.reparationsCondition.agentCode"
+                                 ng-value="bankTemplatesExport.reparationsCondition.agentCode1"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务渠道：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="businessNature"
+                                 ng-model="bankTemplatesExport.reparationsCondition.businessNature"
+                                 ng-value="bankTemplatesExport.reparationsCondition.business"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">查询结算单生成日期：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="bankTemplatesExport.reparationsCondition.startDate" jedate id="startDate" format="YYYY-MM-DD" name="date" class="col-xs-5 date">
+                    <span class="col-xs-2 text-center">至</span>
+                    <input type="text" ng-model="bankTemplatesExport.reparationsCondition.packDate" jedate id="endDate" format="YYYY-MM-DD" name="date" class="col-xs-5 date">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">结算单状态：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true" mc-code-select code="paymentBankTemplatesExportSign" ng-model="bankTemplatesExport.reparationsCondition.settleApplyCode"></div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchList()">查询</button>
+                <button class="btn btn-primary" ng-click="resetForm()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row text-center pr_15 pl_15 pt_10 font_size_16">实付佣金结算汇总表<span class="pull-right font_size_14">结算单批次号&nbsp;<a>{{bankTemplatesExport.contractNo}}</a></span></div>
+    <div class="venus_table pt_5">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>中介名称</th>
+                <th>中介账户名称</th>
+                <th>开户行</th>
+                <th>账号</th>
+                <th>联系电话</th>
+                <th>身份证号码/组织机构代码证</th>
+                <th>应付佣金(元)</th>
+                <th>代扣代缴个人所得税(元)</th>
+                <th>代扣代缴增值税(元)</th>
+                <th>代扣代缴城建税(元)</th>
+                <th>教育附加费及其他(元)</th>
+                <th>实付佣金(元)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in bankTemplatesExport.bankList">
+                <td>{{$index+1}}</td>
+                <td>{{d.agentName}}</td>
+                <td>{{d.accountName}}</td>
+                <td>{{d.bankName}}</td>
+                <td>{{d.accountCode}}</td>
+                <td>{{d.phone}}</td>
+                <td>{{d.idtenfityComcode}}</td>
+                <td>{{d.planFee}}</td>
+                <td>{{d.peopleTax}}</td>
+                <td>{{d.businessTax}}</td>
+                <td>{{d.constructionTax}}</td>
+                <td>{{d.educationTax}}</td>
+                <td>{{d.taxDisFee}}</td>
+            </tr>
+            <tr>
+                <td colspan="13">
+                    <div ng-if="bankTemplatesExport.pagination.totalItems>0" class="row list_content_bottom">
+                        <span class="text-left fl" align="bottom" style="line-height: 28px">共{{bankTemplatesExport.pagination.totalItems}}条记录</span>
+                        <pagination
+                                ng-if="bankTemplatesExport.pagination.totalItems>bankTemplatesExport.pagination.pageSize"
+                                ng-model="bankTemplatesExport.pagination.pageIndex"
+                                class="bankTemplatesExport.pagination-sm pull-right"
+                                total-items="bankTemplatesExport.pagination.totalItems"
+                                page="bankTemplatesExport.pagination.pageIndex"
+                                items-per-page="bankTemplatesExport.pagination.pageSize"
+                                max-size="bankTemplatesExport.pagination.maxSize"
+                                previous-text="上一页"
+                                next-text="下一页"
+                                first-text="首页"
+                                last-text="末页"
+                                class=""
+                                ng-click="searchTaxCheck('page')"
+                                style="margin: 0 20px 0 0;"
+                                boundary-links="true"
+                                on-select-page="onSelectPage(page)">
+                        </pagination>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7" class="text-right">合计：</td>
+                <td>{{bankTemplatesExport.planFeeNum}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>合计：</td>
+                <td>{{bankTemplatesExport.taxDisFeeNum}}</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-left">分、支公司业务部制表人：</td>
+                <td colspan="7" class="text-left">财务部复核人：</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-left">分、支公司业务部负责人：</td>
+                <td colspan="7" class="text-left">财务部负责人：</td>
+            </tr>
+            <tr>
+                <td colspan="6" class="text-left">总经理签字：</td>
+                <td colspan="7"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer" ng-if="bankTemplatesExport.bankList.length>0">
+        <button class="btn btn-primary" ng-if="bankTemplatesExport.showButton" ng-click="export()">导出excel</button>
+        <button class="btn btn-success" ng-click="printMessage()">打印</button>
+    </div>
+</div>

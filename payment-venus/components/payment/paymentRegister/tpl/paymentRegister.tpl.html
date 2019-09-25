@@ -1,0 +1,167 @@
+<!--结算单支付申请-->
+<div class="section venus_hasFooter">
+    <!--查询部分-->
+    <div class="row list_query">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <input placeholder="请输入结算单号" type="text" class="form-control" ng-model="paymentRegister.settlementFormCondition.visaSerialNoStart">
+                <span class="input-group-addon cursor_pointer" ng-click="searchSettlementForm()">
+                    <div class="glyphicon glyphicon-search"></div>
+                </span>
+            </div>
+        </div>
+        <div ng-show="!paymentRegister.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="paymentRegister.status.moreFlag=!paymentRegister.status.moreFlag">高级查询</span></div>
+        <div ng-show="paymentRegister.status.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font"><span ng-click="paymentRegister.status.moreFlag=!paymentRegister.status.moreFlag ">普通查询</span></div>
+    </div>
+
+    <!--高级查询表单-->
+    <div class="mc_form" ng-if="paymentRegister.status.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">结算单号 从：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="paymentRegister.settlementFormCondition.visaSerialNoStart">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">到：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12"  ng-model="paymentRegister.settlementFormCondition.visaSerialNoEnd">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">结算单号列表：</label>
+                <div class="col-xs-7">
+                    <textarea  rows="3" class="col-xs-12" ng-model="paymentRegister.settlementFormCondition.visaSerialNoList"></textarea>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务部门：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="salesDepartment"
+                                 data='{"comCode":comCode,"centerCode":centerCode}'
+                                 ng-model="paymentRegister.settlementFormCondition.comCode"
+                                 ng-value="paymentRegister.settlementFormCondition.businessPart"
+                                 wait-change="clearOperator()"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务员：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="operatorName"
+                                 data='{"comCode":comCode,"checkComCode":paymentRegister.settlementFormCondition.comCode}'
+                                 ng-model="paymentRegister.settlementFormCondition.handler1Code"
+                                 ng-value="paymentRegister.settlementFormCondition.businessMan"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">代理人/经纪人：</label>
+                <div class="col-xs-7">
+                    <select-list selectType="queryAgent"
+                                 data="{centerCode:centerCode}"
+                                 ng-model="paymentRegister.settlementFormCondition.agentCode"
+                                 ng-value="paymentRegister.settlementFormCondition.agentCode1"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">费用类型：</label>
+                <div class="col-xs-7">
+                    <div mc-code-select class="col-xs-12 pl0 pr0" aria-disabled="true" aria-readonly="true" code="poundageType" ng-model="paymentRegister.settlementFormCondition.certiType"></div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">业务渠道：</label>
+                <div class="col-xs-7">
+                    <select-list base-code="businessNature"
+                                 ng-model="paymentRegister.settlementFormCondition.businessNature"
+                                 ng-value="paymentRegister.settlementFormCondition.business"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">制单人/生成人员：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12" ng-model="paymentRegister.settlementFormCondition.packCode">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">制单日期：</label>
+                <div class="col-xs-7">
+                    <input type="text"  class="col-xs-5 date" ng-model="paymentRegister.settlementFormCondition.packDateStart"  id="date1" jedate format="YYYY-MM-DD">
+                    <span class="col-xs-2 text-center">至</span>
+                    <input type="text"  class="col-xs-5 date" ng-model="paymentRegister.settlementFormCondition.packDateEnd"  id="date2" jedate format="YYYY-MM-DD">
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-success" ng-click="searchSettlementForm()">查询</button>
+                <button class="btn btn-primary" ng-click="resetSettlementForm()">重置</button>
+            </div>
+        </form>
+    </div>
+
+    <!--列表内容-->
+    <div class="venus_table">
+        <span ng-if="paymentRegister.status.disabledAll" class="color_red font_size_12">注：币种不同不能同时进行支付申请</span>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="paymentRegister.status.settlementFormCheckedAll" ng-change="checkedsettlementFormAll()" ng-disabled="paymentRegister.status.disabledAll"></th>
+                <th>结算单号</th>
+                <th>代理人/协办人</th>
+                <th>币种</th>
+                <th>金额</th>
+                <th>制单日期</th>
+                <th>制单人</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="d in paymentRegister.settlementFormList" ng-class="{true: 'venus_table_check', false: ''}[d.checked]">
+                <td><input type="checkbox" ng-model="d.checked" ng-change="checkedsettlementFormOne()" ng-disabled="d.disabled"></td>
+                <td><a ng-click="moreSettlementFormData(d)">{{d.visaSerialNo}}</a></td>
+                <td>{{d.agentName }}</td>
+                <td>{{d.currency2}}</td>
+                <td>{{d.payCommission|format}}</td>
+                <td>{{d.packDate}}</td>
+                <td>{{d.packName}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--表格底部-->
+    <div class="row list_content_bottom" ng-if="paymentRegister.pagination.totalItems>0">
+        <span class="text-left" align="bottom">共{{paymentRegister.pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="paymentRegister.pagination.totalItems>paymentRegister.pagination.pageSize"
+                ng-model="paymentRegister.pagination.pageIndex"
+                class="paymentRegister.pagination-sm pull-right"
+                total-items="paymentRegister.pagination.totalItems"
+                page="paymentRegister.pagination.pageIndex"
+                items-per-page="paymentRegister.pagination.pageSize"
+                max-size="paymentRegister.pagination.maxSize"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                class=""
+                ng-click="searchSettlementForm('page')"
+                style="margin: 0 20px 20px 0;"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+
+    <!--列表底部悬浮块-->
+    <div class="row text-center list_footer" ng-if="paymentRegister.settlementFormList.length>0">
+        <!--<button class="btn btn-primary">导出excel</button>-->
+        <button class="btn btn-success" ng-click="confirmSettlementForm()">确定</button>
+    </div>
+</div>

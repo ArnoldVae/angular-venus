@@ -1,0 +1,89 @@
+<!--账龄新增页面-->
+<div class="modal-content" style="width: 72%;">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">账龄新增</div>
+    </div>
+    <div class="modal-body" style="margin-bottom: -10px;margin-right: 100px">
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">机构代码：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        </select-list>
+                        <select-list
+                                data='{"comCode":comCode}'
+                                ng-model="newAging.comCode"
+                                ng-value="newAging.comName"
+                                displayType="CODE"
+                                selectType="accountOrganization"
+                                my-class="col-xs-12"
+                        >
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">机构名称：</label>
+                    <div class="col-xs-8">
+                        <select-list
+                                data='{"comCode":comCode}'
+                                ng-model="newAging.comCode"
+                                ng-value="newAging.comName"
+                                selectType="accountOrganization"
+                                my-class="col-xs-12"
+                        >
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">账龄区间类型：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="agingType" ng-model="newAging.agingType" class="col-xs-12 padding_clear"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">区间间隔：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="newAging.agingInterval" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">账龄区间开始：</label>
+                    <div class="col-xs-8">
+                        <input type="text" mc-input-cut transmit-type="number" input-type="float"  class="col-xs-12"  maxlength="10" ng-model="newAging.agingStart">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">账龄区间结束：</label>
+                    <div class="col-xs-8">
+                        <input type="text" mc-input-cut transmit-type="number" input-type="float"  class="col-xs-12"  maxlength="10" ng-model="newAging.agingEnd">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">创建人代码：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="newAging.createCode" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">创建人名称：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="newAging.createName" class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">创建日期：</label>
+                    <div class="col-xs-8">
+                        <input type="text" ng-model="newAging.createDate"  class="date col-xs-12" id="date5" jedate
+                               format="YYYY-MM-DD"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+        <button class="btn btn-success" ng-click="addSubmit()">确认</button>
+    </div>
+</div>

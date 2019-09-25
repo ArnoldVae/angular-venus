@@ -1,0 +1,83 @@
+    <!--支付单信息详细清单页面-->
+<div class="modal-content" style="width:75%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">支付单信息</div>
+    </div>
+    <div class="modal-body">
+        <div class="mc_form">
+            <form class="form-horizontal">
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <!--<div class="col-xs-4"><span>管控环节：</span></div>-->
+            <!--<div class="col-xs-8 " ng-switch="auditingConditionDto.annulus">-->
+                <!--<span ng-switch-when="0">一级审批</span>-->
+                <!--<span ng-switch-when="1">二级审批</span>-->
+                <!--<span ng-switch-when="2">已推送</span>-->
+                <!--<span ng-switch-when="3">未审批</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-8 prespan1" ><span>当前节点：</span></div>-->
+            <!--<div class="col-xs-8 "><span ng-bind="auditingConditionDto.currentNode"></span></div>-->
+            <label class="col-xs-4" >支付单号：</label>
+            <div class="col-xs-8"><span ng-bind="auditingConditionDto.visaSerialNo"></span></div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">审批流名称：</label>
+            <div class="col-xs-8" ng-switch="auditingConditionDto.taskName">
+                <span ng-switch-when="0">送支付平台审核</span>
+            </div>
+        </div>
+        <!--<div class="form-group  col-xs-12 col-sm-12 col-md-6">-->
+            <!--<div class="col-xs-4">审批流名称：</div>-->
+            <!--<div class="col-xs-8" ng-switch="auditingConditionDto.taskName">-->
+                <!--<span ng-switch-when="0">送支付平台审核-->
+            <!--</div>-->
+            <!--<div class="col-xs-4" >审批状态：</div>-->
+            <!--<div class="col-xs-8 " ng-switch="auditingConditionDto.approveStatus">-->
+                <!--<span ng-switch-when="0">已一级审核-->
+                <!--<span ng-switch-when="1">已二级审核-->
+                <!--<span ng-switch-when="2">已推送-->
+                <!--<span ng-switch-when="3">未审批-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">业务部门：</label>
+            <div class="col-xs-8 " ><span ng-bind="auditingConditionDto.businessDepartment"></div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4" >业务员：</label>
+            <div class="col-xs-8 "><span ng-bind="auditingConditionDto.businessMember"></div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4">流入时间：</label>
+            <div class="col-xs-8 " >{{auditingConditionDto.inletTime}}</div>
+        </div>
+        <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+            <label class="col-xs-4" >流出时间：</label>
+            <div class="col-xs-8 ">{{auditingConditionDto.effluxTime}}</div>
+        </div>
+            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">应付币种：</label>
+                <div class="col-xs-8 " ><span ng-bind="auditingConditionDto.currencyPayable"></div>
+            </div>
+                <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4" >应付总金额：</label>
+                <div class="col-xs-8 "><span ng-bind="auditingConditionDto.sendAggregateAmount"></div>
+            </div>
+        <!--<div class="form-group  col-xs-12 col-sm-12 col-md-6">-->
+            <!--<div class="col-xs-4">收款人：</div>-->
+            <!--<div class="col-xs-8 " ><span ng-bind="auditingConditionDto.reserve4"></span></div>-->
+            <!--<div class="col-xs-4" ><span>银行名称：</span></div>-->
+            <!--<div class="col-xs-8 "><span ng-bind="auditingConditionDto.reserve6"></span></div>-->
+        <!--</div>-->
+        <!--<div class="form-group  col-xs-12 col-sm-12 col-md-6">-->
+            <!--<div class="col-xs-4"><span>卡号或账号：</span></div>-->
+            <!--<div class="col-xs-8 " ><span ng-bind="auditingConditionDto.reserve5"></span>-->
+            <!--</div>-->
+        <!--</div>-->
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

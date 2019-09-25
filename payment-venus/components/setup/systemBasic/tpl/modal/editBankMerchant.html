@@ -1,0 +1,77 @@
+<!--收付员设置新增-->
+<div class="modal-content" style="width:70%;">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">
+            <span ng-if="modalType == 'add'">银行账户商户配置新增</span>
+            <span ng-if="modalType == 'modify'">银行账户商户配置修改</span>
+        </div>
+    </div>
+
+    <div class="modal-body" style="margin-bottom: -10px;">
+        <div class="mc_form" multiple-form is-verification="checkout.isVerification" is-complete="checkout.isComplete" cue-way="layer" check-index="checkIndex">
+            <form class="form-horizontal">
+                <div class="col-xs-10 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">核算单位：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        <select-list wait-change="getAccountCodes()"
+                                     my-class="col-xs-12"
+                                     displaytype="CODE"
+                                     ng-model="editBankMerchant.sffComCode"
+                                     ng-value="editBankMerchant.sffComName"
+                                     selectType="accountOrganization"
+                                     data="{comCode:editBankMerchant.centerCode,newComCode:editBankMerchant.sffComName}"
+                        >
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">核算单位名称：</label>
+                    <div class="col-xs-8">
+                        <!--普通录入域class模版-->
+                        <select-list wait-change="getAccountCodes()"
+                                     my-class="col-xs-12"
+                                     ng-model="editBankMerchant.sffComCode"
+                                     ng-value="editBankMerchant.sffComName"
+                                     selectType="accountOrganization"
+                                     data="{comCode:editBankMerchant.centerCode,newComCode:editBankMerchant.sffComName}"
+                        >
+                        </select-list>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">银行账号：</label>
+                    <div class="col-xs-8">
+                        <div style="height: 30px" mc-code-select data="accountCodes" ng-model="editBankMerchant.accountCode" class="col-xs-12 padding_clear" ng-change="getBankBase(editBankMerchant.accountCode)"
+                             rule="require" err-text="请选择银行账号" data-div="{{editBankMerchant.accountCode}}"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">渠道类型：</label>
+                    <div class="col-xs-8">
+                        <div mc-code-select code="operationSign" ng-model="editBankMerchant.payFlag" class="col-xs-12 padding_clear"
+                             rule="require" err-text="请选择渠道类型" data-div="{{editBankMerchant.payFlag}}"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">所属银行：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-12" ng-model="editBankMerchant.bankName" rule="require" err-text="请选择所属银行"  disabled="true" readonly="true">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 form-group">
+                    <label class="col-xs-4 col-sm-4 col-md-4 padding_clear">商户编号：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-12" ng-model="editBankMerchant.merchantNo" rule="require" err-text="请添加商户编号" ng-disabled="modalType == 'modify'">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer margin-top-0">
+        <button class="btn btn-primary" ng-click="saveBankMerchant()">保存</button>
+        <button class="btn btn-success" ng-click="resetBankMerchant()">重置</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

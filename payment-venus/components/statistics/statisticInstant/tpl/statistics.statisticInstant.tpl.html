@@ -1,0 +1,192 @@
+<!--凭证查询-->
+<div class="section venus_hasFooter">
+    <div class="row">
+        <div class="input-group-sm col-xs-2 ">
+            <div mc-code-select code="InistantMenus" ng-model="infoToView.queryConditions.queryType" ></div>
+        </div>
+        <div class="input-group-sm col-xs-2" ng-if="infoToView.queryConditions.queryType=='2'" style="margin-left: 0">
+            <!--业务类型-->
+            <div mc-code-select code="InistantTypes" ng-model="infoToView.queryConditions.businessType"></div>
+        </div>
+        <div class="col-xs-4" ng-if="infoToView.queryConditions.queryType=='1'">
+            <div class="input-group form-group">
+                <input placeholder="请输入临时凭证号" type="text" style="" class="form-control" ng-model="infoToView.queryConditions.No">
+                <span style="cursor:pointer;" class="input-group-addon" ng-click="voucherQuery('serch',[],{})"><div   class="glyphicon glyphicon-search"></div></span>
+            </div>
+        </div>
+        <div class="col-xs-4"  ng-if="infoToView.queryConditions.queryType=='2'">
+            <div class="input-group form-group" style="margin-left: -13px">
+                <input ng-show="infoToView.queryConditions.businessType=='1'||infoToView.queryConditions.businessType=='2'" placeholder="请输入业务号或保单号" type="text" style="" class="form-control" ng-model="infoToView.queryConditions.No">
+                <input ng-show="infoToView.queryConditions.businessType=='4'||infoToView.queryConditions.businessType=='3'" placeholder="请输入计算书号" type="text" style="" class="form-control" ng-model="infoToView.queryConditions.No">
+                <span style="cursor:pointer;" class="input-group-addon" ng-click="voucherQuery()"><div   class="glyphicon glyphicon-search"></div></span>
+            </div>
+        </div>
+                <div ng-show="!infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</div>
+                <div ng-show="infoToView.moreFlag" class="col-xs-4 col-sm-2 col-md-2 list_query_font" ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">普通查询</div>
+    </div>
+    <div class="mc_form" ng-if="infoToView.moreFlag">
+        <form class="form-horizontal">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">汇总凭证号：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12"  ng-model="infoToView.queryConditions.newVoucherNo"><br><br>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">收付确认号：</label>
+                <div class="col-xs-7">
+                    <input type="text" class="col-xs-12"  ng-model="infoToView.queryConditions.realPayRefNo"><br><br>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">核算单位编码：</label>
+                    <div class="col-xs-7">
+                        <select-list
+                                data='{"centerCode":user.centerCode,"comCode":user.comCode}'
+                                selectType="salesDepartment"
+                                ng-model="infoToView.queryConditions.centerCode"
+                                ng-value="infoToView.queryConditions.centerName"
+                                my-class="col-xs-12"
+                        >
+                        </select-list>
+                    </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">财务凭证号：</label>
+                    <div class="col-xs-7">
+                        <input type="text" class="col-xs-12" ng-model="infoToView.queryConditions.accVoucherNo"><br><br>
+                    </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">会计月度：</label>
+                    <div class="col-xs-7" >
+                        <input type="text" ng-model="infoToView.queryConditions.yearMonth" class="col-xs-12 date" id="date5" jedate
+                               format="YYYY-MM"/>
+                    </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">凭证日期起期：</label>
+                <div class="col-xs-7">
+                    <input type="text" ng-model="infoToView.queryConditions.certificateStartDate" class="date col-xs-5" id="certificateStartDate" jedate
+                           format="YYYY-MM-DD"/>
+                    <span class="col-xs-2 text-center">至</span>
+                    <input type="text" ng-model="infoToView.queryConditions.certificateEndDate" class="date col-xs-5" id="certificateEndDate" jedate
+                           format="YYYY-MM-DD"/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                <label class="col-xs-4">临时凭证号列表：</label>
+                <div class="col-xs-7">
+                    <textarea rows="3" class="col-xs-12" ng-model="infoToView.queryConditions.certificateNoList"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="infoToView.queryConditions.queryType=='2'">
+                <label class="col-xs-4">科目：</label>
+                <div class="col-xs-7">
+                    <div style="height: 68px;border: 1px #cccccc solid;border-radius: 5px;overflow: auto" class="col-xs-10">
+                        <span ng-repeat="item in infoToView.queryConditions.itemCode"style="font-size: 12px">{{item.itemName}}<i
+                                style="margin-left: 8px; color: chocolate;" ng-click="delItem($index)" class="glyphicon glyphicon-minus-sign"></i><br></span>
+
+                    </div>
+                    <!--<textarea rows="3"  ng-model="infoToView.queryConditions.itemCode" disabled></textarea>-->
+                    <button class="col-xs-2 btn btn-default"  style="margin-top: 9%" ng-click="selectItem()">选择</button>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="infoToView.queryConditions.queryType=='2'">
+                <label class="col-xs-4">险种：</label>
+                <div class="col-xs-7">
+                    <!--<input type="text" class="col-xs-12" ng-model="infoToView.queryConditions.riskCode"><br><br>-->
+                    <select-list base-code="riskCode"
+                                 force-remote="true"
+                                 ng-model="infoToView.queryConditions.riskCode"
+                                 ng-value="infoToView.queryConditions.riskCodese"
+                                 my-class="col-xs-12">
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="infoToView.queryConditions.queryType=='2'" style="margin-bottom: 25px">
+                <label class="col-xs-4">机构：</label>
+                <div class="col-xs-7">
+                    <select-list
+                            my-class="col-xs-12"
+                            data='{"centerCode":centerCode,"comCode":comCode}'
+                            selectType="salesDepartment"
+                            ng-model="infoToView.queryConditions.comCode"
+                            ng-value="infoToView.queryConditions.comName"
+                    >
+                    </select-list>
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="infoToView.queryConditions.queryType=='2'">
+                <label class="col-xs-4">是否股东标识：</label>
+                <div class="col-xs-7">
+                    <div class="col-xs-12 pl0 pr0">
+                        <div mc-code-select code="shareHolderFlag" ng-model="infoToView.queryConditions.shareHolderFlag"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"></div>
+            <div class="row list_queryForm_btn">
+                    <button class="btn btn-success" ng-click="voucherQuery()">查询</button>
+                    <button class="btn btn-primary" ng-click="resetVoucher()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table" style="width: 100%;overflow: auto">
+        <table class="table table-bordered staTable">
+            <thead>
+            <tr>
+                <th>凭证号</th>
+                <th>收付确认号</th>
+                <th>会计期间</th>
+                <th>凭证状态</th>
+                <th>送财务标志</th>
+                <th>凭证日期</th>
+                <th>收付员</th>
+                <th>核算单位</th>
+                <th>汇总凭证号</th>
+                <th>财务凭证号</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="voucher in infoToView.queryList">
+                <td><a href="" ng-click="voucherList(voucher.voucherNo)">{{voucher.voucherNo}}</a></td>
+                <td>{{voucher.realPayRefNo}}</td>
+                <td>{{voucher.yearMonth}}</td>
+                <td>{{voucher.vouStatus|mcCode:'vouStatus'}}</td>
+                <td>{{voucher.transAccStatus|mcCode:'sendSapFlag'}}</td>
+                <td>{{voucher.voucherDate|mcDate}}</td>
+                <td>{{voucher.payRefCode}}</td>
+                <td>{{voucher.centerCode}}</td>
+                <td>{{voucher.newVoucherNo}}</td>
+                <td>{{voucher.accVoucherNo}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--分页-->
+    <div ng-if="pagination.totalItems>0"  class="row list_content_bottom" >
+        <span style="margin-left: 15px" align="bottom">共{{pagination.totalItems}}条记录</span>
+        <pagination
+                ng-if="pagination.totalItems>pagination.pageSize"
+                ng-model="pagination.pageIndex"
+                class="pagination-sm pull-right"
+                total-items="pagination.totalItems"
+                page="pagination.pageIndex"
+                items-per-page="pagination.pageSize"
+                max-size="pagination.maxSize"
+                previous-text="{{pagination.previousText}}"
+                next-text="{{pagination.nextText}}"
+                first-text="{{pagination.firstText}}"
+                last-text="{{pagination.lastText}}"
+                ng-click="voucherQuery('page')"
+                class="pagination-small"
+                boundary-links="true"
+                on-select-page="onSelectPage(page)">
+        </pagination>
+    </div>
+    <div class=" row text-right list_footer" ng-if="infoToView.voucherList.length">
+        <button style="margin-top: -6px" class="btn btn-primary">导出Excel</button>
+    </div>
+</div>

@@ -1,0 +1,448 @@
+
+    <div class="float-right addBtn"  ng-show="infoToView.infoFlag" ng-click="infoFlagg(1)"><button class="btn btn-primary">新增</button></div>
+    <div class="float-right addBtn" ng-show="!infoToView.infoFlag"  ng-click="infoFlagg(2)"><button class="btn btn-warning">返回</button></div>
+    <div ng-if="!infoToView.infoFlag" style="clear: both;"></div>
+    <!--查询界面-->
+    <div ng-if="infoToView.infoFlag">
+        <div class="row list_query">
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <input placeholder="请输入无单预收流水号" type="text" style="" class="form-control" ng-model="infoToView.colRegCondition.preBillNo">
+                    <span class="input-group-addon cursor_pointer" ng-click="searchAdviceOfSettlement()"><div  class="glyphicon glyphicon-search"></div></span>
+                </div>
+            </div>
+            <div class="col-xs-3">
+            <div ng-show="!infoToView.moreFlag" class="list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData()">高级查询</span></div>
+            <div ng-show="infoToView.moreFlag" class="list_query_font"><span ng-click="infoToView.moreFlag=!infoToView.moreFlag;saveInputData() ">普通查询</span></div>
+            </div>
+        </div>
+        <div class="mc_form" ng-show="infoToView.moreFlag">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">无单预收流水号：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.colRegCondition.preBillNo">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">统一格式银行流水号：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text"  ng-model="infoToView.colRegCondition.unifySerialNum">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">业务部门：</label>
+                    <div class="col-xs-7">
+                        <select-list my-class="col-xs-12" data='{"centerCode":centerCode,"comCode":comCode}' selectType="salesDepartment" ng-model="infoToView.colRegCondition.comCode" ng-value="infoToView.colRegCondition.riskCode" >
+                        </select-list>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">业务员：</label>
+                    <div class="col-xs-7">
+                        <select-list my-class="col-xs-12" data='{"comCode":comCode,"checkComCode":infoToView.colRegCondition.comCode}' selectType="operatorName" ng-model="infoToView.colRegCondition.operatecode" ng-value="infoToView.colRegCondition.riskCodeName" >
+                        </select-list>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">客户名称：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text"  ng-model="infoToView.colRegCondition.customName">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">对方账户：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text"  ng-model="infoToView.colRegCondition.accountCode">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">原始金额：</label>
+                    <div class="col-xs-7">
+                        <input type="text" mc-format-switch transmit-type="number" class="col-xs-5" ng-model="infoToView.colRegCondition.prePayFeeMin">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" mc-format-switch transmit-type="number" class="col-xs-5" ng-model="infoToView.colRegCondition.prePayFeeMax">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">可用金额：</label>
+                    <div class="col-xs-7">
+                        <input type="text" mc-format-switch transmit-type="number" class="col-xs-5" ng-model="infoToView.colRegCondition.availableFeeMin">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" mc-format-switch transmit-type="number" class="col-xs-5" ng-model="infoToView.colRegCondition.availableFeeMax">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">转无单预收日期：</label>
+                    <div class="col-xs-7">
+                        <input type="text" class="col-xs-5 date" ng-model="infoToView.colRegCondition.payRefDateStart"  id="date41" jedate format="YYYY-MM-DD">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" class="col-xs-5 date" ng-model="infoToView.colRegCondition.payRefDateEnd"  id="date40" jedate format="YYYY-MM-DD">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">币种：</label>
+                    <div class="col-xs-7">
+                        <div class="col-xs-12 pl0 pr0">
+                            <div mc-code-select code="Currency" ng-model="infoToView.colRegCondition.currency"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success"  ng-click="searchAdviceOfSettlement()">查询</button>
+                    <button class="btn btn-primary" ng-click="collectionReset()">重置</button>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>无单预收流水号</th>
+                    <th>统一格式银行流水号</th>
+                    <th>凭证号</th>
+                    <th>客户名称</th>
+                    <th>机构代码</th>
+                    <th>业务员</th>
+                    <th>币种</th>
+                    <th>原始金额</th>
+                    <th>可用金额</th>
+                    <th>转无单预收日期</th>
+                    <th>无单预收来源</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in infoToView.confirmList">
+                    <td ng-class="d.changeClass">{{$index+1}}</td>
+                    <td ng-class="d.changeClass">{{d.preBillNo}}</td>
+                    <td ng-class="d.changeClass">{{d.unifySerialNum}}</td>
+                    <td ng-class="d.changeClass">{{d.attribute1}}</td>
+                    <td ng-class="d.changeClass">{{d.customName}}</td>
+                    <td ng-class="d.changeClass">{{d.comCode}}</td>
+                    <td ng-class="d.changeClass">{{d.handlerName}}</td>
+                    <td ng-class="d.changeClass">{{d.currency}}</td>
+                    <td ng-class="d.changeClass">{{d.prePayFee}}</td>
+                    <td ng-class="d.changeClass">{{d.availableFee}}</td>
+                    <td ng-class="d.changeClass">{{d.payRefDate | mcDate}}</td>
+                    <td ng-class="d.changeClass">{{d.dataSource | mcCode:"noBillSouce"}}</td>
+                    <td ng-class="d.changeClass">{{d.remark}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_content_bottom">
+            <div class="row list_content_bottom" ng-if="pagination.totalItems>0">
+                <span class="text-left" align="bottom">共查到{{pagination.totalItems}}条记录</span>
+            </div>
+            <pagination ng-if="pagination.totalItems>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                        page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                        previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                        ng-click="searchAdviceOfSettlement('page')" style="margin: 0 20px 20px 0;" boundary-links="true"
+                        on-select-page="onSelectPage(page)"></pagination>
+        </div>
+    </div>
+    <!--新增页面-->
+    <div ng-if="infoToView.showflag">
+        <div class="row list_query">
+                <div class="col-xs-5">
+                    <div class="input-group">
+                        <input placeholder="请输入无单预收流水号" type="text" style="" class="form-control" ng-model="infoToView.newcolRegCondition.unifySerialNum">
+                        <span class="input-group-addon cursor_pointer" ng-click="addCollectSearch()"><div  class="glyphicon glyphicon-search"></div></span>
+                    </div>
+                </div>
+            <div class="col-xs-3">
+                <div ng-show="!infoToView.newmoreFlag" class="list_query_font"><span ng-click="infoToView.newmoreFlag=!infoToView.newmoreFlag;newsaveInputData()">高级查询</span></div>
+                <div ng-show="infoToView.newmoreFlag" class="list_query_font"><span ng-click="infoToView.newmoreFlag=!infoToView.newmoreFlag;newsaveInputData() ">普通查询</span></div>
+            </div>
+        </div>
+        <div class="mc_form" ng-show="infoToView.newmoreFlag">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">统一格式银行流水号：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text"  ng-model="infoToView.newcolRegCondition.unifySerialNum">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">原银行流水号：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text" ng-model="infoToView.newcolRegCondition.serialNum">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">业务部门：</label>
+                    <div class="col-xs-7">
+                        <select-list my-class="col-xs-12" wait-change="myFunc()" data='{"centerCode":centerCode,"comCode":comCode}' selectType="salesDepartment" ng-model="infoToView.newcolRegCondition.comCode" ng-value="colRegCondition2.businessValue" style="width: 300px">
+                        </select-list>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">银行账号：</label>
+                    <div class="col-xs-7">
+                        <div class="col-xs-12 pl0 pr0">
+                            <div mc-code-select data="bankTypeCNY" ng-model="infoToView.newcolRegCondition.bankAccount"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">对方户名：</label>
+                    <div class="col-xs-7">
+                        <input  class="col-xs-12" type="text"  ng-model="infoToView.newcolRegCondition.paymentName">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">对方账户：</label>
+                    <div class="col-xs-7">
+                        <input class="col-xs-12" type="text"  ng-model="infoToView.newcolRegCondition.paymentAccount">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">交易金额：</label>
+                    <div class="col-xs-7">
+                        <input type="text" mc-format-switch transmit-type="number" class="col-xs-5" ng-model="infoToView.newcolRegCondition.amountMin">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" mc-format-switch transmit-type="number" class="col-xs-5" ng-model="infoToView.newcolRegCondition.amountMax">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">交易日期：</label>
+                    <div class="col-xs-7">
+                        <input type="text" class="col-xs-5 date" ng-model="infoToView.newcolRegCondition.transDateStart"  id="date43" jedate format="YYYY-MM-DD">
+                        <span class="col-xs-2 text-center">至</span>
+                        <input type="text" class="col-xs-5 date" ng-model="infoToView.newcolRegCondition.transDateEnd"  id="date44" jedate format="YYYY-MM-DD">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">币种：</label>
+                    <div class="col-xs-7">
+                        <div class="col-xs-12 pl0 pr0">
+                            <div  mc-code-select code="Currency" ng-model="infoToView.newcolRegCondition.currency"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">认领状态：</label>
+                    <div class="col-xs-7">
+                        <div class="col-xs-12 pl0 pr0">
+                            <div mc-code-select code="claimStatus" ng-model="infoToView.newcolRegCondition.claimStatus"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"></div>
+                <div class="row list_queryForm_btn">
+                    <button class="btn btn-success"  ng-click="addCollectSearch()">查询</button>
+                    <button class="btn btn-primary" ng-click="collectionReset()">重置</button>
+                </div>
+            </form>
+        </div>
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>选项</th>
+                    <th>统一格式银行流水号</th>
+                    <th>交易日期</th>
+                    <th>原银行流水号</th>
+                    <th>账户归属机构</th>
+                    <th>银行账号</th>
+                    <th>对方户名</th>
+                    <th>对方账号</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th>已认领交易金额</th>
+                    <th>可认领交易金额</th>
+                    <th>借贷标志</th>
+                    <th>认领状态</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in infoToView.newconfirmList" ng-class="d.selectedClass">
+                    <td ng-class="d.selectedClass"><input type="radio" name="radio" ng-model="d.checked" ng-click="test($index)" style="height: 15px"></td>
+                    <td ng-class="d.selectedClass">{{d.unifySerialNum}}</td>
+                    <td ng-class="d.selectedClass">{{d.transDate}}</td>
+                    <td ng-class="d.selectedClass">{{d.serialNum}}</td>
+                    <td ng-class="d.selectedClass">{{d.comCode}}</td>
+                    <td ng-class="d.selectedClass">{{d.bankAccount}}</td>
+                    <td ng-class="d.selectedClass">{{d.paymentName}}</td>
+                    <td ng-class="d.selectedClass">{{d.paymentAccount}}</td>
+                    <td ng-class="d.selectedClass">{{d.currency}}</td>
+                    <td ng-class="d.selectedClass">{{d.amount}}</td>
+                    <td ng-class="d.selectedClass">{{d.alreadyClaimAmount}}</td>
+                    <td ng-class="d.selectedClass">{{d.canClaimAmount}}</td>
+                    <td ng-class="d.selectedClass">{{d.drSign | mcCode:"claimStatusTwoK"}}</td>
+                    <td ng-class="d.selectedClass">{{d.claimStatus | mcCode:"claimStatus"}}</td>
+                    <td ng-class="d.selectedClass">{{d.remark}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row list_content_bottom">
+            <div class="row list_content_bottom" ng-if="pagination.totalItems2>0">
+                <span class="text-left" align="bottom">共查到{{pagination.totalItems2}}条记录</span>
+            </div>
+            <pagination ng-if="pagination.totalItems2>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems2"
+                        page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                        previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                        ng-click="addCollectSearch('page')" style="margin: 0 20px 20px 0;" boundary-links="true"
+                        on-select-page="onSelectPage(page)"></pagination>
+        </div>
+        <div class="row text-center" ng-show="infoToView.selectfalg" style="padding: 25px 0">
+            <button class="btn btn-success btn-width" ng-click="settlementConfirmation()">提交选择</button>
+        </div>
+    </div>
+    <!--选择银行流水页面-->
+    <div ng-if="!infoToView.infoFlag" style="margin-top: 15px">
+            <div class="">
+                <div style="border-top: 1px solid #ddd;padding-top: 15px">
+                    <div ng-show="!infoToView.showflag" style="margin-bottom: 10px;">
+                        <button class="btn btn-success btn-width" ng-click="chosebank()">选择银行流水</button>
+                    </div>
+                </div>
+        <div class="venus_table" ng-if="!infoToView.showflag">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>银行流水号</th>
+                    <th>交易日期</th>
+                    <th>付款人名称</th>
+                    <th>付款人账户</th>
+                    <th>收款人账号</th>
+                    <th>币种</th>
+                    <th>交易金额</th>
+                    <th>已认领交易金额</th>
+                    <th>可认领交易金额</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="a in infoToView.seccessConfirmList">
+                    <td ng-class="a.changeClass">{{a.unifySerialNum}}</td>
+                    <td ng-class="a.changeClass">{{a.transDate}}</td>
+                    <td ng-class="a.changeClass">{{a.paymentName}}</td>
+                    <td ng-class="a.changeClass">{{a.paymentAccount}}</td>
+                    <td ng-class="a.changeClass">{{a.bankAccount}}</td>
+                    <td ng-class="a.changeClass">{{a.currency}}</td>
+                    <td ng-class="a.changeClass">{{a.amount}}</td>
+                    <td ng-class="a.selectedClass">{{a.alreadyClaimAmount}}</td>
+                    <td ng-class="a.selectedClass">{{a.canClaimAmount}}</td>
+                    <td ng-class="a.changeClass">{{a.remark}}</td>
+                    <td ng-class="a.changeClass"><a class="cursor_pointer" ng-click="deleteMessage(a,$index)">删除</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-show="infoToView.showflag2">
+                    <div class="venus_modal_tableName">
+                        <span>账户信息</span>
+                    </div>
+                    <div class="mc_form">
+                        <form class="form-horizontal">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">客户名称：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12"  ng-model="lisr2.customName">
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">账号/卡号：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.accountCode">
+                                </div>
+                            </div>
+                            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">证件类型：</label>
+                                <div class="col-xs-7">
+                                    <select-list my-class="col-xs-12" base-code="IDTYPE"
+                                                 ng-model="lisr2.certificateType"
+                                                 ng-value="lisr2.accountpw"
+                                                 style="width: 300px">
+                                    </select-list>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">证件号码：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.certificateCode">
+                                </div>
+                            </div>
+                            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">手机号：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.ownerPhoneNo">
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">银行名称：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.cankCode">
+                                </div>
+                            </div>
+                            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">开户银行：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.customBankCode">
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">联行号：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.unionBank">
+                                </div>
+                            </div>
+                            <div class="form-group  col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">省：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.bankProvince">
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">市：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.bankCity">
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">卡折标志：</label>
+                                <div class="col-xs-7">
+                                    <select-list my-class="col-xs-12" base-code="accountFlag"
+                                                 ng-model="lisr2.accountFlag"
+                                                 ng-value="lisr2.accoulag"
+                                                 style="width: 300px">
+                                    </select-list>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">公私标志：</label>
+                                <div class="col-xs-7">
+                                    <select-list my-class="col-xs-12" base-code="accountType_company"
+                                                 ng-model="lisr2.accountType"
+                                                 ng-value="lisr2.accountp"
+                                                 style="width: 300px">
+                                    </select-list>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="col-xs-4">备注：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="col-xs-12" ng-model="lisr2.remark">
+                                </div>
+                            </div>
+                            <div class="form-group"></div>
+                        </form>
+                    </div>
+                </div>
+        <div class="row text-center" ng-show="infoToView.showflag2">
+            <button class="btn btn-success"  ng-click="settlementConfirmationSuccess()">提交</button>
+            <!--<button class="btn btn-primary" ng-click="settlementCollectionReset()">重置</button>-->
+        </div>
+    </div>
+    </div>
+    <!--列表底部悬浮块-->
+    <!--<div class="row list_footer">-->
+        <!--<button class="btn btn-default">导出excel</button>-->
+    <!--</div>-->

@@ -1,0 +1,39 @@
+<div class="section venus_hasFooter">
+    <div class="form_three">
+        <form class="form-horizontal" ng-if="!moreFlag">
+            <div class="form-group">
+                <div class="col-xs-2 control-label"><span>税会调差挂账日期：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="theDifferential.date"  class="date" id="date6" jedate
+                           format="YYYY-MM-DD"/><span class="color_red">*</span>
+                </div>
+                <div class="col-xs-2 control-label"><span>核算单位代码：</span></div>
+                <div class="col-xs-4">
+                    <input type="text" ng-model="theDifferential.centerCode"><span class="color_red">*</span>
+                </div>
+            </div>
+            <div class="row list_queryForm_btn">
+                <button class="btn btn-primary"  ng-click="theDifferentialSubmit()">确认</button>
+                <button class="btn btn-success" ng-click="theDifferentialReset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="venus_table" ng-if="theDifferentialLists.length>0">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>批次号</th>
+                <th>错误代码</th>
+                <th>错误说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="theDifferentialList in theDifferentialLists">
+                <td>{{Infos}}</td>
+                <td>{{theDifferentialList.errorCode}}</td>
+                <td>{{theDifferentialList.errorDesc}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

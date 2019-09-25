@@ -1,0 +1,47 @@
+<!--收银平台页面-->
+<div class="modal-content" style="width:80%;padding: 0 24px">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">收银平台信息录入</div>
+    </div>
+    <div class="modal-body" >
+        <div class="mc_form">
+            <form class="form-horizontal">
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">缴费通知单号：</label>
+                    <div class="col-xs-8">
+                        <span ng-bind="cashierCondition.transactionNo"></span>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">机构代码：</label>
+                    <div class="col-xs-8">
+                        <span ng-bind="cashierCondition.comCode"></span>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4">缴费金额：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="cashierCondition.sumFee" mc-format-switch transmit-type="text">
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                    <label class="col-xs-4" style="padding-left: 0px">是否发送到用户手机：</label>
+                    <div class="col-xs-8">
+                        <mc-checkbox c-id="checkbox1" c-type="switch" c-true="0" c-false="1" c-model="cashierCondition.sign" style="margin-left: 0px;" class="code_switch"></mc-checkbox>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-6" ng-if="cashierCondition.sign==1">
+                    <label class="col-xs-4">手机号码：</label>
+                    <div class="col-xs-8">
+                        <input type="text" class="col-xs-10" ng-model="cashierCondition.phoneNum" mc-input-cut transmit-type="number" maxlength="11">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="cashierPay()">缴费</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

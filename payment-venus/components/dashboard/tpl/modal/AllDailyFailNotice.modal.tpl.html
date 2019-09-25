@@ -1,0 +1,15 @@
+<!--日结失败提醒页面-->
+<div class="modal-content AllDaily_modal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">日结失败提醒</div>
+    </div>
+    <div class="modal-body" style="max-height: 480px">
+        <ul>
+            <li ng-repeat="n in dailyFailNotice">{{$index+1}}.{{n}}日结失败&nbsp;&nbsp;&nbsp;</li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>

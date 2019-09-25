@@ -1,0 +1,52 @@
+<!--批量缴费-缴费-->
+<div class="modal-content" style="width: 73%;padding:0 24px">
+    <div class="modal-header">
+        <!--<div class="col-md-10" style="margin-left: 45%">生成结算单确认</div><div style="margin-left: 93%;margin-top: -15px;cursor:pointer;" class="glyphicon glyphicon-remove col-md-2" ng-click="cancel()"></div>-->
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <div class="modal-title text-center">成功清单</div>
+    </div>
+    <div class="modal-body" >
+        <div class="venus_table">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>业务员</th>
+                    <th>保单号</th>
+                    <th>险种</th>
+                    <th>渠道</th>
+                    <th>发票号</th>
+                    <th>应收应付币种</th>
+                    <th>应收应付金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in paymentList">
+                    <td>{{$index+1}}</td>
+                    <td>{{d.handler1Code}}</td>
+                    <td>{{d.policyNo}}</td>
+                    <td>{{d.riskCode}}</td>
+                    <td>{{d.comName}}</td>
+                    <td>{{d.invoice}}</td>
+                    <td>{{d.currenCY1}}</td>
+                    <td>{{d.premiumPlanFee}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row list_content_bottom">
+        <pagination ng-if="pagination.totalItems2>pagination.pageSize" ng-model="pagination.pageIndex" class="pagination-sm pull-right" total-items="pagination.totalItems"
+                    page="pagination.pageIndex" items-per-page="pagination.pageSize" max-size="pagination.maxSize"
+                    previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+                    ng-click="successListNoticeList('page')" style="margin: 0 20px 20px 0;" boundary-links="true"
+                    on-select-page="onSelectPage(page)"></pagination>
+    </div>
+    <div class="modal-footer text-right">
+        <span>汇总金额：</span>
+        <input  type="text" ng-model="sumFree">
+    </div>
+    <div class="modal-footer text-right">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</div>
